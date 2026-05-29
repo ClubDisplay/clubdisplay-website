@@ -1,0 +1,9 @@
+---
+title: "Digitale menuborden en Signage voor Coffeeshop Roots Amersfoort"
+description: "Digitale menuborden en Signage voor Coffeeshop Roots Amersfoort
+						Zelf prijzen en producten eenvoudig en snel..."
+pubDate: 2020-10-15
+image: "/images/cases/csroots2.jpg"
+---
+
+Digitale menuborden en Signage voor Coffeeshop Roots Amersfoort Zelf prijzen en producten eenvoudig en snel aanpassen ClubDisplay heeft vier digitalen menuborden verzorgd voor Coffeeshop Roots te Amersfoort. Ook zijn de drie grote TVs voorzien van ons Narrowcasting systeem. Nu kan men tv kijken wanneer er voetbalwedstrijden uitgezonden worden en wanneer er geen wedstrijden zijn kan men informatie tonen zoals aanbiedingen en bijvoorbeeld het menu van de dag. Uiteraard verzorgden wij de complete installatie. Alles is op afstand door onze mensen en door de Coffeeshop Roots te bedienen. Bijvoorbeeld om prijswijzigingen door te voeren of nieuwe informatie te plaatsen. Ook de digitale content heeft ClubDisplay voor de coffeeshop ontworpen en verzorgd. Intuïtieve drag and drop Digital signage software. Otrum Digital Signage is een zeer overzichtelijk ‘drag and drop’ digital signage of narrowcasting pakket dat bestaat uit een ontwerp- en een beheermodule. Met de ontwerpmodule kunnen templates worden ontworpen en met de beheermodule kan de inhoud hiervan eenvoudig worden aangepast. In de templates kunnen alle soorten informatie worden getoond zoals afbeeldingen, filmpjes, tickers en externe content zoals Youtube, Twitter, websites etc. Meerdere templates kunnen als een presentatie worden getoond, al dan niet op geprogrammeerde tijden. De presentaties kunnen in geheel of in categorieën via één of meerdere media players worden uitgezonden. De verschillende gebruikers kunnen toegang krijgen tot de verschillende modules, templates, playlists of players. Hebben wij uw interesse gewekt? Maak vandaag nog een afspraak!

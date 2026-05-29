@@ -1,0 +1,9 @@
+---
+title: "Interactieve menuborden voor Coffeeshop Sky Breda"
+description: "Interactieve menuborden voor Coffeeshop Sky
+						Zelf prijzen en producten eenvoudig en snel..."
+pubDate: 2021-01-04
+image: "/images/cases/cs-sky05.jpg"
+---
+
+Interactieve menuborden voor Coffeeshop Sky Zelf prijzen en producten eenvoudig en snel aanpassen ClubDisplay heeft een 43 inch en een 32 inch digitaal menubord verzorgd voor Coffeeshop Sky Breda. Uiteraard verzorgden wij de complete installatie. Alles is op afstand door onze mensen en door Coffeeshop Sky te bedienen. Bijvoorbeeld om prijswijzigingen door te voeren of nieuwe informatie te plaatsen. Bovendien brachten we de ‘look and feel’ in lijn met de huisstijl. Het geheel kreeg een frisse, duidelijke en moderne uitstraling. Via deze ultramoderne LG WebOS Display’s kan de klant op ieder moment en vanaf iedere locatie de gewenste informatie in zijn shop tonen. Dat voorkomt teleurstellingen en gedoe. Bovendien biedt de verbinding met internet enorm veel extra mogelijkheden. Een enorme verbetering dus. Intuïtieve drag and drop Digital signage software. Otrum Digital Signage is een zeer overzichtelijk ‘drag and drop’ digital signage of narrowcasting pakket dat bestaat uit een ontwerp- en een beheermodule. Met de ontwerpmodule kunnen templates worden ontworpen en met de beheermodule kan de inhoud hiervan eenvoudig worden aangepast. In de templates kunnen alle soorten informatie worden getoond zoals afbeeldingen, filmpjes, tickers en externe content zoals Youtube, Twitter, websites etc. Meerdere templates kunnen als een presentatie worden getoond, al dan niet op geprogrammeerde tijden. De presentaties kunnen in geheel of in categorieën via één of meerdere media players worden uitgezonden. De verschillende gebruikers kunnen toegang krijgen tot de verschillende modules, templates, playlists of players. Hebben wij uw interesse gewekt? Maak vandaag nog een afspraak!

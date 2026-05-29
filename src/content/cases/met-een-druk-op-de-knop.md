@@ -1,0 +1,9 @@
+---
+title: "Met één druk op de knop"
+description: "Met één druk op de knop.
+						Kiezen, kopen en betalen via interactieve touchscreens bij Coffeeshop Eerste..."
+pubDate: 2020-10-06
+image: "/images/cases/eerstekamer.jpg"
+---
+
+Met één druk op de knop. Kiezen, kopen en betalen via interactieve touchscreens bij Coffeeshop Eerste Kamer Kiezen, kopen en betalen via interactieve touchscreens bij Coffee shop Eerste Kamer Informatie inwinnen over de verschillende producten. Een keuze maken en vervolgens betalen. Voor de klanten van coffeeshop De Eerste Kamer in Leiden is dat voortaan heel eenvoudig en snel geregeld. ClubDisplay adviseerde en monteerde drie touchscreens in de marmeren plaat van de counter. De screens zijn verbonden zodat de inhoud op afstand eenvoudig aan te passen is. Via een overzichtelijke menustructuur krijgen klanten informatie over de verschillende producten en hun prijzen. Vervolgens doen ze hun bestelling, rekenen af en nemen hun bestelling in ontvangst. Bijna net zo gemakkelijk en snel als kopen via internet dus. Alleen neem je als klant aan de balie direct je hasj, joints of CBD-olie mee. Ook de digitale content heeft ClubDisplay voor de coffeeshop ontworpen en verzorgd. Natuurlijk passend bij de bestaande huisstijl. Ook hebben wij 3 digitale menuborden verzorgd. Uiteraard verzorgden wij de complete installatie. Alles is op afstand door onze mensen en door Coffeeshop De Eerste Kamer te bedienen. Bijvoorbeeld om prijswijzigingen door te voeren of nieuwe informatie te plaatsen. Ook de digitale content heeft ClubDisplay voor de coffeeshop ontworpen en verzorgd. De voordelen op een rij overzichtelijk menu in huisstijl 1 druk op de knop voor informatie, bestellen en betalen content is eenvoudig op afstand aan te passen Ook zo’n klantvriendelijke oplossing voor uw coffeeshop of winkel? Bel ons en we komen bij u langs.

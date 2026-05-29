@@ -1,0 +1,9 @@
+---
+title: "Narrowcasting Quinty’s Texel"
+description: "Narrowcasting Restaurant Quinty's Texel
+						Narrowcasting is een interssant en gebruiksvriendelijk medium wat bij kan dragen aan de gastvrijheid en de..."
+pubDate: 2017-06-21
+image: ""
+---
+
+Narrowcasting Restaurant Quinty's Texel Narrowcasting is een interssant en gebruiksvriendelijk medium wat bij kan dragen aan de gastvrijheid en de beleving van de bezoekers. Mooie klus mogen doen bij Quinty’s Texel. Vier display’s voorzien van ons Narrowcasting systeem. Voorzien van de juiste content design. Gescheiden content voor Restaurant gedeelte en kindergedeelte. Als u als ondernemer actief bent in de horeca weet u dat gastvrijheid een grote rol speelt. Narrowcasting is een interssant en gebruiksvriendelijk medium wat bij kan dragen aan de gastvrijheid en de beleving van de bezoekers. Door het tonen van nuttige en leuke informatie is uw be zoeker altijd op de hoogte van het laatste nieuws, dagmenu’s, aanbiedingen en acties en wordt eventuele wachttijd verzacht omdat er leuke filmpjes en informatieve slides worden vertoond. Naast informatievoorziening kan narrowcasting in de horeca ook ingezet worden voor het ophogen van verkopen. Als u of uw personeel even geen tijd heeft om uw bezoeker aan te spreken, kan het scherm dit voor u doen! Met narrowcasting in de horeca kunt u: Digitale menu’s weergeven Gastvrijheid benadrukken Sfeer verhogen Aanbiedingen en acties tonen Wachttijd verzachten Zalenplanning weergeven Entertainment weergeven (Bedrijfs)informatie delen Over Quinty’s Quinty’s is een gezellig familierestaurant op Texel. Dit kindvriendelijke restaurant is gevestigd in het centrum van badplaats De Koog op het waddeneiland Texel. Kom genieten van echt Texelse en oer-Hollandse producten. Bij Quinty’s voel je je echt thuis! Hebben wij uw interesse gewekt? Maak vandaag nog een afspraak!

@@ -1,15 +1,9 @@
 ---
-title: "QR-codes: waarom en hoe te gebruiken op uw IPTV interactieve systeem"
-description: "Ontdek de voordelen van QR-codes in de hospitality sector en hoe u ze kunt inzetten op uw IPTV-systeem."
-pubDate: 2022-06-22
-image: "/images/Duurzaam.jpg"
+title: "QR-codes, waarom en hoe te gebruiken op uw interactieve tv-systeem"
+description: "QR-codes (quick response – snelle reactie) zijn digitale afbeeldingen die gasten onmiddellijk in contact brengen met nuttige informatie en functies, die ze..."
+pubDate: 2022-06-21
+image: "/images/blog/duurzaam.jpg"
 author: "ClubDisplay"
 ---
 
-QR-codes zijn niet meer weg te denken uit de moderne hospitality ervaring. Ze bieden een eenvoudige manier om gasten te verbinden met extra informatie, services of promoties zonder dat ze een app hoeven te downloaden.
-
-In combinatie met een IPTV-systeem kunnen QR-codes worden ingezet voor:
-- Room service bestellingen
-- Informatie over lokale attracties
-- Feedback en enquêtes
-- Contactloze uitcheckmogelijkheden
+QR-codes (quick response – snelle reactie) zijn digitale afbeeldingen die gasten onmiddellijk in contact brengen met nuttige informatie en functies, die ze tijdens hun verblijf kunnen gebruiken met een eenvoudige klik op een mobiel apparaat. U kunt de persoonlijke en moderne ervaring van een gast met uw merk vergroten door eenvoudigweg QR-codes aan uw LG Pro:Centric tv-systeem toe te voegen. Hieronder ziet u een aantal voorbeelden van het gebruik van QR-codes voor het genereren van inkomsten, verbetering van de gastervaring, en betere loyaliteit en betrokkenheid van uw gasten. QR-codes kunnen gasten leiden naar websites, reservering- of bestelsystemen, video’s of wat u ook maar wenst Genereer inkomsten met eenvoudige en directe verbindingen voor gasten l Reserveringen Restaurants, wellness-centra, tee-tijden, privélessen  Maaltijdbezorging Dineren op de kamer, plaatselijke evenementlocaties, externe platforms  Verhuur Strandhuisjes, fietsen, waterfietsen, ski’s, golfclubs  Boekingen Shows, evenementen, uitstapjes, excursies  Aanbiedingen Speciale programma’s op de eigen locatie, lokale samenwerking, kortingen Verbeter de loyaliteit en tevredenheid van de gasten Accent op eigen of partner-apps Promotie van loyalty-programma’s en de voordelen daarvan Verwijzen en doorverbinden van gasten naar aanmeldingen en downloads Koppeling met gastenquêtes voor feedback Stimuleren van interactie op sociale media Aanbieden van voorzieningen voor verbetering van de gastervaring  Plattegronden en Routebeschrijvingen Uw gebouw, lokale attracties, partnerbedrijven  Inpandige voorzieningen Uren, menu’s, locaties, videotours  Reisassistentie Dienstregeling van de pendeldienst, vervoer, vlucht-tracker  Bruiloften en congressen Evenementgegevens, planning, video’s, websites  Contact met het Hotel Chat met de conciërge, huishouding, verzoek om artikels Bent u klaar voor het gebruik van QR-codes op uw interactieve tv-systeem? Neem dan contact met ons op

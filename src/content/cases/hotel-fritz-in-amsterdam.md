@@ -1,12 +1,9 @@
 ---
 title: "Hotel Fritz! in Amsterdam"
-description: "ClubDisplay heeft Hotel Fritz! in Amsterdam voorzien van een modern hospitality TV systeem met LG Pro:Centric."
+description: "Moderne TV-Oplossing voor Hotel Fritz! in Amsterdam door ClubDisplay  
+						Gepersonaliseerd Gastencomfort met LG ProCentric, Chromecast en KPN App ..."
 pubDate: 2025-02-21
-image: "/images/Fritz01.jpg"
-client: "Hotel Fritz!"
-category: "Hotel"
+image: "/images/cases/fritz01.jpg"
 ---
 
-Hotel Fritz! in Amsterdam heeft gekozen voor ClubDisplay voor de implementatie van een state-of-the-art hospitality TV systeem. Het hotel is uitgerust met LG Pro:Centric televisies die naadloos integreren met het hotelmanagement systeem.
-
-Gasten kunnen genieten van een gepersonaliseerde TV-ervaring met welkomstberichten, hotelinformatie en toegang tot hun favoriete streamingdiensten.
+Moderne TV-Oplossing voor Hotel Fritz! in Amsterdam door ClubDisplay Gepersonaliseerd Gastencomfort met LG ProCentric, Chromecast en KPN App Een Slimme en Stijlvolle TV-Oplossing voor Hotel Fritz! Bij ClubDisplay begrijpen we dat gastvrijheid draait om comfort en gemak. Voor Hotel Fritz! in Amsterdam hebben wij, in opdracht van Businesspoint, een moderne en gebruiksvriendelijke TV-oplossing gerealiseerd die perfect past bij de behoeften van hotelgasten. Dit project laat zien hoe wij technologie en design combineren om een unieke ervaring te bieden. Wat hebben wij gedaan? Voor dit project hebben we het complete ontwerp van de TV-interface verzorgd en geïmplementeerd via LG ProCentric Direct . Dit krachtige platform stelt Hotel Fritz! in staat om een gepersonaliseerde look-and-feel te bieden op de LG Hospitality TV’s . Denk aan een branded welkomstscherm of handige hotelinformatie, direct toegankelijk voor gasten. Daarnaast hebben we Chromecasts geïnstalleerd en naadloos gekoppeld aan het soft access point van de LG TV’s. Hiermee kunnen gasten moeiteloos hun eigen content streamen – van Netflix tot Spotify – rechtstreeks op het grote scherm. Entertainment met de KPN App Om het plaatje compleet te maken, hebben we de TV’s uitgerust met de KPN App . Gasten kunnen hierdoor live televisie kijken, programma’s pauzeren of gemiste uitzendingen terugkijken. Of ze nu willen ontspannen na een lange dag in Amsterdam of gewoon hun favoriete show willen volgen, deze TV-oplossing voor Hotel Fritz Amsterdam biedt alle flexibiliteit die ze nodig hebben. Technologie die indruk maakt Met de combinatie van LG’s geavanceerde Hospitality TV’s, ProCentric Direct en Chromecast-connectiviteit hebben we een systeem geleverd dat zowel technisch als esthetisch uitblinkt. De installatie is volledig afgestemd op de wensen van Hotel Fritz!, met een focus op gebruiksgemak en een professionele uitstraling. Waarom ClubDisplay? Dit project voor Hotel Fritz! laat zien hoe ClubDisplay hospitality-omgevingen transformeert met slimme audiovisuele oplossingen. Van ontwerp tot installatie, wij zorgen ervoor dat technologie werkt voor zowel de gasten als het hotel. Benieuwd wat wij voor jouw hotel kunnen betekenen? Neem contact op en ontdek de mogelijkheden! Hebben wij uw interesse gewekt? Maak vandaag nog een afspraak!
