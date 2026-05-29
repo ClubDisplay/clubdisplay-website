@@ -1,0 +1,33 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+const allCases = await getCollection("cases");
+allCases.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+---
+<BaseLayout title="Cases" description="Bekijk onze digital signage cases. Inspirerende projecten in narrowcasting, hotel TV, digitale menuborden en etalageschermen voor diverse branches." currentPath="/cases/">
+  <div class="container page-content">
+    <h1>Onze Cases</h1>
+    <p>Wij hebben door de jaren heen talloze projecten mogen realiseren voor uiteenlopende opdrachtgevers. Van hotels en restaurants tot winkels, kantoren en zorginstellingen. Elke case laat zien hoe wij digital signage inzetten om communicatie te verbeteren, de gastbeleving te verrijken of de omzet te verhogen.</p>
+    <div class="case-grid">
+      {allCases.map(c => (
+        <a href={`/project/${c.slug}/`} class="case-card">
+          {c.data.image && <img src={c.data.image} alt={c.data.title} width="510" height="382" loading="lazy" />}
+          <div class="case-card-body">
+            <h3>{c.data.title}</h3>
+            <p class="case-date">{new Date(c.data.pubDate).toLocaleDateString("nl-NL", { year: "numeric", month: "long", day: "numeric" })}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .case-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+  .case-card { display: block; border-radius: 0.75rem; overflow: hidden; border: 1px solid #e5e7eb; text-decoration: none; color: inherit; transition: box-shadow 0.2s, transform 0.2s; }
+  .case-card:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.08); transform: translateY(-2px); }
+  .case-card img { width: 100%; height: 200px; object-fit: cover; }
+  .case-card-body { padding: 1.25rem; }
+  .case-card-body h3 { margin: 0 0 0.5rem; font-size: 1rem; line-height: 1.3; }
+  .case-date { font-size: 0.813rem; color: #6b7280; margin: 0; }
+</style>

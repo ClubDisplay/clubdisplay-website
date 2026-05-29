@@ -1,0 +1,77 @@
+---
+import Navigation from "../components/Navigation.astro";
+import Footer from "../components/Footer.astro";
+
+export interface Props {
+  title: string;
+  description?: string;
+  canonical?: string;
+  noindex?: boolean;
+  currentPath?: string;
+}
+
+const { title, description, canonical, noindex, currentPath } = Astro.props;
+---
+
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} | ClubDisplay</title>
+    <meta name="description" content={description || "ClubDisplay is een full-service creatief Digital Signage bureau gespecialiseerd in narrowcasting, hospitality TV en digitale menuborden."} />
+    {canonical && <link rel="canonical" href={canonical} />}
+    {noindex && <meta name="robots" content="noindex, follow" />}
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      :root {
+        --primary: #1a56db;
+        --primary-dark: #0f3b9e;
+        --accent: #06b6d4;
+        --text: #1f2937;
+        --text-light: #6b7280;
+        --bg: #ffffff;
+        --bg-alt: #f9fafb;
+        --border: #e5e7eb;
+      }
+      html { scroll-behavior: smooth; }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        color: var(--text);
+        line-height: 1.6;
+        background: var(--bg);
+      }
+      .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+      main { min-height: calc(100vh - 4rem); }
+      h1 { font-size: 2.5rem; font-weight: 700; margin-bottom: 1.5rem; }
+      h2 { font-size: 1.75rem; font-weight: 600; margin-bottom: 1rem; margin-top: 2.5rem; }
+      h3 { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.75rem; margin-top: 2rem; }
+      p { margin-bottom: 1rem; }
+      a { color: var(--primary); }
+      ul, ol { margin-bottom: 1rem; padding-left: 1.5rem; }
+      li { margin-bottom: 0.25rem; }
+      img { max-width: 100%; height: auto; border-radius: 0.5rem; }
+      .page-content { padding: 3rem 0; }
+      .btn {
+        display: inline-block;
+        background: var(--primary);
+        color: white;
+        font-weight: 600;
+        padding: 0.75rem 1.75rem;
+        border-radius: 0.5rem;
+        font-size: 1rem;
+        text-decoration: none;
+        transition: background 0.15s;
+      }
+      .btn:hover { background: var(--primary-dark); }
+    </style>
+  </head>
+  <body>
+    <Navigation currentPath={currentPath || Astro.url.pathname} />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

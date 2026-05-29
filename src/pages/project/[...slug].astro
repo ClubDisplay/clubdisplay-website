@@ -1,0 +1,25 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  const cases = await getCollection("cases");
+  return cases.map((c) => ({
+    params: { slug: c.slug },
+    props: { entry: c },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<BaseLayout title={entry.data.title} description={entry.data.description} currentPath={`/project/${entry.slug}/`}>
+  <article class="container page-content">
+    <p><a href="/cases/">&larr; Terug naar alle cases</a></p>
+    <time datetime={entry.data.pubDate.toISOString()}>{entry.data.pubDate.toLocaleDateString("nl-NL", { year: "numeric", month: "long", day: "numeric" })}</time>
+    <h1>{entry.data.title}</h1>
+    {entry.data.client && <p><strong>Klant:</strong> {entry.data.client}</p>}
+    <Content />
+  </article>
+</BaseLayout>

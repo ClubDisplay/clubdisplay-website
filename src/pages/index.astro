@@ -1,0 +1,201 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Home" description="ClubDisplay is een full-service creatief Digital Signage bureau. Specialist in narrowcasting, hospitality TV, digitale menuborden, wayfinding en room signage.">
+  <section class="hero">
+    <div class="container">
+      <h1>Digital Signage dat écht opvalt</h1>
+      <p>Wij helpen organisaties met het inrichten van de perfecte narrowcasting oplossing. Van ontwerp tot installatie.</p>
+      <div class="hero-btns">
+        <a href="/contact/" class="btn">Neem contact op</a>
+        <a href="/probeer-30-dagen-gratis/" class="btn btn-outline">30 dagen gratis proberen</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Onze expertises</h2>
+      <div class="grid-3">
+        <article class="card">
+          <h3>Narrowcasting</h3>
+          <p>Gebruiksvriendelijke software voor digital signage. Beheer eenvoudig uw schermen en plan content vooruit.</p>
+          <a href="/narrowcasting/">Meer informatie &rarr;</a>
+        </article>
+        <article class="card">
+          <h3>Hospitality TV</h3>
+          <p>LG Pro:Centric, Google Chromecast voor hotels en IPTV oplossingen voor de ultieme gastervaring.</p>
+          <a href="/lg-procentric/">Meer informatie &rarr;</a>
+        </article>
+        <article class="card">
+          <h3>Digitale menuborden</h3>
+          <p>Interactieve menuborden die opvallen. Eenvoudig zelf te beheren en aan te passen.</p>
+          <a href="/digitale-menuborden/">Meer informatie &rarr;</a>
+        </article>
+        <article class="card">
+          <h3>Wayfinding & Room Signage</h3>
+          <p>Duidelijke visuele aanwijzingen voor vergaderruimten, evenementen en gebouwen.</p>
+          <a href="/wayfinding-en-room-signage/">Meer informatie &rarr;</a>
+        </article>
+        <article class="card">
+          <h3>Etalageschermen</h3>
+          <p>Val op in de winkelstraat met dynamische etalageschermen die 24/7 de aandacht trekken.</p>
+          <a href="/etalageschermen/">Meer informatie &rarr;</a>
+        </article>
+        <article class="card">
+          <h3>Draadloos presenteren</h3>
+          <p>LG One:Quick Share voor moeiteloos screen sharing zonder gedoe met kabels.</p>
+          <a href="/draadloos-presenteren/">Meer informatie &rarr;</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <h2 class="section-title">Digital Signage per segment</h2>
+      <div class="segment-grid">
+        <div class="segment-item">
+          <h3>Hotel</h3>
+          <p>Maak het verblijf van uw gasten nóg completer</p>
+        </div>
+        <div class="segment-item">
+          <h3>Retail</h3>
+          <p>Stimuleer uw omzet met digitale signage</p>
+        </div>
+        <div class="segment-item">
+          <h3>Café & Restaurant</h3>
+          <p>Informeer en amuseer uw gasten</p>
+        </div>
+        <div class="segment-item">
+          <h3>Onderwijs</h3>
+          <p>Informeer uw leerlingen of studenten</p>
+        </div>
+        <div class="segment-item">
+          <h3>Kantoor</h3>
+          <p>Informeer en bind uw medewerkers</p>
+        </div>
+        <div class="segment-item">
+          <h3>Zorg & Welzijn</h3>
+          <p>Wachttijdverzachting voor uw patiënten</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container testimonial">
+      <blockquote>
+        <p>"Delivered a very successful Digital Signage solution at the Hotel Okura Amsterdam. Everybody is very happy with the new system."</p>
+        <cite>&mdash; Marc Rijnders, IT Manager, Hotel Okura Amsterdam</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <h2 class="section-title">Onze partners</h2>
+      <div class="segment-grid partners">
+        <div class="segment-item">Otrum</div>
+        <div class="segment-item">LG</div>
+        <div class="segment-item">Samsung</div>
+        <div class="segment-item">Philips</div>
+        <div class="segment-item">TigerTMS</div>
+        <div class="segment-item">Ariane Systems</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section cta">
+    <div class="container">
+      <h2>Advies nodig? Wij helpen je graag!</h2>
+      <p>Voor elke plaats en situatie bieden wij een geschikte oplossing voor narrowcasting.<br>Bel of mail ons geheel vrijblijvend voor een afspraak.</p>
+      <a href="/contact/" class="btn">Neem contact op</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    padding: 6rem 0 4rem;
+    text-align: center;
+    background: linear-gradient(135deg, #1a56db 0%, #06b6d4 100%);
+    color: white;
+  }
+  .hero h1 { font-size: 3rem; font-weight: 800; margin-bottom: 1rem; line-height: 1.2; color: white; }
+  .hero p { font-size: 1.25rem; opacity: 0.9; max-width: 650px; margin: 0 auto 2rem; }
+  .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .btn-outline {
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+  }
+  .btn-outline:hover { background: rgba(255,255,255,0.1); }
+
+  .section { padding: 5rem 0; }
+  .section-alt { background: #f9fafb; }
+  .section-title { text-align: center; font-size: 2rem; margin-bottom: 3rem; }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+  .card {
+    background: white;
+    border-radius: 0.75rem;
+    padding: 2rem;
+    border: 1px solid #e5e7eb;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .card:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.08); transform: translateY(-2px); }
+  .card h3 { margin-top: 0; font-size: 1.25rem; margin-bottom: 0.75rem; }
+  .card p { color: #6b7280; font-size: 0.938rem; }
+
+  .segment-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 1.5rem;
+    text-align: center;
+  }
+  .segment-item {
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    background: white;
+    border: 1px solid #e5e7eb;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .segment-item:hover { border-color: #1a56db; box-shadow: 0 4px 12px rgba(26,86,219,0.1); }
+  .segment-item h3 { margin-top: 0; font-size: 1.1rem; margin-bottom: 0.5rem; }
+  .segment-item p { font-size: 0.875rem; color: #6b7280; margin: 0; }
+  .partners .segment-item { font-weight: 600; font-size: 1rem; display: flex; align-items: center; justify-content: center; min-height: 60px; }
+
+  .testimonial blockquote {
+    max-width: 750px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 1.125rem;
+    font-style: italic;
+    color: #6b7280;
+  }
+  .testimonial cite { color: #1f2937; font-style: normal; display: block; margin-top: 1.5rem; font-weight: 600; }
+
+  .cta {
+    text-align: center;
+    background: #1a56db;
+    color: white;
+  }
+  .cta h2 { color: white; }
+  .cta p { opacity: 0.9; max-width: 600px; margin: 0 auto 2rem; }
+  .cta .btn { background: white; color: #1a56db; }
+  .cta .btn:hover { background: #f3f4f6; }
+
+  @media (max-width: 768px) {
+    .hero { padding: 4rem 0 3rem; }
+    .hero h1 { font-size: 2rem; }
+    .hero p { font-size: 1rem; }
+    .section { padding: 3rem 0; }
+    .section-title { font-size: 1.5rem; margin-bottom: 2rem; }
+  }
+</style>
