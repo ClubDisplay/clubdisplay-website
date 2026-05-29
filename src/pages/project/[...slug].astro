@@ -12,14 +12,90 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await entry.render();
+
+const allCases = await getCollection("cases");
+const related = allCases
+  .filter((c) => c.slug !== entry.slug)
+  .sort(() => Math.random() - 0.5)
+  .slice(0, 3);
 ---
 
 <BaseLayout title={entry.data.title} description={entry.data.description} currentPath={`/project/${entry.slug}/`}>
-  <article class="container page-content">
-    <p><a href="/cases/">&larr; Terug naar alle cases</a></p>
-    <time datetime={entry.data.pubDate.toISOString()}>{entry.data.pubDate.toLocaleDateString("nl-NL", { year: "numeric", month: "long", day: "numeric" })}</time>
+  <div class="breadcrumbs">
+    <div class="container">
+      <a href="/">Home</a> / <a href="/cases/">Cases</a> / <span>{entry.data.title}</span>
+    </div>
+  </div>
+
+  {entry.data.image && (
+    <div class="case-hero-img">
+      <img src={entry.data.image} alt={entry.data.title} />
+    </div>
+  )}
+
+  <article class="container case-article">
+    <div class="case-meta">
+      <time datetime={entry.data.pubDate.toISOString()}>
+        {entry.data.pubDate.toLocaleDateString("nl-NL", { year: "numeric", month: "long", day: "numeric" })}
+      </time>
+      {entry.data.client && <span class="case-client">Klant: {entry.data.client}</span>}
+    </div>
     <h1>{entry.data.title}</h1>
-    {entry.data.client && <p><strong>Klant:</strong> {entry.data.client}</p>}
     <Content />
+    <div class="case-nav">
+      <a href="/cases/">&larr; Terug naar alle cases</a>
+    </div>
   </article>
+
+  {related.length > 0 && (
+    <section class="section section-alt">
+      <div class="container">
+        <h2>Gerelateerde projecten</h2>
+        <div class="case-grid">
+          {related.map(c => (
+            <a href={`/project/${c.slug}/`} class="case-card">
+              {c.data.image && <img src={c.data.image} alt={c.data.title} width="510" height="382" loading="lazy" />}
+              <div class="case-card-body">
+                <h3>{c.data.title}</h3>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
 </BaseLayout>
+
+<style>
+  .breadcrumbs {
+    background: #f9fafb;
+    padding: 0.75rem 0;
+    font-size: 0.813rem;
+    color: #6b7280;
+  }
+  .breadcrumbs a { color: #6b7280; text-decoration: none; }
+  .breadcrumbs a:hover { color: #1a56db; }
+  .breadcrumbs span { color: #1f2937; }
+
+  .case-hero-img { background: #f3f4f6; }
+  .case-hero-img img { width: 100%; max-height: 500px; object-fit: cover; display: block; border-radius: 0; }
+
+  .case-article { max-width: 800px; padding: 3rem 1.5rem; }
+  .case-article h1 { margin-top: 0; }
+
+  .case-meta { display: flex; gap: 1rem; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; }
+  .case-client { font-size: 0.875rem; background: #e8effd; color: #1a56db; padding: 0.25rem 0.75rem; border-radius: 999px; font-weight: 500; }
+
+  .case-nav { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #e5e7eb; }
+  .case-nav a { font-weight: 500; }
+
+  .section { padding: 4rem 0; }
+  .section-alt { background: #f9fafb; }
+  .section h2 { margin-top: 0; margin-bottom: 2rem; }
+  .case-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+  .case-card { display: block; border-radius: 0.75rem; overflow: hidden; border: 1px solid #e5e7eb; text-decoration: none; color: inherit; transition: box-shadow 0.2s, transform 0.2s; }
+  .case-card:hover { box-shadow: 0 10px 40px rgba(0,0,0,0.1); transform: translateY(-3px); color: inherit; }
+  .case-card img { width: 100%; height: 200px; object-fit: cover; border-radius: 0; }
+  .case-card-body { padding: 1.25rem; }
+  .case-card-body h3 { margin: 0; font-size: 1rem; line-height: 1.3; }
+</style>
