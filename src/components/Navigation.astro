@@ -91,11 +91,24 @@ function isActive(item: MenuItem): boolean {
   document.querySelectorAll('.nav-trigger').forEach((trigger) => {
     trigger.addEventListener('click', (e) => {
       if (window.innerWidth <= 900) {
+        e.preventDefault();
         const parent = trigger.closest('.nav-item');
         const sub = parent?.querySelector('.nav-sub');
         const expanded = trigger.getAttribute('aria-expanded') === 'true';
         trigger.setAttribute('aria-expanded', String(!expanded));
+        parent?.classList.toggle('open', !expanded);
         sub?.classList.toggle('open');
+      }
+    });
+  });
+
+  document.querySelectorAll('.nav-menu a').forEach((link) => {
+    link.addEventListener('click', () => {
+      if (window.innerWidth <= 900) {
+        menu?.classList.remove('open');
+        toggle?.setAttribute('aria-expanded', 'false');
+        toggle?.classList.remove('open');
+        document.body.style.overflow = '';
       }
     });
   });
@@ -274,21 +287,23 @@ function isActive(item: MenuItem): boolean {
     }
     .nav-menu.open { display: flex; }
     .nav-item { height: auto; flex-direction: column; align-items: stretch; }
-    .nav-link { padding: 0.75rem 0; height: auto; }
+    .nav-link { padding: 0.85rem 0; height: auto; width: 100%; justify-content: space-between; font-size: 1rem; font-weight: 700; }
     .nav-link::before { display: none; }
     .nav-item.active .nav-link { color: var(--primary); }
     .nav-trigger::after { margin-left: auto; }
     .nav-item:hover .nav-trigger::after { transform: rotate(45deg); margin-top: -2px; }
+    .nav-item.open .nav-trigger::after { transform: rotate(225deg); margin-top: 2px; }
 
     .nav-sub {
       display: none;
       position: static;
       transform: none;
-      padding: 0 0 0 1rem;
+      padding: 0 0 0.5rem 0.75rem;
       border: none;
       box-shadow: none;
     }
-    .has-sub.open .nav-sub { display: block; }
+    .has-sub.open .nav-sub,
+    .nav-sub.open { display: block; }
     .nav-sub-inner {
       border: none;
       box-shadow: none;
@@ -296,6 +311,16 @@ function isActive(item: MenuItem): boolean {
       background: transparent;
     }
     .nav-sub-link { padding: 0.5rem 0; }
+
+    .nav-support {
+      width: 100%;
+      padding: 1rem 0 0;
+    }
+    .nav-support-link {
+      width: 100%;
+      min-height: 3rem;
+      font-size: 1rem;
+    }
 
     .nav-item.nav-cta {
       padding: 1rem 0 0;
