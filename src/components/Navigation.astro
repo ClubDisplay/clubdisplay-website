@@ -296,24 +296,27 @@ function isActive(item: MenuItem): boolean {
     .nav-trigger::after { margin-left: auto; }
     .nav-item:hover .nav-trigger::after { transform: rotate(45deg); margin-top: -2px; }
     .nav-item.open .nav-trigger::after { transform: rotate(225deg); margin-top: 2px; }
+    .nav-trigger::after { display: none; }
 
     .nav-sub {
-      display: none;
+      display: block;
       position: static;
       transform: none;
-      padding: 0 0 0.5rem 0.75rem;
+      padding: 0 0 0.85rem 0.75rem;
       border: none;
       box-shadow: none;
     }
-    .has-sub.open .nav-sub,
-    .nav-sub.open { display: block; }
     .nav-sub-inner {
       border: none;
       box-shadow: none;
       padding: 0;
       background: transparent;
     }
-    .nav-sub-link { padding: 0.5rem 0; }
+    .nav-sub-link {
+      padding: 0.55rem 0;
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+    }
 
     .nav-support {
       width: 100%;
