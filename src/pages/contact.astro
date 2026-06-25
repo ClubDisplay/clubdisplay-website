@@ -1,15 +1,283 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
-<BaseLayout title="Contact" description="Neem contact op met ClubDisplay voor digital signage, narrowcasting en hotel TV oplossingen. Bel, mail of plan een gesprek." currentPath="/contact/">
-  <div class="container page-content">
-    <h1>Contact</h1>
-    <p>Wilt u meer informatie over onze producten en diensten? Heeft u een vraag over narrowcasting, digitale menuborden of hotel TV? Wij staan voor u klaar. Neem eenvoudig contact met ons op via telefoon of e-mail, of plan direct een gesprek in. Onze specialisten denken graag met u mee.</p>
-    <h2>Onze gegevens</h2>
-    <p>ClubDisplay<br>E-mail: info@clubdisplay.nl<br>Telefoon: 085 130 30 88</p>
-    <h2>Stuur een bericht</h2>
-    <p>Heeft u een specifieke vraag of wilt u een vrijblijvende offerte? Vul dan het contactformulier in op onze website. Wij streven ernaar om binnen 24 uur te reageren. Voor spoedgevallen kunt u ons bellen tijdens kantooruren. Wij zijn bereikbaar van maandag tot en met vrijdag van 09:00 tot 17:30.</p>
-    <h2>Plan een gesprek</h2>
-    <p>Liever direct een afspraak inplannen? Gebruik dan onze planningspagina om een moment te kiezen dat u het beste uitkomt. Wij komen graag bij u langs voor een kennismaking en een vrijblijvend advies op maat.</p>
-  </div>
+
+<BaseLayout
+  title="Contact"
+  description="Neem contact op met ClubDisplay voor digital signage, narrowcasting, digitale menuborden, hospitality TV en schermoplossingen op locatie."
+  canonical="https://clubdisplay.nl/contact/"
+  currentPath="/contact/"
+>
+  <section class="contact-hero">
+    <div class="container contact-hero-grid">
+      <div class="contact-copy">
+        <span class="eyebrow">Contact opnemen</span>
+        <h1>Bespreek uw digital signage project met ClubDisplay</h1>
+        <p>
+          Wilt u advies over narrowcasting, digitale menuborden, hospitality TV, etalageschermen,
+          wayfinding of een andere schermoplossing? We denken graag mee over de juiste aanpak,
+          hardware, software, content en installatie.
+        </p>
+        <div class="contact-actions">
+          <a href="#contactformulier" class="btn btn-lg">Stuur een bericht</a>
+          <a href="/plan-jouw-gesprek/" class="btn btn-lg btn-outline">Plan een gesprek</a>
+        </div>
+      </div>
+
+      <aside class="contact-card" aria-label="Contactgegevens ClubDisplay">
+        <span class="contact-card-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M4 5.5h16v13H4v-13Z" stroke="currentColor" stroke-width="2" />
+            <path d="m4.5 6 7.5 6 7.5-6" stroke="currentColor" stroke-width="2" />
+          </svg>
+        </span>
+        <h2>ClubDisplay</h2>
+        <div class="contact-lines">
+          <p>Meer en Duin #247<br />2163 HE Lisse</p>
+          <a href="tel:+31857602202">+31 (0)85 760 2202</a>
+          <a href="mailto:info@clubdisplay.nl">info@clubdisplay.nl</a>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="contact-form-section" id="contactformulier">
+    <div class="container contact-form-grid">
+      <div class="form-intro">
+        <span class="eyebrow">Aanvraag</span>
+        <h2>Vertel kort waar u naar zoekt</h2>
+        <p>
+          Vul het formulier in. Dan nemen we contact op om uw locatie, toepassing en wensen te bespreken.
+          Zo kunnen we gericht adviseren over de oplossing die past bij uw situatie.
+        </p>
+        <ul class="contact-benefits" role="list">
+          <li>Advies over schermen, software en installatie.</li>
+          <li>Mogelijkheid voor content, beheer en support.</li>
+          <li>Oplossingen voor hospitality, horeca, retail, kantoren en coffeeshops.</li>
+        </ul>
+      </div>
+
+      <div class="form-card">
+        <div id="hubspot-contact-form"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="map-section" aria-label="Locatie ClubDisplay">
+    <div class="container map-heading">
+      <span class="eyebrow">Locatie</span>
+      <h2>U vindt ons in Lisse</h2>
+    </div>
+    <div class="map-full">
+      <iframe
+        title="ClubDisplay locatie in Lisse"
+        src="https://www.google.com/maps?q=Meer%20en%20Duin%20247%2C%202163%20HE%20Lisse&output=embed"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
+    </div>
+  </section>
+
+  <script is:inline charset="utf-8" type="text/javascript" src="https://js-eu1.hsforms.net/forms/embed/v2.js"></script>
+  <script is:inline>
+    window.addEventListener("load", function () {
+      if (window.hbspt) {
+        window.hbspt.forms.create({
+          portalId: "25590166",
+          formId: "3de1f112-2ca7-401c-942d-eeef4da568c8",
+          region: "eu1",
+          target: "#hubspot-contact-form"
+        });
+      }
+    });
+  </script>
 </BaseLayout>
+
+<style>
+  .contact-hero {
+    padding: 6rem 0 4rem;
+    background:
+      radial-gradient(circle at 88% 16%, rgba(var(--brand-accent-rgb), 0.18), transparent 34rem),
+      linear-gradient(180deg, #f4f9fd 0%, #ffffff 100%);
+  }
+
+  .contact-hero-grid,
+  .contact-form-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(360px, 0.95fr);
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .contact-copy h1 {
+    max-width: 720px;
+    margin-bottom: 1.25rem;
+  }
+
+  .contact-copy p {
+    max-width: 660px;
+    font-size: 1.125rem;
+  }
+
+  .contact-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .contact-card,
+  .form-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .contact-card {
+    padding: 2.25rem;
+  }
+
+  .contact-card-icon {
+    width: 3.25rem;
+    height: 3.25rem;
+    border-radius: 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    background: var(--primary-50);
+    margin-bottom: 1.5rem;
+  }
+
+  .contact-card-icon svg {
+    width: 1.7rem;
+    height: 1.7rem;
+  }
+
+  .contact-card h2 {
+    margin-bottom: 1rem;
+  }
+
+  .contact-lines p,
+  .contact-lines a {
+    display: block;
+    margin: 0 0 0.85rem;
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  .contact-lines a:hover {
+    color: var(--primary);
+  }
+
+  .contact-form-section {
+    padding: 5rem 0;
+  }
+
+  .contact-form-grid {
+    align-items: start;
+  }
+
+  .form-intro {
+    position: sticky;
+    top: 7rem;
+  }
+
+  .contact-benefits {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0 0;
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  .contact-benefits li {
+    position: relative;
+    padding-left: 1.75rem;
+    color: var(--text-secondary);
+  }
+
+  .contact-benefits li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.65rem;
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 999px;
+    background: var(--brand-accent);
+    box-shadow: 0 0 0 0.35rem rgba(var(--brand-accent-rgb), 0.12);
+  }
+
+  .form-card {
+    padding: 2rem;
+    min-height: 520px;
+  }
+
+  .map-section {
+    padding: 5rem 0 0;
+    background: #f4f9fd;
+  }
+
+  .map-heading {
+    margin-bottom: 2rem;
+  }
+
+  .map-heading h2 {
+    margin-bottom: 0;
+  }
+
+  .map-full {
+    width: 100%;
+    height: 440px;
+    overflow: hidden;
+    border-top: 1px solid var(--border);
+  }
+
+  .map-full iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    filter: saturate(0.95);
+  }
+
+  @media (max-width: 900px) {
+    .contact-hero {
+      padding: 4rem 0 3rem;
+    }
+
+    .contact-hero-grid,
+    .contact-form-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .form-intro {
+      position: static;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .contact-actions {
+      flex-direction: column;
+    }
+
+    .contact-actions .btn {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .contact-card,
+    .form-card {
+      padding: 1.35rem;
+      border-radius: var(--radius-lg);
+    }
+
+    .map-full {
+      height: 360px;
+    }
+  }
+</style>
