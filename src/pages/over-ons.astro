@@ -1,14 +1,588 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+const iconPaths = {
+  tv: "M3 5h18v11H3z M8 21h8 M12 16v5",
+  play: "M8 5v14l11-7-11-7z",
+  menu: "M4 6h16 M4 12h16 M4 18h10",
+  software: "M4 5h16v14H4z M8 9h4 M8 13h8 M8 17h6",
+  display: "M3 5h18v11H3z M7 21h10 M12 16v5",
+  map: "M9 18l-6 3V6l6-3 6 3 6-3v15l-6 3-6-3z M9 3v15 M15 6v15",
+  shop: "M4 10h16l-1-6H5l-1 6z M5 10v10h14V10 M8 14h8",
+  sun: "M12 4V2 M12 22v-2 M4.93 4.93 3.52-1.41 M19.07 19.07l-1.41-1.41 M4 12H2 M22 12h-2 M4.93 19.07l1.41-1.41 M19.07 4.93l-1.41 1.41 M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z",
+  users: "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2 M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z M22 21v-2a4 4 0 0 0-3-3.9 M16 3.1a4 4 0 0 1 0 7.8",
+  wrench: "M14.7 6.3a4 4 0 0 0-5 5L4 17v3h3l5.7-5.7a4 4 0 0 0 5-5l-3 3-3-3 3-3z",
+  shield: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z",
+  spark: "M12 2l1.8 6.2L20 10l-6.2 1.8L12 18l-1.8-6.2L4 10l6.2-1.8L12 2z",
+} as const;
+
+const proofHighlights = [
+  { title: "10+ jaar ervaring", text: "Schermcommunicatie op locatie", icon: "shield", tone: "blue" },
+  { title: "95+ projecten", text: "Van horeca tot hospitality en retail", icon: "spark", tone: "teal" },
+  { title: "Advies tot beheer", text: "Een aanspreekpunt voor het hele traject", icon: "wrench", tone: "amber" },
+  { title: "Techniek en content", text: "Hardware, software, installatie en ontwerp", icon: "users", tone: "violet" },
+] as const;
+
+const specialisaties = [
+  {
+    title: "Hospitality TV & IPTV",
+    text: "Hotel-tv, IPTV, casting, PMS-koppelingen en hospitality schermoplossingen.",
+    href: "/zakelijke-iptv-voor-hotels-en-bedrijven/",
+    icon: "tv",
+    tone: "blue",
+  },
+  {
+    title: "Interactieve Televisie",
+    text: "Zakelijke interactieve tv-zenders via LG Pro:Centric, settopbox of BNBTV.",
+    href: "/interactieve-televisie/",
+    icon: "play",
+    tone: "teal",
+  },
+  {
+    title: "Digitale menuborden",
+    text: "Menu’s, prijzen, acties, dagdelen en kassakoppelingen voor horeca.",
+    href: "/digitale-menuborden/",
+    icon: "menu",
+    tone: "amber",
+  },
+  {
+    title: "Narrowcasting software",
+    text: "Centraal beheer van schermen, playlists, planning, data en integraties.",
+    href: "/narrowcasting/",
+    icon: "software",
+    tone: "violet",
+  },
+  {
+    title: "Digital signage hardware",
+    text: "Professionele displays, players, beugels, montage en technische inrichting.",
+    href: "/displays/",
+    icon: "display",
+    tone: "blue",
+  },
+  {
+    title: "Wayfinding & room signage",
+    text: "Digitale bewegwijzering, zaalstatus en koppelingen met boekingssystemen.",
+    href: "/wayfinding-en-room-signage/",
+    icon: "map",
+    tone: "teal",
+  },
+  {
+    title: "Coffeeshop signage",
+    text: "Digitale prijslijsten, balieschermen en info touch displays voor coffeeshops.",
+    href: "/coffeeshop-signage/",
+    icon: "shop",
+    tone: "amber",
+  },
+  {
+    title: "Etalageschermen",
+    text: "High-brightness displays voor winkelruiten, campagnes en zichtbaarheid.",
+    href: "/etalageschermen/",
+    icon: "sun",
+    tone: "violet",
+  },
+] as const;
+
+const aanpak = [
+  {
+    title: "We beginnen bij de locatie",
+    text: "Een scherm werkt pas als plaatsing, kijkafstand, licht, publiek en gebruik kloppen. Daarom kijken we eerst naar de situatie op locatie.",
+    icon: "map",
+    tone: "blue",
+  },
+  {
+    title: "We kiezen techniek die past",
+    text: "Niet elk scherm of platform is geschikt voor iedere toepassing. We adviseren over displays, players, software, koppelingen en beheer.",
+    icon: "display",
+    tone: "teal",
+  },
+  {
+    title: "We leveren en blijven betrokken",
+    text: "Van installatie en inrichting tot content, training, support en wijzigingen achteraf: u houdt een praktisch aanspreekpunt.",
+    icon: "wrench",
+    tone: "amber",
+  },
+] as const;
 ---
-<BaseLayout title="Over Ons" description="ClubDisplay is een full-service digital signage bureau. Wij helpen bedrijven met narrowcasting, hotel TV, digitale menuborden en professionele displays." currentPath="/over-ons/">
-  <div class="container page-content">
-    <h1>Over ClubDisplay</h1>
-    <p>ClubDisplay is een creatief en technisch digital signage bureau dat organisaties helpt bij het inzetten van schermen voor communicatie, marketing en gastbeleving. Wij geloven dat digitale schermen meer zijn dan alleen beeldschermen: ze zijn een krachtig middel om uw boodschap over te brengen, uw gasten te verrassen en uw medewerkers te informeren.</p>
-    <p>Wat ons onderscheidt is onze persoonlijke aanpak. Wij denken met u mee van concept tot realisatie, adviseren onafhankelijk over de beste oplossing en zorgen voor een naadloze implementatie. Of u nu een klein restaurant bent met één digitaal menubord of een groot hotel met honderden kamers: wij leveren maatwerk dat past bij uw situatie.</p>
-    <h2>Onze specialisaties</h2>
-    <p>Wij specialiseren ons in narrowcasting software, digitale menuborden, etalageschermen, wayfinding, hotel TV (LG Pro:Centric, OtrumCast, IPTV), draadloos presenteren (LG One:Quick Share) en instore kiosken. Daarnaast zijn we gecertificeerd partner van LG, Samsung en diverse softwareleveranciers, waardoor wij altijd de beste technologie voor u kunnen selecteren.</p>
-    <h2>Neem contact op</h2>
-    <p>Wilt u weten wat ClubDisplay voor uw organisatie kan betekenen? Neem vrijblijvend contact met ons op. Wij maken graag tijd voor een kop koffie en een goed gesprek over uw wensen en mogelijkheden.</p>
-  </div>
+
+<BaseLayout
+  title="Over ClubDisplay | Digital signage, hospitality TV en schermcommunicatie"
+  description="ClubDisplay ontwerpt, levert en beheert professionele schermoplossingen voor hospitality, horeca, retail, coffeeshops, kantoren en publieke locaties."
+  canonical="https://clubdisplay.nl/over-ons/"
+  currentPath="/over-ons/"
+>
+  <section class="about-hero">
+    <div class="container about-hero-grid">
+      <div class="about-copy">
+        <span class="eyebrow">Over ClubDisplay</span>
+        <h1>Wij zijn ClubDisplay<br /><span>Experts in narrowcasting</span></h1>
+        <p>
+          ClubDisplay helpt organisaties met professionele narrowcasting, digital signage en schermoplossingen voor communicatie, marketing en gastbeleving. We combineren advies, hardware, software, content, installatie en beheer in een aanpak die praktisch blijft voor de mensen die ermee moeten werken.
+        </p>
+        <div class="hero-actions">
+          <a href="/contact/" class="btn btn-lg">Contact opnemen</a>
+          <a href="/cases/" class="btn btn-lg btn-outline">Bekijk projecten</a>
+        </div>
+      </div>
+      <figure class="about-media">
+        <img src="/images/specialspex-kiosk.jpg" alt="Interactieve narrowcasting kiosk en digital signage bij SpecialSpex" />
+      </figure>
+    </div>
+  </section>
+
+  <section class="proof-strip">
+    <div class="container proof-grid">
+      {proofHighlights.map((item) => (
+        <article class:list={["proof-card", `tone-${item.tone}`]}>
+          <span class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d={iconPaths[item.icon]} />
+            </svg>
+          </span>
+          <div>
+            <strong>{item.title}</strong>
+            <span>{item.text}</span>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="about-section">
+    <div class="container intro-grid">
+      <div>
+        <span class="eyebrow">Wat wij doen</span>
+        <h2>Van losse schermvraag naar een oplossing die beheersbaar blijft</h2>
+      </div>
+      <div>
+        <p>
+          Wij geloven dat digitale schermen meer zijn dan alleen beeldschermen. Ze moeten bezoekers helpen, gasten informeren, medewerkers ontlasten en commerciële boodschappen duidelijker maken.
+        </p>
+        <p>
+          Daarom denken we niet alleen mee over het scherm zelf, maar ook over content, software, koppelingen, installatie, support en de dagelijkse bediening. Of het nu gaat om een restaurant met digitale menuborden of een hotel met hospitality TV in alle kamers: de oplossing moet passen bij de praktijk.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="about-section section-alt">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Onze specialisaties</span>
+        <h2>Alle oplossingen van ClubDisplay</h2>
+        <p>
+          Onderstaande onderdelen sluiten aan op de oplossingen in de navigatie. Zo ziet u direct waar wij dagelijks aan werken.
+        </p>
+      </div>
+      <div class="specialty-grid">
+        {specialisaties.map((item) => (
+          <a href={item.href} class:list={["specialty-card", `tone-${item.tone}`]}>
+            <span class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d={iconPaths[item.icon]} />
+              </svg>
+            </span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="about-section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Onze aanpak</span>
+        <h2>Persoonlijk advies, professionele uitvoering</h2>
+        <p>
+          We houden het traject overzichtelijk: eerst begrijpen wat nodig is, daarna een passende technische keuze maken en vervolgens zorgen dat het op locatie goed werkt.
+        </p>
+      </div>
+      <div class="approach-grid">
+        {aanpak.map((item) => (
+          <article class:list={["approach-card", `tone-${item.tone}`]}>
+            <span class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d={iconPaths[item.icon]} />
+              </svg>
+            </span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="about-cta">
+    <div class="container cta-inner">
+      <span class="eyebrow">Kennismaken</span>
+      <h2>Wilt u weten wat schermcommunicatie voor uw locatie kan doen?</h2>
+      <p>
+        We denken graag mee over de beste oplossing voor uw hotel, horecazaak, winkel, coffeeshop, kantoor of publieke locatie.
+      </p>
+      <div class="hero-actions">
+        <a href="/contact/" class="btn btn-lg btn-white">Contact opnemen</a>
+        <a href="/plan-jouw-gesprek/" class="btn btn-lg btn-outline-white">Plan adviesgesprek</a>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+  .about-hero {
+    padding: 5.5rem 0 4.5rem;
+    background: linear-gradient(180deg, #f3f8fd 0%, #fff 100%);
+    overflow: hidden;
+  }
+
+  .about-hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.92fr) minmax(420px, 1.08fr);
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .eyebrow {
+    display: inline-block;
+    margin-bottom: 1rem;
+    color: var(--primary);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .about-copy h1 {
+    max-width: 720px;
+    font-size: clamp(2.6rem, 5vw, 5rem);
+    line-height: 0.98;
+    margin-bottom: 1.4rem;
+  }
+
+  .about-copy p {
+    max-width: 620px;
+    font-size: 1.08rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+    margin-top: 2rem;
+  }
+
+  .about-media {
+    position: relative;
+    min-height: 460px;
+    border-radius: 26px;
+    overflow: hidden;
+    box-shadow: 0 28px 80px rgba(15, 23, 42, 0.14);
+  }
+
+  .about-media img {
+    width: 100%;
+    height: 100%;
+    min-height: 460px;
+    object-fit: cover;
+    border-radius: 0;
+  }
+
+  .proof-strip {
+    background: #fff;
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .proof-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    transform: translateY(-1.4rem);
+  }
+
+  .proof-card {
+    display: flex;
+    gap: 0.85rem;
+    align-items: center;
+    padding: 1rem;
+    background: #fff;
+    border: 1px solid rgba(148, 163, 184, 0.28);
+    border-radius: 16px;
+    box-shadow: 0 18px 50px rgba(15, 23, 42, 0.08);
+  }
+
+  .proof-card div {
+    display: grid;
+    gap: 0.2rem;
+    min-width: 0;
+  }
+
+  .proof-card strong {
+    color: var(--text);
+    font-size: 0.95rem;
+  }
+
+  .proof-card span:not(.card-icon) {
+    color: var(--text-secondary);
+    font-size: 0.82rem;
+    line-height: 1.35;
+  }
+
+  .about-section {
+    padding: 5.5rem 0;
+    background: #fff;
+  }
+
+  .section-alt {
+    background: var(--bg-alt);
+  }
+
+  .intro-grid {
+    display: grid;
+    grid-template-columns: 0.82fr 1.18fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .intro-grid h2,
+  .section-head h2,
+  .about-cta h2 {
+    font-size: clamp(1.9rem, 3.2vw, 3.25rem);
+    line-height: 1.08;
+  }
+
+  .section-head {
+    max-width: 780px;
+    margin-bottom: 2.4rem;
+  }
+
+  .section-head p {
+    margin: 0;
+    font-size: 1.02rem;
+  }
+
+  .specialty-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .specialty-card,
+  .approach-card {
+    position: relative;
+    display: grid;
+    align-content: start;
+    gap: 0.85rem;
+    min-height: 230px;
+    padding: 1.4rem;
+    color: inherit;
+    background: #fff;
+    border: 1px solid rgba(148, 163, 184, 0.28);
+    border-radius: 20px;
+    box-shadow: 0 18px 45px rgba(15, 23, 42, 0.06);
+    overflow: hidden;
+    transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+  }
+
+  .specialty-card::before,
+  .approach-card::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: 4px;
+    background: var(--card-accent, var(--primary));
+  }
+
+  .specialty-card:hover,
+  .approach-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(var(--primary-rgb), 0.22);
+    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.1);
+  }
+
+  .specialty-card h3,
+  .approach-card h3 {
+    margin: 0;
+    font-size: 1.02rem;
+    line-height: 1.25;
+  }
+
+  .specialty-card p,
+  .approach-card p {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .approach-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+
+  .approach-card {
+    min-height: 260px;
+  }
+
+  .card-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 14px;
+    flex: 0 0 auto;
+  }
+
+  .card-icon svg {
+    width: 1.35rem;
+    height: 1.35rem;
+    stroke: currentColor;
+    stroke-width: 1.9;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .tone-blue {
+    --card-accent: var(--brand-accent);
+  }
+
+  .tone-blue .card-icon {
+    color: var(--brand-accent);
+    background: var(--primary-light);
+  }
+
+  .tone-teal {
+    --card-accent: #0d9488;
+  }
+
+  .tone-teal .card-icon {
+    color: #0f766e;
+    background: #ccfbf1;
+  }
+
+  .tone-amber {
+    --card-accent: #f59e0b;
+  }
+
+  .tone-amber .card-icon {
+    color: #b45309;
+    background: #fef3c7;
+  }
+
+  .tone-violet {
+    --card-accent: #7c3aed;
+  }
+
+  .tone-violet .card-icon {
+    color: #6d28d9;
+    background: #ede9fe;
+  }
+
+  .about-cta {
+    padding: 5rem 0;
+    background: #0f172a;
+    color: #fff;
+  }
+
+  .cta-inner {
+    max-width: 880px;
+  }
+
+  .about-cta h2,
+  .about-cta p {
+    color: #fff;
+  }
+
+  .about-cta p {
+    max-width: 680px;
+    color: #cbd5e1;
+  }
+
+  .about-cta .eyebrow {
+    color: #9fc4e7;
+  }
+
+  .btn-white {
+    background: #fff;
+    color: var(--primary) !important;
+  }
+
+  .btn-white:hover {
+    background: var(--primary-light);
+    color: var(--primary-dark) !important;
+  }
+
+  .btn-outline-white {
+    background: transparent;
+    border: 1.5px solid rgba(255, 255, 255, 0.55);
+    color: #fff !important;
+    box-shadow: none;
+  }
+
+  .btn-outline-white:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: #fff;
+    color: #fff !important;
+  }
+
+  @media (max-width: 1100px) {
+    .about-hero-grid {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+
+    .specialty-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 900px) {
+    .about-hero,
+    .about-section,
+    .about-cta {
+      padding: 3.5rem 0;
+    }
+
+    .intro-grid,
+    .approach-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .proof-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .about-hero-grid {
+      gap: 2rem;
+    }
+
+    .about-copy h1 {
+      font-size: clamp(2.4rem, 13vw, 3.5rem);
+    }
+
+    .about-media,
+    .about-media img {
+      min-height: 320px;
+    }
+
+    .proof-grid,
+    .specialty-grid {
+      grid-template-columns: 1fr;
+      transform: none;
+    }
+
+    .proof-strip {
+      padding: 1rem 0 0;
+    }
+
+    .specialty-card,
+    .approach-card {
+      min-height: auto;
+    }
+  }
+</style>

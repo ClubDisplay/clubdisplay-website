@@ -1,0 +1,54 @@
+<section class="trustbar">
+  <div class="container">
+    <div class="trustbar-inner">
+      <div class="trustbar-item">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+        <span>Vrijblijvend advies</span>
+      </div>
+      <div class="trustbar-item">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span>Installatie op maat</span>
+      </div>
+      <div class="trustbar-item">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span>Beheer & support</span>
+      </div>
+      <div class="trustbar-item">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <span>Systeemkoppelingen</span>
+      </div>
+      <div class="trustbar-item">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        <span>10+ jaar ervaring</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .trustbar {
+    background: #fff;
+    border-bottom: 1px solid var(--border-light);
+  }
+  .trustbar-inner {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    padding: 1.25rem 0;
+    background: transparent;
+  }
+  .trustbar-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+  .trustbar-item svg { color: var(--primary); flex-shrink: 0; }
+  @media (max-width: 768px) {
+    .trustbar-inner { gap: 0.75rem 1.5rem; padding: 1rem 1.25rem; margin-top: -1rem; }
+    .trustbar-item { font-size: 0.8125rem; }
+  }
+</style>

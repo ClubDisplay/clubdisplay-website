@@ -1,0 +1,352 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const iconPaths = {
+  app: "M5 4h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z M8 8h.1 M12 8h.1 M16 8h.1 M8 12h8 M8 16h5",
+  channels: "M4 5h16v11H4z M8 20h8 M12 16v4 M7 9h10 M7 12h6",
+  globe: "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z M3 12h18 M12 3c2.4 2.2 3.6 5.2 3.6 9s-1.2 6.8-3.6 9 M12 3c-2.4 2.2-3.6 5.2-3.6 9s1.2 6.8 3.6 9",
+  info: "M12 17v-5 M12 8h.1 M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z",
+  box: "M4 8l8-4 8 4-8 4-8-4z M4 8v8l8 4 8-4V8 M12 12v8",
+  cloud: "M7 18h10a4 4 0 0 0 .7-7.9A6 6 0 0 0 6.2 8.8 4.5 4.5 0 0 0 7 18z",
+  shield: "M12 3l7 3v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V6l7-3z M9 12l2 2 4-5",
+  refresh: "M20 6v5h-5 M4 18v-5h5 M18.5 9A7 7 0 0 0 6.8 6.8L4 11 M5.5 15A7 7 0 0 0 17.2 17.2L20 13",
+} as const;
+
+const proofHighlights = [
+  { title: "Interactieve televisie", text: "Live TV met moderne kijkfuncties", icon: "app", tone: "blue" },
+  { title: "Samen met KPN", text: "Vertrouwde zenders en stabiele levering", icon: "channels", tone: "teal" },
+  { title: "Extra pakketten", text: "ESPN, Ziggo Sport en meer", icon: "globe", tone: "amber" },
+  { title: "Zakelijke functies", text: "Logo, lichtkrant en eigen kanaal", icon: "info", tone: "violet" },
+] as const;
+
+const featureCards = [
+  {
+    title: "Interactieve functionaliteiten",
+    text: "Gasten kijken live televisie met een vertrouwde, interactieve ervaring. Denk aan overzichtelijke zendernavigatie, programma-informatie en een moderne TV-interface.",
+    icon: "app",
+    tone: "blue",
+  },
+  {
+    title: "Uitgebreid basispakket",
+    text: "ClubDisplay biedt samen met KPN een solide basispakket voor hotels, groepsaccommodaties, campings, vakantieparken, openbare gebouwen en zorginstellingen.",
+    icon: "channels",
+    tone: "teal",
+  },
+  {
+    title: "Extra zenderpakketten",
+    text: "Maak uw aanbod aantrekkelijker met aanvullende pakketten zoals ESPN, Ziggo Sport of specifieke zenders voor internationale gasten.",
+    icon: "globe",
+    tone: "amber",
+  },
+  {
+    title: "Real-time berichtgeving",
+    text: "Combineer televisie kijken met korte zakelijke mededelingen, een lichtkrant of een eigen videokanaal voor bijvoorbeeld parkzender of informatiekanaal.",
+    icon: "info",
+    tone: "violet",
+  },
+] as const;
+
+const packageOptions = [
+  "Interactieve televisie in samenwerking met KPN",
+  "Basispakket met vertrouwde Nederlandse zenders",
+  "Extra zenderpakketten zoals ESPN, Ziggo Sport en themakanalen",
+  "Bedrijfslogo zichtbaar in het TV-menu",
+  "Lichtkrant voor korte nieuws- of servicemededelingen",
+  "Eigen videokanaal voor parkzender, informatiekanaal of interne TV",
+] as const;
+
+const deliveryOptions = [
+  {
+    title: "Bestaande TV's met settopbox",
+    label: "Plug and play",
+    text: "Heeft uw locatie al goede TV's hangen? Dan leveren wij een settopbox met de gewenste TV-zenders vooraf geinstalleerd. De box wordt aan de TV gekoppeld en zodra de TV aangaat, verschijnen de zenders direct.",
+    image: "/images/iptv/Thomson-Streaming-Box-Plus-270-zwart.jpg.webp",
+    alt: "Settopbox met afstandsbediening voor interactieve televisie",
+    icon: "box",
+    tone: "blue",
+  },
+  {
+    title: "Nieuwe TV via BNBTV",
+    label: "Onderdeel van ClubDisplay",
+    text: "Wanneer u nieuwe TV's nodig heeft en liever niet met een losse settopbox werkt, kunt u kiezen voor BNBTV. Beschikbaar in 32 inch, 43 inch en 55 inch, met andere maten op aanvraag.",
+    image: "/images/iptv/IPTV_Android.jpg",
+    alt: "BNBTV Launcher op een TV in een hotelkamer",
+    icon: "app",
+    tone: "teal",
+  },
+  {
+    title: "LG Pro:Centric Cloud",
+    label: "Voor LG Hospitality",
+    text: "Werkt u met LG Hospitality TV's? Dan kunnen we dezelfde interactieve zender-app ook inzetten binnen LG Pro:Centric Cloud, zodat zenders en hospitality-functionaliteit samenkomen in een professionele LG-omgeving.",
+    image: "/images/iptv/Htel.jpg",
+    alt: "LG Hospitality TV ingebouwd in een hotelkamer",
+    icon: "cloud",
+    tone: "violet",
+  },
+] as const;
+
+const launcherFeatures = [
+  "BNBTV Launcher met keuze uit achtergronden: forest, beach, city of abstract",
+  "Interactieve TV-app plus 10 veelgebruikte entertainment-apps",
+  "Gasten kunnen hun eigen Netflix-account en andere apps gebruiken",
+  "Instellingen zijn afgesloten voor gasten",
+  "Automatische privacy-reset rond 11.00 uur uitchecktijd",
+  "AVG-proof: inloggegevens worden verwijderd voor de volgende gast",
+] as const;
+---
+
+<BaseLayout
+  title="Interactieve Televisie voor hotels, recreatie en zorg"
+  description="Interactieve televisie in samenwerking met KPN voor hotels, campings, vakantieparken, openbare gebouwen en zorginstellingen. Basispakket, extra zenders, lichtkrant en eigen kanaal."
+  canonical="https://clubdisplay.nl/interactieve-televisie/"
+  currentPath="/interactieve-televisie/"
+>
+  <section class="commercial-hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow">Interactieve Televisie</span>
+        <h1>Interactieve televisie met zenders die passen bij uw locatie</h1>
+        <p>
+          ClubDisplay biedt samen met KPN een geavanceerde oplossing voor interactieve televisie. Ideaal voor hotels, groepsaccommodaties, campings, vakantieparken, openbare gebouwen en zorginstellingen.
+        </p>
+        <div class="hero-actions">
+          <a href="/plan-jouw-gesprek/" class="btn btn-lg">Plan een adviesgesprek</a>
+          <a href="/zakelijke-iptv-voor-hotels-en-bedrijven/" class="btn btn-lg btn-outline">Bekijk Hospitality TV</a>
+        </div>
+      </div>
+      <div class="hero-media">
+        <img src="/images/iptv/IPTV_KPN.jpg" alt="Interactieve KPN televisie-app op een TV in een hotelkamer" />
+      </div>
+    </div>
+  </section>
+
+  <section class="proof-strip">
+    <div class="container proof-grid">
+      {proofHighlights.map((item) => (
+        <article class:list={["proof-card", `tone-${item.tone}`]}>
+          <span class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d={iconPaths[item.icon]} />
+            </svg>
+          </span>
+          <div>
+            <strong>{item.title}</strong>
+            <span>{item.text}</span>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="commercial-section">
+    <div class="container split-grid">
+      <div>
+        <span class="eyebrow">Zenders en functies</span>
+        <h2>Innovatie en gemak voor elke locatie</h2>
+        <p>
+          Met onze interactieve TV-oplossing genieten gasten, bezoekers en cliënten van een breed zenderaanbod en interactieve mogelijkheden. De dienst is afgestemd op locaties waar televisie kijken eenvoudig, betrouwbaar en herkenbaar moet zijn.
+        </p>
+      </div>
+      <div class="feature-list">
+        {featureCards.map((item) => (
+          <article class:list={["feature-card", `tone-${item.tone}`]}>
+            <span class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d={iconPaths[item.icon]} />
+              </svg>
+            </span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="commercial-section section-alt">
+    <div class="container info-grid">
+      <div class="image-card">
+        <img src="/images/iptv/kpnapp.jpg" alt="Interactieve TV-app van KPN met gids, zoeken en live televisie" />
+      </div>
+      <div>
+        <span class="eyebrow">Zakelijk gebruik</span>
+        <h2>Interactieve televisie aangepast aan uw wensen</h2>
+        <p>
+          ClubDisplay combineert het vertrouwde van televisie kijken met mogelijkheden voor zakelijke communicatie. U kunt uw bedrijfslogo toevoegen aan het menu, korte nieuwsmededelingen tonen via een lichtkrant en een eigen videokanaal inzetten voor bijvoorbeeld een parkzender of informatiekanaal.
+        </p>
+        <ul class="check-list">
+          <li>Interactieve televisie met KPN als stabiele basis.</li>
+          <li>Extra pakketten zoals ESPN, Ziggo Sport en themakanalen beschikbaar.</li>
+          <li>Eigen logo, lichtkrant of videokanaal mogelijk.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="commercial-section">
+    <div class="container package-section">
+      <div class="section-head">
+        <span class="eyebrow">Standaard en uitbreidbaar</span>
+        <h2>Basispakket, extra zenders en speciale diensten</h2>
+        <p>
+          Geef bij uw aanvraag aan hoeveel aansluitingen u nodig heeft en welke zenderpakketten belangrijk zijn voor uw doelgroep. Voor zorginstellingen zijn ook speciale diensten mogelijk, zoals Kerk-TV, waarmee zorgcliënten lokale kerkdiensten digitaal kunnen bijwonen.
+        </p>
+      </div>
+      <div class="option-grid">
+        {packageOptions.map((item) => (
+          <article class="option-card">
+            <span class="option-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d={iconPaths.info} />
+              </svg>
+            </span>
+            <p>{item}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="commercial-section section-alt">
+    <div class="container delivery-section">
+      <div class="section-head">
+        <span class="eyebrow">Drie manieren</span>
+        <h2>Interactieve televisie via settopbox, BNBTV of LG Pro:Centric</h2>
+        <p>
+          De juiste oplossing hangt af van de TV's die u al heeft, de gewenste gebruikerservaring en het beheer op locatie. ClubDisplay kan dezelfde interactieve zender-app op meerdere manieren leveren.
+        </p>
+      </div>
+      <div class="delivery-grid">
+        {deliveryOptions.map((item) => (
+          <article class:list={["delivery-card", `tone-${item.tone}`]}>
+            <div class="delivery-image">
+              <img src={item.image} alt={item.alt} loading="lazy" />
+            </div>
+            <div class="delivery-content">
+              <span class="delivery-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d={iconPaths[item.icon]} />
+                </svg>
+              </span>
+              <span class="delivery-label">{item.label}</span>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+      <div class="launcher-panel">
+        <div>
+          <span class="eyebrow">BNBTV Launcher</span>
+          <h3>Nieuwe TV's met apps, zenders en automatische privacy-reset</h3>
+          <p>
+            BNBTV is onderdeel van ClubDisplay en is bedoeld voor locaties die een compleet nieuwe TV-oplossing willen zonder losse settopbox. De interactieve TV-app staat klaar naast populaire apps, terwijl gasten na vertrek automatisch worden uitgelogd.
+          </p>
+        </div>
+        <div class="launcher-list">
+          {launcherFeatures.map((item, index) => (
+            <article class="launcher-item">
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <p>{item}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="commercial-cta">
+    <div class="container cta-inner">
+      <h2>Wilt u interactieve televisie aanbieden op uw locatie?</h2>
+      <p>ClubDisplay denkt mee over zenders, pakketten, zakelijke functies en de technische inrichting.</p>
+      <a href="/plan-jouw-gesprek/" class="btn btn-lg btn-white">Plan een adviesgesprek</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .commercial-hero { padding: 5.5rem 0 4.5rem; background: linear-gradient(135deg, #fff 0%, #eef6ff 100%); }
+  .hero-grid { display: grid; grid-template-columns: minmax(0, 0.95fr) minmax(360px, 1.05fr); gap: 4rem; align-items: center; }
+  .eyebrow { display: inline-flex; color: var(--primary); font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1rem; }
+  .hero-copy h1 { font-size: clamp(2.25rem, 4.6vw, 4.25rem); line-height: 1.04; margin-bottom: 1.25rem; }
+  .hero-copy p { font-size: 1.125rem; max-width: 620px; }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; }
+  .hero-media { position: relative; border-radius: 20px; overflow: hidden; min-height: 420px; background: #0f172a; box-shadow: var(--shadow-xl); }
+  .hero-media img { width: 100%; height: 100%; min-height: 420px; object-fit: cover; border-radius: 0; }
+  .proof-strip { background: #fff; border-bottom: 1px solid var(--border-light); }
+  .proof-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; transform: translateY(-1.65rem); }
+  .proof-card { display: flex; align-items: center; gap: 0.85rem; padding: 1rem; background: #fff; border: 1px solid rgba(148, 163, 184, 0.28); border-radius: 16px; box-shadow: 0 18px 50px rgba(15, 23, 42, 0.08); }
+  .proof-card div { display: grid; gap: 0.2rem; min-width: 0; }
+  .proof-grid strong { color: var(--text); font-size: 0.95rem; }
+  .proof-grid span { color: var(--text-secondary); font-size: 0.8125rem; }
+  .card-icon, .feature-icon, .option-icon { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; width: 2.75rem; height: 2.75rem; border-radius: 14px; }
+  .card-icon svg, .feature-icon svg, .option-icon svg { width: 1.35rem; height: 1.35rem; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+  .tone-blue .card-icon, .tone-blue .feature-icon { color: var(--brand-accent); background: var(--primary-light); }
+  .tone-teal .card-icon, .tone-teal .feature-icon { color: #0f766e; background: #ccfbf1; }
+  .tone-amber .card-icon, .tone-amber .feature-icon { color: #b45309; background: #fef3c7; }
+  .tone-violet .card-icon, .tone-violet .feature-icon { color: #6d28d9; background: #ede9fe; }
+  .tone-blue { --card-accent: var(--brand-accent); }
+  .tone-teal { --card-accent: #0d9488; }
+  .tone-amber { --card-accent: #f59e0b; }
+  .tone-violet { --card-accent: #7c3aed; }
+  .commercial-section { padding: 5.5rem 0; background: #fff; }
+  .section-alt { background: var(--bg-alt); }
+  .split-grid, .info-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 4rem; align-items: center; }
+  .split-grid h2, .info-grid h2, .section-head h2, .commercial-cta h2 { font-size: clamp(1.75rem, 2.8vw, 2.7rem); line-height: 1.12; }
+  .feature-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  .feature-card, .option-card { position: relative; display: grid; align-content: start; gap: 0.85rem; border: 1px solid rgba(148, 163, 184, 0.28); border-radius: 18px; padding: 1.45rem; background: #fff; box-shadow: 0 18px 45px rgba(15, 23, 42, 0.06); overflow: hidden; transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease; }
+  .feature-card::before { content: ""; position: absolute; inset: 0 0 auto; height: 4px; background: var(--card-accent, var(--primary)); }
+  .feature-card:hover, .option-card:hover { transform: translateY(-4px); border-color: rgba(var(--primary-rgb), 0.22); box-shadow: 0 24px 60px rgba(15, 23, 42, 0.1); }
+  .feature-card h3 { font-size: 1rem; margin: 0 0 0.35rem; }
+  .feature-card p, .option-card p { font-size: 0.875rem; margin: 0; }
+  .image-card { border-radius: 22px; overflow: hidden; min-height: 420px; box-shadow: var(--shadow-xl); background: #0f172a; }
+  .image-card img { width: 100%; height: 100%; min-height: 420px; object-fit: cover; border-radius: 0; }
+  .check-list { display: grid; gap: 0.85rem; margin: 1.75rem 0 0; padding: 0; list-style: none; }
+  .check-list li { position: relative; padding-left: 1.8rem; color: var(--text-secondary); line-height: 1.65; }
+  .check-list li::before { content: ""; position: absolute; left: 0; top: 0.55rem; width: 0.65rem; height: 0.65rem; border-radius: 999px; background: var(--primary); box-shadow: 0 0 0 5px rgba(var(--primary-rgb), 0.1); }
+  .section-head { max-width: 760px; margin-bottom: 2rem; }
+  .option-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  .option-card { grid-template-columns: auto 1fr; align-items: start; }
+  .option-icon { color: var(--brand-accent); background: var(--primary-50); }
+  .delivery-section { display: grid; gap: 2rem; }
+  .delivery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  .delivery-card { background: #fff; border: 1px solid rgba(148, 163, 184, 0.28); border-radius: 20px; overflow: hidden; box-shadow: 0 18px 45px rgba(15, 23, 42, 0.06); transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease; }
+  .delivery-card:hover { transform: translateY(-4px); border-color: rgba(var(--primary-rgb), 0.22); box-shadow: 0 24px 60px rgba(15, 23, 42, 0.1); }
+  .delivery-image { aspect-ratio: 4 / 3; background: #f8fafc; overflow: hidden; }
+  .delivery-image img { width: 100%; height: 100%; object-fit: cover; border-radius: 0; }
+  .delivery-content { display: grid; gap: 0.7rem; padding: 1.35rem; }
+  .delivery-icon { display: inline-flex; align-items: center; justify-content: center; width: 2.75rem; height: 2.75rem; border-radius: 14px; color: var(--card-accent, var(--primary)); background: var(--primary-50); }
+  .delivery-icon svg { width: 1.35rem; height: 1.35rem; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+  .tone-teal .delivery-icon { background: #ccfbf1; }
+  .tone-violet .delivery-icon { background: #ede9fe; }
+  .delivery-label { color: var(--card-accent, var(--primary)); font-size: 0.75rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
+  .delivery-card h3, .launcher-panel h3 { margin: 0; font-size: 1.15rem; line-height: 1.25; }
+  .delivery-card p, .launcher-panel p, .launcher-item p { margin: 0; color: var(--text-secondary); font-size: 0.9rem; line-height: 1.65; }
+  .launcher-panel { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 2rem; align-items: start; padding: 2rem; border: 1px solid rgba(148, 163, 184, 0.28); border-radius: 22px; background: #fff; box-shadow: 0 18px 45px rgba(15, 23, 42, 0.06); }
+  .launcher-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
+  .launcher-item { display: grid; grid-template-columns: auto 1fr; gap: 0.75rem; align-items: start; padding: 1rem; border-radius: 16px; background: #f8fafc; border: 1px solid rgba(148, 163, 184, 0.22); }
+  .launcher-item span { color: var(--primary); font-size: 0.75rem; font-weight: 800; line-height: 1.65; }
+  .commercial-cta { padding: 5rem 0; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); }
+  .cta-inner { max-width: 760px; text-align: center; }
+  .commercial-cta h2, .commercial-cta p { color: #fff; }
+  .commercial-cta p { color: rgba(255,255,255,0.82); }
+
+  @media (max-width: 1020px) {
+    .option-grid { grid-template-columns: repeat(2, 1fr); }
+    .delivery-grid { grid-template-columns: 1fr; }
+    .delivery-card { display: grid; grid-template-columns: 0.9fr 1.1fr; }
+  }
+  @media (max-width: 900px) {
+    .hero-grid, .split-grid, .info-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .proof-grid, .feature-list { grid-template-columns: repeat(2, 1fr); }
+    .launcher-panel { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 620px) {
+    .commercial-hero, .commercial-section, .commercial-cta { padding: 3.5rem 0; }
+    .hero-actions { flex-direction: column; }
+    .hero-actions .btn { width: 100%; justify-content: center; }
+    .hero-media, .hero-media img, .image-card, .image-card img { min-height: 300px; }
+    .proof-grid, .feature-list, .option-grid, .launcher-list { grid-template-columns: 1fr; transform: none; margin: 1rem 0; }
+    .delivery-card { grid-template-columns: 1fr; }
+  }
+</style>

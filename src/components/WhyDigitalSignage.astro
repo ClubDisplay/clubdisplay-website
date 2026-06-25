@@ -1,0 +1,91 @@
+<section class="why-digital-signage">
+  <div class="container">
+    <span class="section-label">Wat is digital signage?</span>
+    <h2 class="section-title">Digital signage: meer dan een scherm aan de muur</h2>
+    <div class="ds-layout">
+      <div class="ds-text">
+        <p>
+          Digital signage is een centraal aangestuurd systeem van digitale schermen waarmee je dynamische content toont — van menu's en promoties tot informatieschermen en hotel-tv. Anders dan een poster of statisch bord kun je content real-time aanpassen, per locatie of tijdstip.
+        </p>
+        <p>
+          ClubDisplay helpt organisaties met het complete traject: van advies en hardware tot installatie, content, systeemkoppelingen en doorlopend beheer. Of het nu gaat om een hotel dat gasten wil verwelkomen op de kamer-tv, een restaurant dat digitaal menu's toont mét kassakoppeling, of een coffeeshop met professionele prijslijsten — wij regelen het.
+        </p>
+        <div class="ds-tags">
+          <span class="ds-tag">Advies op maat</span>
+          <span class="ds-tag">Hardware & software</span>
+          <span class="ds-tag">Professionele content</span>
+          <span class="ds-tag">Installatie & koppelingen</span>
+          <span class="ds-tag">Beheer & support</span>
+        </div>
+      </div>
+      <div class="ds-benefits">
+        <h3>Voordelen</h3>
+        <ul>
+          <li>Altijd actuele informatie — geen verouderde posters</li>
+          <li>Centraal beheer vanuit één cloudplatform</li>
+          <li>Besparing op drukwerk en verspilling</li>
+          <li>Gericht communiceren per locatie of tijdstip</li>
+          <li>Professionele uitstraling in eigen huisstijl</li>
+        </ul>
+        <a href="/digital-signage/" class="btn">Meer over digital signage <span aria-hidden="true">&rarr;</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .why-digital-signage {
+    padding: 7.5rem 0;
+    background: var(--bg-alt);
+  }
+  .section-label {
+    font-size: 0.8125rem; font-weight: 600; color: var(--primary);
+    text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-size: clamp(1.625rem, 2.5vw, 2.5rem);
+    font-weight: 800; letter-spacing: -0.02em; margin: 0 0 2.5rem; line-height: 1.15;
+  }
+  .ds-layout {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .ds-text p {
+    font-size: 0.938rem; color: var(--text-secondary);
+    line-height: 1.75; margin: 0 0 1rem;
+  }
+  .ds-tags {
+    display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem;
+  }
+  .ds-tag {
+    font-size: 0.8125rem; font-weight: 500; color: var(--primary);
+    background: #fff; padding: 0.375rem 1rem;
+    border-radius: 999px; border: 1px solid var(--primary-light);
+  }
+  .ds-benefits {
+    background: #fff; border-radius: var(--radius-xl);
+    padding: 2.5rem 2rem; border: 1px solid var(--border);
+  }
+  .ds-benefits h3 {
+    font-size: 1.125rem; font-weight: 700; margin: 0 0 1rem;
+  }
+  .ds-benefits ul {
+    list-style: none; padding: 0; margin: 0 0 1.5rem;
+  }
+  .ds-benefits li {
+    padding: 0.625rem 0; padding-left: 1.5rem; position: relative;
+    font-size: 0.875rem; color: var(--text-secondary); line-height: 1.5;
+    border-bottom: 1px solid var(--border-light);
+  }
+  .ds-benefits li:last-child { border-bottom: none; }
+  .ds-benefits li::before {
+    content: ''; position: absolute; left: 0; top: 0.95rem;
+    width: 6px; height: 6px; background: var(--primary); border-radius: 50%;
+  }
+  @media (max-width: 900px) {
+    .why-digital-signage { padding: 5rem 0; }
+    .ds-layout { grid-template-columns: 1fr; gap: 2rem; }
+  }
+</style>

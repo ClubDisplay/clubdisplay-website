@@ -1,14 +1,440 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+const iconPaths = {
+  cloud: "M17.5 19H8a5 5 0 1 1 1-9.9A6.5 6.5 0 0 1 21 12.5 3.5 3.5 0 0 1 17.5 19z",
+  edit: "M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3z M13.5 6.5l4 4",
+  automation: "M12 3v3 M12 18v3 M4.6 7.2l2.6 1.5 M16.8 15.3l2.6 1.5 M4.6 16.8l2.6-1.5 M16.8 8.7l2.6-1.5 M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z",
+  plug: "M8 2v6 M16 2v6 M6 8h12v4a6 6 0 0 1-6 6v4 M9 22h6",
+  brush: "M4 20c2.8.2 5-.5 6.5-2 1.1-1.1 1.1-2.9 0-4s-2.9-1.1-4 0C5 15.5 4.3 17.2 4 20z M11 13l7.5-7.5a2.1 2.1 0 0 1 3 3L14 16",
+  calendar: "M8 2v4 M16 2v4 M3 10h18 M5 4h14a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z",
+  database: "M4 6c0-2 16-2 16 0v12c0 2-16 2-16 0V6z M4 6c0 2 16 2 16 0 M4 12c0 2 16 2 16 0",
+  monitor: "M3 5h18v11H3z M8 21h8 M12 16v5",
+  hotel: "M4 21V5a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v16 M3 21h18 M8 7h2 M8 11h2 M14 7h2 M14 11h2",
+  menu: "M4 5h16 M4 12h16 M4 19h16 M8 8h8 M8 15h8",
+  retail: "M4 10h16l-1-6H5l-1 6z M5 10v10h14V10 M8 14h8",
+  office: "M4 21V3h10v18 M14 8h6v13 M7 7h3 M7 11h3 M7 15h3",
+  shop: "M5 7h14l1 5H4l1-5z M6 12v8h12v-8 M9 16h6",
+  care: "M12 21s-8-4.6-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 6.4-8 11-8 11z",
+  drive: "M8 3h8l5 9-5 9H8l-5-9 5-9z M8 3l5 9-5 9 M16 3l-5 9 5 9 M3 12h18",
+  sheets: "M7 3h7l5 5v13H7z M14 3v5h5 M9 12h8 M9 16h8 M12 9v10",
+  microsoft: "M4 4h7v7H4z M13 4h7v7h-7z M4 13h7v7H4z M13 13h7v7h-7z",
+  chart: "M4 19V5 M4 19h17 M8 16V9 M13 16V6 M18 16v-4",
+  video: "M4 6h11v12H4z M15 10l5-3v10l-5-3z",
+  social: "M8 12a4 4 0 1 0 8 0 4 4 0 0 0-8 0z M17.5 6.5h.1 M6 2h12a4 4 0 0 1 4 4v12a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V6a4 4 0 0 1 4-4z",
+  weather: "M17.5 18H8a4 4 0 1 1 .8-7.9A5 5 0 0 1 18 12a3 3 0 0 1-.5 6z M16 3v2 M20.2 5.8l-1.4 1.4 M22 10h-2",
+  code: "M8 9l-4 3 4 3 M16 9l4 3-4 3 M13 6l-2 12",
+  sparkles: "M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3z M5 17l.8 2.2L8 20l-2.2.8L5 23l-.8-2.2L2 20l2.2-.8L5 17z",
+  alert: "M12 3l10 18H2L12 3z M12 9v5 M12 17h.1",
+} as const;
+
+const proofHighlights = [
+  { title: "Cloudbeheer", text: "Schermen op afstand beheren", icon: "cloud", tone: "blue" },
+  { title: "No-code editor", text: "Zelf content aanpassen", icon: "edit", tone: "teal" },
+  { title: "Automatisering", text: "Data, feeds en planning", icon: "automation", tone: "amber" },
+  { title: "Integraties", text: "POS, agenda’s, API’s en AI", icon: "plug", tone: "violet" },
+] as const;
+
+const featureCards = [
+  { title: "Ontwerpen zonder code", text: "Maak en wijzig schermcontent met een visuele editor, templates, afbeeldingen, video, animatie, webcontent en interactieve elementen.", icon: "brush", tone: "blue" },
+  { title: "Planning en playlists", text: "Publiceer content per scherm, groep, zone, datum, tijdstip, dagdeel, campagne of locatie.", icon: "calendar", tone: "teal" },
+  { title: "Live data en automatisering", text: "Koppel agenda’s, spreadsheets, dashboards, websites, JSON/XML-feeds, social media, weerinformatie, AI-tools of bedrijfssystemen.", icon: "database", tone: "amber" },
+  { title: "Monitoring en beheer", text: "Bekijk schermstatus, beheer apparaten, monitor playback en laat ClubDisplay meekijken bij storingen, updates en wijzigingen.", icon: "monitor", tone: "violet" },
+] as const;
+
+const useCases = [
+  { title: "Hotels en hospitality", text: "Lobbyinformatie, events, restaurantpromoties, wayfinding, welkomstschermen en gastcommunicatie.", icon: "hotel", tone: "blue" },
+  { title: "Horeca en menuborden", text: "Digitale menuborden met dagdeelplanning, acties, allergenen, prijsupdates en POS-koppelingen.", icon: "menu", tone: "teal" },
+  { title: "Retail en etalage", text: "Campagnes, productinformatie, aanbiedingen, narrowcasting in de winkel en opvallende etalagecontent.", icon: "retail", tone: "amber" },
+  { title: "Kantoor en interne communicatie", text: "Nieuws, KPI’s, roosters, dashboards, bezoekersinformatie, veiligheidsmeldingen en medewerkerscommunicatie.", icon: "office", tone: "violet" },
+  { title: "Coffeeshops", text: "Digitale prijslijsten, productinformatie, huisregels, wachtrijcommunicatie en centraal beheer per vestiging.", icon: "shop", tone: "blue" },
+  { title: "Zorg en publieke ruimtes", text: "Informatieschermen, wachttijdcommunicatie, routing, agenda’s, noodmeldingen en actuele mededelingen.", icon: "care", tone: "teal" },
+] as const;
+
+const integrationTiles = [
+  { label: "Google Drive", icon: "drive", tone: "google" },
+  { label: "Google Sheets", icon: "sheets", tone: "green" },
+  { label: "Microsoft 365", icon: "microsoft", tone: "microsoft" },
+  { label: "SharePoint", icon: "microsoft", tone: "teal" },
+  { label: "Power BI", icon: "chart", tone: "amber" },
+  { label: "Outlook Calendar", icon: "calendar", tone: "blue" },
+  { label: "Google Calendar", icon: "calendar", tone: "google" },
+  { label: "YouTube", icon: "video", tone: "red" },
+  { label: "Instagram", icon: "social", tone: "pink" },
+  { label: "AccuWeather", icon: "weather", tone: "orange" },
+  { label: "Toast POS", icon: "retail", tone: "orange" },
+  { label: "API / Webhooks", icon: "code", tone: "slate" },
+  { label: "AI-koppelingen", icon: "sparkles", tone: "violet" },
+  { label: "JSON / XML", icon: "code", tone: "blue" },
+  { label: "CAP alerts", icon: "alert", tone: "red" },
+] as const;
 ---
-<BaseLayout title="Narrowcasting Software" description="Professionele narrowcasting software van ClubDisplay. Beheer eenvoudig al uw digitale schermen via de cloud. Plan content, maak afspeellijsten en analyseer resultaten." currentPath="/narrowcasting/">
-  <div class="container page-content">
-    <h1>Narrowcasting Software</h1>
-    <p>Narrowcasting software is het kloppende hart van elk digital signage netwerk. Met ons cloudgebaseerde platform beheert u al uw schermen vanaf één centrale plek. Of u nu één scherm in een winkel heeft staan of honderden displays verspreid over meerdere locaties, onze software geeft u volledige controle over wat er wanneer op welk scherm wordt getoond.</p>
-    <p>Onze software ondersteunt een breed scala aan content: afbeeldingen, video's, websites, live feeds, sociale media, weerinformatie en RSS-feeds. U stelt eenvoudig afspeellijsten samen met behulp van een intuïtieve drag-and-drop interface. Plan content per dag, tijdstip of locatie en schakel eenvoudig tussen campagnes. De software is geschikt voor zowel Android als webOS gebaseerde schermen.</p>
-    <h2>Belangrijkste functionaliteiten</h2>
-    <p>Met onze narrowcasting software kunt u schermen groeperen, content plannen, templates gebruiken, gebruikersrechten instellen en uitgebreide statistieken inzien. Daarnaast bieden we integratie met externe systemen zoals POS, kalenders en API's. De software wordt continu doorontwikkeld op basis van feedback van onze gebruikers.</p>
-    <h2>Waarom ClubDisplay?</h2>
-    <p>ClubDisplay is een full-service digital signage bureau. Wij leveren niet alleen de software, maar ook de hardware, installatie en ondersteuning. Onze specialisten denken met u mee over de beste oplossing voor uw situatie. Probeer onze software 30 dagen gratis uit en ontdek het gemak van professioneel narrowcasting.</p>
-  </div>
+
+<BaseLayout
+  title="Narrowcasting software voor professionele schermen"
+  description="Narrowcasting software voor centraal schermbeheer, contentplanning, templates, live data, AI-koppelingen, POS-koppelingen, monitoring en support."
+  canonical="https://clubdisplay.nl/narrowcasting/"
+  currentPath="/narrowcasting/"
+>
+  <section class="commercial-hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow">Narrowcasting software</span>
+        <h1>Beheer elk scherm, elke locatie en elke boodschap vanuit één platform</h1>
+        <p>
+          Met onze narrowcasting software ontwerpt, plant, publiceert en monitort u content voor schermen in hotels, horeca, retail, kantoren, zorginstellingen en coffeeshops. ClubDisplay werkt hiervoor met een professioneel CMS op basis van Wallboard-technologie, aangevuld met onze inrichting, templates, koppelingen, training en support.
+        </p>
+        <div class="hero-actions">
+          <a href="/plan-jouw-gesprek/" class="btn btn-lg">Plan een adviesgesprek</a>
+          <a href="/cases/" class="btn btn-lg btn-outline">Bekijk projecten</a>
+        </div>
+      </div>
+      <div class="hero-media">
+        <img src="/images/digitale-menuborden/grasscompany.jpg" alt="Narrowcasting content op digitale schermen" />
+      </div>
+    </div>
+  </section>
+
+  <section class="proof-strip">
+    <div class="container proof-grid">
+      {proofHighlights.map((item) => (
+        <article class:list={["proof-card", `tone-${item.tone}`]}>
+          <span class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d={iconPaths[item.icon]} />
+            </svg>
+          </span>
+          <div>
+            <strong>{item.title}</strong>
+            <span>{item.text}</span>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="commercial-section">
+    <div class="container split-grid">
+      <div>
+        <span class="eyebrow">Platform</span>
+        <h2>Een professioneel platform voor dagelijks schermbeheer</h2>
+        <p>
+          De software is gebouwd voor organisaties die schermcommunicatie professioneel willen beheren zonder afhankelijk te zijn van losse ontwerpers, USB-sticks of ingewikkelde IT-processen. U krijgt centrale controle over content, schermgroepen, gebruikers, playlists, publicaties en monitoring. ClubDisplay zorgt dat het praktisch werkt voor uw organisatie.
+        </p>
+        <p>
+          Het platform is geschikt voor eenvoudige locaties met één scherm, maar ook voor netwerken met meerdere vestigingen, schermzones en datakoppelingen.
+        </p>
+        <div class="section-actions">
+          <a href="https://www.wallboard.us/product-tour" class="btn btn-lg" target="_blank" rel="noopener noreferrer">Ontdek onze software</a>
+        </div>
+      </div>
+      <div class="feature-list">
+        {featureCards.map((item) => (
+          <article class:list={["feature-card", `tone-${item.tone}`]}>
+            <span class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d={iconPaths[item.icon]} />
+              </svg>
+            </span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="commercial-section wallboard-band">
+    <div class="container wallboard-grid">
+      <div class="wallboard-card">
+        <span class="eyebrow">ClubDisplay software-aanpak</span>
+        <h2>Een krachtig CMS met lokale implementatie</h2>
+        <p>
+          De onderliggende software biedt de kracht van een volwassen digital signage CMS. ClubDisplay zorgt dat het past bij uw praktijk: de juiste schermen, players, netwerkinrichting, contentstructuur, templates in huisstijl, gebruikersrollen en supportafspraken.
+        </p>
+      </div>
+      <div class="wallboard-points">
+        <article>
+          <strong>Voor dagelijkse beheerders</strong>
+          <span>Snel teksten, prijzen, acties, mededelingen en visuals aanpassen zonder technische kennis.</span>
+        </article>
+        <article>
+          <strong>Voor marketing en operations</strong>
+          <span>Campagnes plannen, locaties groeperen, content standaardiseren en lokaal maatwerk toestaan.</span>
+        </article>
+        <article>
+          <strong>Voor IT en management</strong>
+          <span>Grip op rechten, integraties, schaalbaarheid, monitoring, beveiliging en continuiteit.</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="commercial-section section-alt">
+    <div class="container cards-section">
+      <div class="section-head">
+        <span class="eyebrow">Gebruikssituaties</span>
+        <h2>Voor schermcommunicatie die actueel moet blijven</h2>
+        <p>
+          De kracht zit vooral in content die regelmatig wijzigt: prijzen, evenementen, wachttijden, acties, routes, agenda’s, interne berichten en real-time informatie.
+        </p>
+      </div>
+      <div class="cards-grid">
+        {useCases.map((item) => (
+          <article class:list={["use-card", `tone-${item.tone}`]}>
+            <span class="use-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d={iconPaths[item.icon]} />
+              </svg>
+            </span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="commercial-section">
+    <div class="container integrations-layout">
+      <div>
+        <span class="eyebrow">Integraties</span>
+        <h2>Schermen automatisch vullen met actuele data</h2>
+        <p>
+          Een goed narrowcastingsysteem voorkomt dubbel werk. De software kan content ophalen uit systemen waar uw team al mee werkt, zodat schermen automatisch actueel blijven. Ook AI-koppelingen zijn mogelijk, bijvoorbeeld voor het ondersteunen van contentcreatie, vertalingen, samenvattingen of slimme automatiseringen op basis van data.
+        </p>
+      </div>
+      <div class="integration-cloud" aria-label="Voorbeelden van integraties">
+        {integrationTiles.map((item) => (
+          <article class:list={["integration-tile", `brand-${item.tone}`]} aria-label={item.label} title={item.label}>
+            <span class="integration-logo" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d={iconPaths[item.icon]} />
+              </svg>
+            </span>
+            <span class="integration-name">{item.label}</span>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="commercial-section section-alt">
+    <div class="container process-grid">
+      <div>
+        <span class="eyebrow">Full-service</span>
+        <h2>Van licentie naar scherm dat gewoon werkt</h2>
+        <p>
+          Narrowcasting wordt pas waardevol als software, schermen, netwerk, content en beheer op elkaar aansluiten. Daarom leveren wij geen losse login, maar een complete oplossing.
+        </p>
+      </div>
+      <ol class="steps-list">
+        <li><strong>Doel en doelgroep</strong><span>Wat moet de bezoeker, gast of medewerker zien en op welk moment?</span></li>
+        <li><strong>Schermen en zones</strong><span>We bepalen schermposities, formaten, contentzones en technische vereisten.</span></li>
+        <li><strong>Software-inrichting</strong><span>We richten schermgroepen, playlists, rechten, templates en eventuele koppelingen in.</span></li>
+        <li><strong>Training en support</strong><span>Uw team kan zelf beheren, terwijl ClubDisplay beschikbaar blijft voor hulp, monitoring en doorontwikkeling.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="commercial-section">
+    <div class="container faq-grid">
+      <div>
+        <span class="eyebrow">Veelgevraagd</span>
+        <h2>Praktische vragen over narrowcasting software</h2>
+      </div>
+      <div class="faq-list">
+        <details open>
+          <summary>Kunnen wij zelf content aanpassen?</summary>
+          <p>Ja. De software is bedoeld voor dagelijks beheer door niet-technische gebruikers. ClubDisplay kan templates voorbereiden, zodat u teksten, afbeeldingen, prijzen of mededelingen veilig binnen de huisstijl aanpast.</p>
+        </details>
+        <details>
+          <summary>Kan content automatisch wijzigen?</summary>
+          <p>Ja. Denk aan agenda’s, spreadsheets, POS-data, dashboards, websites, social feeds, weerinformatie, AI-tools of eigen databronnen via API, webhooks, JSON of XML.</p>
+        </details>
+        <details>
+          <summary>Is het geschikt voor meerdere locaties?</summary>
+          <p>Ja. U kunt content centraal beheren en toch per vestiging, schermgroep of zone andere boodschappen tonen. Dat is handig voor hotels, horecaformules, retailketens, coffeeshops en kantoorlocaties.</p>
+        </details>
+        <details>
+          <summary>Doet ClubDisplay ook installatie en beheer?</summary>
+          <p>Ja. Wij verzorgen advies, schermkeuze, players, montage, netwerkafstemming, software-inrichting, training, contenttemplates en support.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="commercial-cta">
+    <div class="container cta-inner">
+      <h2>Wilt u uw schermnetwerk slimmer beheren?</h2>
+      <p>We laten graag zien hoe uw content, locaties, koppelingen, AI-mogelijkheden en beheer ingericht kunnen worden.</p>
+      <a href="/plan-jouw-gesprek/" class="btn btn-lg btn-white">Plan een adviesgesprek</a>
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+  .commercial-hero { padding: 5.5rem 0 4.5rem; background: linear-gradient(135deg, #fff 0%, #f8fafc 100%); }
+  .hero-grid { display: grid; grid-template-columns: minmax(0, 0.95fr) minmax(360px, 1.05fr); gap: 4rem; align-items: center; }
+  .eyebrow { display: inline-flex; color: var(--primary); font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1rem; }
+  .hero-copy h1 { font-size: clamp(2.25rem, 4.6vw, 4.25rem); line-height: 1.04; margin-bottom: 1.25rem; }
+  .hero-copy p { font-size: 1.125rem; max-width: 640px; }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; }
+  .hero-media { position: relative; border-radius: 18px; overflow: hidden; min-height: 420px; box-shadow: var(--shadow-xl); background: var(--bg-dark); }
+  .hero-media img { width: 100%; height: 100%; min-height: 420px; object-fit: cover; border-radius: 0; }
+  .proof-strip { background: #fff; border-bottom: 1px solid var(--border-light); }
+  .proof-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; transform: translateY(-1.65rem); }
+  .proof-card {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    min-height: 96px;
+    padding: 1rem;
+    border: 1px solid rgba(148,163,184,0.25);
+    border-radius: 18px;
+    background: linear-gradient(145deg, #fff 0%, #f8fafc 100%);
+    box-shadow: 0 18px 45px rgba(15,23,42,0.07);
+  }
+  .card-icon, .feature-icon, .use-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    border-radius: 16px;
+  }
+  .card-icon { width: 46px; height: 46px; }
+  .feature-icon, .use-icon { width: 52px; height: 52px; margin-bottom: 0.2rem; }
+  .card-icon svg, .feature-icon svg, .use-icon svg, .integration-logo svg { width: 23px; height: 23px; }
+  .card-icon path, .feature-icon path, .use-icon path, .integration-logo path { stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+  .proof-card div { display: grid; gap: 0.15rem; }
+  .proof-grid strong { color: var(--text); font-size: 0.95rem; }
+  .proof-grid span { color: var(--text-secondary); font-size: 0.8125rem; }
+  .tone-blue .card-icon, .tone-blue .feature-icon, .tone-blue .use-icon { color: var(--brand-accent); background: var(--primary-light); }
+  .tone-teal .card-icon, .tone-teal .feature-icon, .tone-teal .use-icon { color: #0f766e; background: #ccfbf1; }
+  .tone-amber .card-icon, .tone-amber .feature-icon, .tone-amber .use-icon { color: #b45309; background: #fef3c7; }
+  .tone-violet .card-icon, .tone-violet .feature-icon, .tone-violet .use-icon { color: #6d28d9; background: #ede9fe; }
+  .commercial-section { padding: 5.5rem 0; background: #fff; }
+  .section-alt { background: var(--bg-alt); }
+  .split-grid, .process-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 4rem; align-items: start; }
+  .split-grid h2, .section-head h2, .process-grid h2, .integrations-layout h2, .faq-grid h2, .commercial-cta h2 { font-size: clamp(1.75rem, 2.8vw, 2.7rem); line-height: 1.12; }
+  .section-actions { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2rem; }
+  .feature-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  .feature-card, .use-card {
+    position: relative;
+    display: grid;
+    align-content: start;
+    gap: 0.65rem;
+    padding: 1.5rem;
+    border: 1px solid rgba(148,163,184,0.24);
+    border-radius: 18px;
+    background: #fff;
+    box-shadow: 0 16px 38px rgba(15,23,42,0.06);
+    overflow: hidden;
+  }
+  .feature-card { min-height: 190px; }
+  .use-card { min-height: 210px; }
+  .feature-card::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: 4px;
+    background: var(--card-accent, var(--primary));
+  }
+  .use-card::after {
+    content: "";
+    position: absolute;
+    right: -34px;
+    top: -34px;
+    width: 110px;
+    height: 110px;
+    border-radius: 999px;
+    background: var(--soft-orb, rgba(var(--primary-rgb),0.08));
+  }
+  .feature-card.tone-blue, .use-card.tone-blue { --card-accent: var(--brand-accent); --soft-orb: rgba(var(--brand-accent-rgb),0.13); background: linear-gradient(145deg, #ffffff 0%, var(--primary-50) 100%); }
+  .feature-card.tone-teal, .use-card.tone-teal { --card-accent: #0f766e; --soft-orb: rgba(15,118,110,0.12); background: linear-gradient(145deg, #ffffff 0%, #f0fdfa 100%); }
+  .feature-card.tone-amber, .use-card.tone-amber { --card-accent: #f59e0b; --soft-orb: rgba(245,158,11,0.14); background: linear-gradient(145deg, #ffffff 0%, #fffbeb 100%); }
+  .feature-card.tone-violet, .use-card.tone-violet { --card-accent: #7c3aed; --soft-orb: rgba(124,58,237,0.12); background: linear-gradient(145deg, #ffffff 0%, #f5f3ff 100%); }
+  .feature-card h3, .use-card h3 { position: relative; z-index: 1; font-size: 1rem; margin: 0 0 0.25rem; }
+  .feature-card p, .use-card p { position: relative; z-index: 1; }
+  .feature-list h3, .cards-grid h3 { font-size: 1rem; margin: 0 0 0.5rem; }
+  .feature-list p, .cards-grid p { font-size: 0.875rem; margin: 0; }
+  .section-head { max-width: 760px; margin-bottom: 2rem; }
+  .section-head p { margin-top: 0.75rem; }
+  .cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  .wallboard-band { background: #0f172a; color: #fff; }
+  .wallboard-grid { display: grid; grid-template-columns: 0.95fr 1.05fr; gap: 2rem; align-items: stretch; }
+  .wallboard-card { padding: 2.25rem; border: 1px solid rgba(255,255,255,0.16); border-radius: 18px; background: linear-gradient(145deg, rgba(var(--primary-rgb),0.28), rgba(15,23,42,0.5)); }
+  .wallboard-card h2 { color: #fff; font-size: clamp(1.75rem, 2.8vw, 2.7rem); line-height: 1.12; }
+  .wallboard-card p { color: rgba(255,255,255,0.78); }
+  .wallboard-points { display: grid; gap: 1rem; }
+  .wallboard-points article { display: grid; gap: 0.35rem; padding: 1.35rem; border: 1px solid rgba(255,255,255,0.12); border-radius: 14px; background: rgba(255,255,255,0.06); }
+  .wallboard-points strong { color: #fff; }
+  .wallboard-points span { color: rgba(255,255,255,0.72); font-size: 0.925rem; line-height: 1.55; }
+  .integrations-layout, .faq-grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 4rem; align-items: start; }
+  .integration-cloud { display: grid; grid-template-columns: repeat(5, minmax(92px, 1fr)); gap: 0.85rem; }
+  .integration-tile {
+    display: grid;
+    justify-items: center;
+    align-content: center;
+    gap: 0.55rem;
+    min-height: 108px;
+    padding: 0.95rem 0.75rem;
+    border: 1px solid rgba(148,163,184,0.24);
+    border-radius: 18px;
+    background: #fff;
+    box-shadow: 0 14px 34px rgba(15,23,42,0.06);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .integration-tile:hover { transform: translateY(-3px); box-shadow: 0 20px 44px rgba(15,23,42,0.1); }
+  .integration-logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 15px;
+    color: var(--brand-color, var(--primary));
+    background: var(--brand-bg, var(--primary-50));
+  }
+  .integration-name { color: var(--text); font-size: 0.72rem; font-weight: 800; line-height: 1.2; text-align: center; }
+  .brand-google { --brand-color: var(--primary); --brand-bg: linear-gradient(135deg, var(--primary-light), #dcfce7 48%, #fef3c7); }
+  .brand-green { --brand-color: #15803d; --brand-bg: #dcfce7; }
+  .brand-microsoft { --brand-color: var(--brand-accent); --brand-bg: var(--primary-light); }
+  .brand-teal { --brand-color: #0f766e; --brand-bg: #ccfbf1; }
+  .brand-amber { --brand-color: #b45309; --brand-bg: #fef3c7; }
+  .brand-blue { --brand-color: var(--primary); --brand-bg: var(--primary-light); }
+  .brand-red { --brand-color: #dc2626; --brand-bg: #fee2e2; }
+  .brand-pink { --brand-color: #be185d; --brand-bg: #fce7f3; }
+  .brand-orange { --brand-color: #c2410c; --brand-bg: #ffedd5; }
+  .brand-slate { --brand-color: #334155; --brand-bg: #e2e8f0; }
+  .brand-violet { --brand-color: #6d28d9; --brand-bg: #ede9fe; }
+  .steps-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.75rem; counter-reset: step; }
+  .steps-list li { position: relative; display: grid; gap: 0.25rem; padding: 1.25rem 1.25rem 1.25rem 4rem; border: 1px solid var(--border); border-radius: 14px; background: #fff; }
+  .steps-list li::before { counter-increment: step; content: counter(step, decimal-leading-zero); position: absolute; left: 1.25rem; top: 1.25rem; color: var(--primary); font-size: 0.8125rem; font-weight: 800; }
+  .steps-list span { color: var(--text-secondary); font-size: 0.875rem; line-height: 1.55; }
+  .faq-list { display: grid; gap: 0.75rem; }
+  .faq-list details { border: 1px solid var(--border); border-radius: 14px; background: #fff; padding: 1.25rem 1.35rem; }
+  .faq-list summary { cursor: pointer; color: var(--text); font-weight: 800; }
+  .faq-list p { margin: 0.75rem 0 0; font-size: 0.925rem; }
+  .commercial-cta { padding: 5rem 0; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); }
+  .cta-inner { max-width: 760px; text-align: center; }
+  .commercial-cta h2, .commercial-cta p { color: #fff; }
+  .commercial-cta p { color: rgba(255,255,255,0.82); }
+
+  @media (max-width: 1000px) {
+    .cards-grid { grid-template-columns: repeat(2, 1fr); }
+    .integration-cloud { grid-template-columns: repeat(3, minmax(92px, 1fr)); }
+  }
+  @media (max-width: 900px) {
+    .hero-grid, .split-grid, .process-grid, .wallboard-grid, .integrations-layout, .faq-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .proof-grid, .feature-list { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 620px) {
+    .commercial-hero, .commercial-section, .commercial-cta { padding: 3.5rem 0; }
+    .hero-actions { flex-direction: column; }
+    .hero-actions .btn { width: 100%; justify-content: center; }
+    .hero-media, .hero-media img { min-height: 300px; }
+    .proof-grid, .cards-grid, .feature-list { grid-template-columns: 1fr; transform: none; margin: 1rem 0; }
+    .integration-cloud { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+</style>

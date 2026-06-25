@@ -1,0 +1,117 @@
+<section class="whyus" id="waarom">
+  <div class="container">
+    <div class="section-label">Waarom ClubDisplay</div>
+    <h2 class="section-title">Waarom kiezen voor<br />ClubDisplay?</h2>
+    <p class="section-desc">
+      Wij onderscheiden ons door specialistische kennis, een full-service aanpak en bewezen ervaring in hospitality, horeca en retail.
+    </p>
+    <div class="whyus-grid">
+      <div class="whyus-card">
+        <div class="whyus-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+        </div>
+        <h3>Specialistische kennis</h3>
+        <p>Diepgaande kennis van LG Pro:Centric, IPTV, narrowcasting, digitale menuborden en alle toonaangevende digital signage technologieën.</p>
+      </div>
+      <div class="whyus-card">
+        <div class="whyus-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3>Full-service aanpak</h3>
+        <p>Van advies en ontwerp tot hardware, installatie, content en beheer — alles uit één hand, geen gedoe met losse leveranciers.</p>
+      </div>
+      <div class="whyus-card">
+        <div class="whyus-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <h3>Ervaring in hospitality</h3>
+        <p>Wij kennen de hotel- en horecabranche door en door. Onze oplossingen sluiten naadloos aan op de wensen van gasten en exploitanten.</p>
+      </div>
+      <div class="whyus-card">
+        <div class="whyus-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <h3>Technische integraties</h3>
+        <p>Koppeling met kassasystemen, PMS, CRM-systemen en andere bedrijfssoftware. Wij zorgen dat alles naadloos samenwerkt.</p>
+      </div>
+      <div class="whyus-card">
+        <div class="whyus-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>Support en beheer</h3>
+        <p>Na oplevering bent u er niet alleen voor. Wij bieden doorlopende ondersteuning, monitoring en beheer van uw schermen.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .whyus {
+    padding: 6rem 0;
+    background: var(--bg);
+  }
+  .section-label {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-size: 2.25rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin: 0 0 1rem;
+    line-height: 1.15;
+  }
+  .section-desc {
+    font-size: 1.0625rem;
+    color: var(--text-secondary);
+    max-width: 620px;
+    margin: 0 0 3.5rem;
+  }
+  .whyus-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+  .whyus-card {
+    padding: 1.75rem;
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--border);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .whyus-card:hover { border-color: var(--primary-light); box-shadow: var(--shadow-md); }
+  .whyus-icon {
+    width: 2.75rem;
+    height: 2.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--primary-50);
+    border-radius: var(--radius);
+    color: var(--primary);
+    margin-bottom: 1.25rem;
+  }
+  .whyus-card h3 {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem;
+  }
+  .whyus-card p {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 900px) {
+    .whyus-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .whyus { padding: 3.5rem 0; }
+    .whyus-grid { grid-template-columns: 1fr; }
+    .section-title { font-size: 1.625rem; }
+  }
+</style>

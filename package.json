@@ -3,6 +3,9 @@
   "type": "module",
   "version": "1.0.0",
   "description": "ClubDisplay website - Digital Signage specialist",
+  "engines": {
+    "node": ">=20 <26"
+  },
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
@@ -11,6 +14,6 @@
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
-    "astro": "^5.7.0"
+    "astro": "^6.4.2"
   }
 }

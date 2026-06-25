@@ -1,14 +1,716 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+const iconPaths = {
+  map: "M9 18l-6 3V6l6-3 6 3 6-3v15l-6 3-6-3z M9 3v15 M15 6v15",
+  route: "M6 4a3 3 0 1 0 0 6c3.5 0 6 2 6 5a3 3 0 1 0 3-3c-2.8 0-5-1.8-5-4 0-2.2 2.2-4 5-4h3 M18 4l2 2-2 2",
+  calendar: "M8 2v4 M16 2v4 M3 10h18 M5 4h14a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z",
+  refresh: "M20 6v5h-5 M4 18v-5h5 M18.3 9A7 7 0 0 0 6.4 6.7L4 9 M5.7 15a7 7 0 0 0 11.9 2.3L20 15",
+  monitor: "M3 5h18v11H3z M8 21h8 M12 16v5",
+  plug: "M8 2v6 M16 2v6 M6 8h12v4a6 6 0 0 1-6 6v4 M9 22h6",
+  hotel: "M4 21V5a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v16 M3 21h18 M8 7h2 M8 11h2 M14 7h2 M14 11h2",
+  store: "M4 10h16l-1-6H5l-1 6z M5 10v10h14V10 M8 14h8",
+  train: "M6 3h12a3 3 0 0 1 3 3v8a4 4 0 0 1-4 4l2 3 M7 21l2-3a4 4 0 0 1-4-4V6a3 3 0 0 1 3-3z M8 7h8 M8 12h8 M8 16h.1 M16 16h.1",
+  graduation: "M3 8l9-5 9 5-9 5-9-5z M7 11v5c2.8 2 7.2 2 10 0v-5 M21 8v6",
+  office: "M4 21V3h10v18 M14 8h6v13 M7 7h3 M7 11h3 M7 15h3",
+  care: "M12 21s-8-4.6-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 6.4-8 11-8 11z",
+  door: "M5 21h14 M7 21V4a1 1 0 0 1 1-1h9v18 M14 12h.1",
+  users: "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2 M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z M22 21v-2a4 4 0 0 0-3-3.9 M16 3.1a4 4 0 0 1 0 7.8",
+  shield: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z",
+} as const;
+
+const heroSlides = [
+  {
+    src: "/images/wayfinding/OtrumMeeting.jpg",
+    alt: "Room signage scherm bij een vergaderruimte",
+  },
+  {
+    src: "/images/wayfinding/Andaz04.jpg",
+    alt: "Digitaal room signage scherm bij Andaz",
+  },
+  {
+    src: "/images/wayfinding/Andaz02.jpg",
+    alt: "Compact room signage scherm bij een stijlvolle zaal",
+  },
+  {
+    src: "/images/wayfinding/alexanderhotel2.jpg",
+    alt: "Room signage scherm bij Alexander Hotel",
+  },
+  {
+    src: "/images/wayfinding/Alexanderhotel.jpg",
+    alt: "Digitaal zaalscherm in een hotelgang",
+  },
+] as const;
+
+const proofHighlights = [
+  { title: "Altijd actueel", text: "Routes, zalen en agenda’s snel aangepast", icon: "refresh", tone: "blue" },
+  { title: "Betere doorstroming", text: "Minder vragen bij balie of receptie", icon: "route", tone: "teal" },
+  { title: "Bookingen gekoppeld", text: "Agenda, room booking of eigen signage software", icon: "calendar", tone: "amber" },
+  { title: "Compleet geleverd", text: "Schermen, software, montage en support", icon: "monitor", tone: "violet" },
+] as const;
+
+const applicationCards = [
+  { title: "Hotels en hospitality", text: "Begeleid gasten naar kamers, zalen, ontbijt, wellness, restaurant, events en receptie.", icon: "hotel", tone: "blue" },
+  { title: "Winkels en winkelcentra", text: "Toon routes, winkels, acties, servicepunten, toiletten en tijdelijke promoties.", icon: "store", tone: "teal" },
+  { title: "Vervoer en publieke locaties", text: "Vertrektijden, perrons, wachtruimtes, routing en actuele meldingen overzichtelijk tonen.", icon: "train", tone: "amber" },
+  { title: "Scholen en campussen", text: "Help bezoekers, studenten en medewerkers sneller naar lokalen, afdelingen en bijeenkomsten.", icon: "graduation", tone: "violet" },
+  { title: "Kantoren en vergadercentra", text: "Combineer ontvangst, bezoekersinformatie, zaalrouting en meeting room signage.", icon: "office", tone: "blue" },
+  { title: "Zorg en openbare gebouwen", text: "Maak afdelingen, routes, wachtruimtes en actuele mededelingen duidelijker voor bezoekers.", icon: "care", tone: "teal" },
+] as const;
+
+const roomFeatures = [
+  "Beschikbaarheid tonen: vrij, bezet of gereserveerd.",
+  "Koppeling met Outlook, Exchange, Microsoft 365, Google Calendar of room booking systemen.",
+  "Roombookingen en wayfinding beheren via onze eigen signage software wanneer er geen bestaand systeem is.",
+  "Ruimtes direct boeken of de volgende afspraak zichtbaar maken.",
+  "Naam van de zaal, tijdslot, organisator en huisstijl per locatie.",
+] as const;
+
+const processCards = [
+  { title: "Inventarisatie", text: "We kijken naar looproutes, entrees, verdiepingen, zalen, bezoekersstromen en bestaande systemen.", icon: "map", tone: "blue" },
+  { title: "Schermkeuze", text: "We bepalen formaat, helderheid, plaatsing, montage en eventuele touch- of kioskfunctionaliteit.", icon: "monitor", tone: "teal" },
+  { title: "Software en koppelingen", text: "Routes, agenda’s, plattegronden en content worden centraal beheerd via narrowcasting software.", icon: "plug", tone: "amber" },
+  { title: "Installatie en beheer", text: "ClubDisplay verzorgt montage, inrichting, training, monitoring en support na oplevering.", icon: "shield", tone: "violet" },
+] as const;
+
+const linkCards = [
+  { title: "Narrowcasting software", text: "Centraal beheer voor routes, agenda’s, mededelingen en schermgroepen.", href: "/narrowcasting/", icon: "monitor", tone: "blue" },
+  { title: "Digital signage hardware", text: "Schermen, players, beugels en installatie voor elke omgeving.", href: "/displays/", icon: "plug", tone: "teal" },
+  { title: "Service en support", text: "Ondersteuning bij installatie, beheer, wijzigingen en storingen.", href: "/service-support/", icon: "users", tone: "amber" },
+] as const;
 ---
-<BaseLayout title="Wayfinding en Room Signage" description="Professionele wayfinding en room signage voor hotels, ziekenhuizen en kantoren. Bezoekers eenvoudig navigeren met digitale bewegwijzering." currentPath="/wayfinding-en-room-signage/">
-  <div class="container page-content">
-    <h1>Wayfinding en Room Signage</h1>
-    <p>Wayfinding en room signage helpen bezoekers en gasten om eenvoudig de weg te vinden in uw gebouw. Van ziekenhuizen en hotels tot kantoren en congrescentra: met digitale bewegwijzering reduceert u navigatieproblemen en verbetert u de bezoekerservaring. Geen verouderde plattegronden of onduidelijke bordjes meer, maar heldere, interactieve schermen die altijd actueel zijn.</p>
-    <p>Onze wayfinding-oplossingen combineren hoogwaardige displays met intuïtieve software. Bezoekers kunnen zoeken naar specifieke afdelingen, kamers of voorzieningen en krijgen direct de beste route te zien. U kunt eenvoudig plattegronden aanpassen, tijdelijke locaties toevoegen of verwijzingen wijzigen bij evenementen of verbouwingen.</p>
-    <h2>Room Signage voor vergaderruimtes</h2>
-    <p>Room signage toont in één oogopslag de status van een vergaderruimte: beschikbaar, bezet of gereserveerd. Koppel de schermen aan uw planningssysteem (zoals Outlook, Google Calendar of Exchange) en de informatie wordt automatisch bijgewerkt. Voeg daarnaast functionaliteit toe zoals het boeken van een ruimte direct bij het scherm of het tonen van de volgende afspraak.</p>
-    <h2>Integratie met uw infrastructuur</h2>
-    <p>Onze systemen integreren naadloos met bestaande netwerken en systemen. We leveren zowel losse schermen als complete pakketten inclusief beugels, bekabeling en installatie. Ontdek hoe digitale wayfinding en room signage uw organisatie professioneler en gastvrijer maken. Vraag een demonstratie aan.</p>
-  </div>
+
+<BaseLayout
+  title="Wayfinding en Room Signage voor hotels, kantoren en publieke locaties"
+  description="Digitale wayfinding en room signage voor hotels, kantoren, zorginstellingen, scholen en publieke gebouwen. Routes, zaalstatus, agenda-koppelingen, installatie en support."
+  canonical="https://clubdisplay.nl/wayfinding-en-room-signage/"
+  currentPath="/wayfinding-en-room-signage/"
+>
+  <section class="commercial-hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow">Wayfinding en room signage</span>
+        <h1>Laat bezoekers sneller de juiste route en ruimte vinden</h1>
+        <p>
+          ClubDisplay maakt digitale bewegwijzering en room signage voor hotels, kantoren, zorginstellingen, scholen, winkels en publieke locaties. Van interactieve plattegronden tot zaalstatus bij vergaderruimtes: informatie blijft actueel, duidelijk en professioneel. We kunnen koppelen met bestaande boekingssystemen of roombookingen en wayfinding volledig via onze eigen signage software laten werken.
+        </p>
+        <div class="hero-actions">
+          <a href="/plan-jouw-gesprek/" class="btn btn-lg">Plan een adviesgesprek</a>
+        </div>
+      </div>
+      <div class="hero-media wayfinding-slider" data-wayfinding-slider>
+        <div class="wayfinding-slider-track">
+          {heroSlides.map((slide, index) => (
+            <img
+              src={slide.src}
+              alt={slide.alt}
+              class:list={["wayfinding-slide", { active: index === 0 }]}
+              loading={index === 0 ? "eager" : "lazy"}
+              decoding="async"
+            />
+          ))}
+        </div>
+        <div class="wayfinding-slider-dots" aria-label="Wayfinding voorbeelden">
+          {heroSlides.map((_, index) => (
+            <button
+              type="button"
+              class:list={["wayfinding-slider-dot", { active: index === 0 }]}
+              aria-label={`Toon voorbeeld ${index + 1}`}
+              data-wayfinding-dot={index}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="proof-strip">
+    <div class="container proof-grid">
+      {proofHighlights.map((item) => (
+        <article class:list={["proof-card", `tone-${item.tone}`]}>
+          <span class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d={iconPaths[item.icon]} />
+            </svg>
+          </span>
+          <div>
+            <strong>{item.title}</strong>
+            <span>{item.text}</span>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="commercial-section">
+    <div class="container split-grid">
+      <div>
+        <span class="eyebrow">Digitale bewegwijzering</span>
+        <h2>Duidelijke routes zonder verouderde bordjes of losse plattegronden</h2>
+        <p>
+          Wayfinding helpt bezoekers om zelfstandig de weg te vinden. Dat maakt de ontvangst rustiger, voorkomt onduidelijkheid en zorgt voor een professionelere eerste indruk. Routes, bestemmingen, verdiepingen, tijdelijke omleidingen en evenementen kunnen centraal worden aangepast.
+        </p>
+        <p>
+          De oplossing kan eenvoudig informatief zijn, maar ook interactief: bezoekers zoeken een afdeling, kamer, winkel of voorziening en zien direct waar ze naartoe moeten.
+        </p>
+      </div>
+      <div class="feature-list">
+        {processCards.map((item) => (
+          <article class:list={["feature-card", `tone-${item.tone}`]}>
+            <span class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d={iconPaths[item.icon]} />
+              </svg>
+            </span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="commercial-section section-alt">
+    <div class="container cards-section">
+      <div class="section-head">
+        <span class="eyebrow">Toepassingen</span>
+        <h2>Voor locaties waar bezoekers snel richting nodig hebben</h2>
+        <p>
+          Dezelfde basis kan worden ingezet voor statische route-informatie, interactieve wayfinding, informatiezuilen, liftlobby’s, balies, vergaderruimtes en algemene schermcommunicatie.
+        </p>
+      </div>
+      <div class="cards-grid">
+        {applicationCards.map((item) => (
+          <article class:list={["application-card", `tone-${item.tone}`]}>
+            <span class="application-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d={iconPaths[item.icon]} />
+              </svg>
+            </span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="commercial-section">
+    <div class="container split-grid reverse-grid">
+      <figure class="image-card image-card-transparent">
+        <img src="/images/wayfinding/Okura_Wayfinding.png" alt="Wayfinding scherm met eventinformatie bij Hotel Okura Amsterdam" loading="lazy" decoding="async" />
+      </figure>
+      <div>
+        <span class="eyebrow">Room signage</span>
+        <h2>Vergaderruimtes en zalen in één oogopslag duidelijk</h2>
+        <p>
+          Room signage toont direct of een ruimte beschikbaar, bezet of gereserveerd is. Bij vergaderruimtes, congreszalen, behandelkamers of eventruimtes kan de informatie automatisch worden opgehaald uit uw agenda- of boekingssysteem. Heeft u nog geen centrale room booking omgeving, dan kunnen we dit ook inrichten via onze eigen signage software.
+        </p>
+        <ul class="check-list">
+          {roomFeatures.map((item) => <li>{item}</li>)}
+        </ul>
+        <div class="section-actions">
+          <a href="/contact/" class="btn btn-lg">Contact opnemen</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="commercial-section integration-band">
+    <div class="container integration-grid">
+      <div>
+        <span class="eyebrow">Software, hardware en beheer</span>
+        <h2>Een compleet systeem, niet alleen een scherm aan de muur</h2>
+        <p>
+          Goede wayfinding vraagt om meer dan een display. Denk aan leesafstand, helderheid, montagehoogte, stroom en netwerk, beheerrechten, huisstijl, contentstructuur en koppelingen met agenda’s, boekingssystemen of andere databronnen. ClubDisplay levert dit als totaaloplossing.
+        </p>
+      </div>
+      <div class="link-grid">
+        {linkCards.map((item) => (
+          <a class:list={["link-card", `tone-${item.tone}`]} href={item.href}>
+            <span class="link-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d={iconPaths[item.icon]} />
+              </svg>
+            </span>
+            <strong>{item.title}</strong>
+            <span>{item.text}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="commercial-cta">
+    <div class="container cta-inner">
+      <span class="eyebrow">Advies op locatie</span>
+      <h2>Wilt u weten welke wayfinding-oplossing past bij uw gebouw?</h2>
+      <p>
+        We denken mee over routing, schermlocaties, room signage, hardware, software en beheer. Zo ontstaat een oplossing die bezoekers echt helpt en intern makkelijk te onderhouden is.
+      </p>
+      <div class="hero-actions">
+        <a href="/plan-jouw-gesprek/" class="btn btn-lg">Plan een adviesgesprek</a>
+        <a href="/cases/" class="btn btn-lg btn-outline">Bekijk projecten</a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const slider = document.querySelector("[data-wayfinding-slider]");
+    const slides = Array.from(slider?.querySelectorAll(".wayfinding-slide") ?? []);
+    const dots = Array.from(slider?.querySelectorAll(".wayfinding-slider-dot") ?? []);
+    let activeSlide = 0;
+    let sliderTimer;
+
+    const showSlide = (index) => {
+      if (!slides.length) return;
+      activeSlide = (index + slides.length) % slides.length;
+      slides.forEach((slide, slideIndex) => slide.classList.toggle("active", slideIndex === activeSlide));
+      dots.forEach((dot, dotIndex) => dot.classList.toggle("active", dotIndex === activeSlide));
+    };
+
+    const startSlider = () => {
+      if (slides.length <= 1) return;
+      sliderTimer = window.setInterval(() => showSlide(activeSlide + 1), 4600);
+    };
+
+    dots.forEach((dot, index) => {
+      dot.addEventListener("click", () => {
+        if (sliderTimer) window.clearInterval(sliderTimer);
+        showSlide(index);
+        startSlider();
+      });
+    });
+
+    startSlider();
+  </script>
+
+  <style>
+    .commercial-hero {
+      padding: 5.5rem 0 4.5rem;
+      background: linear-gradient(135deg, #ffffff 0%, #eef6ff 100%);
+      overflow: hidden;
+    }
+
+    .hero-grid,
+    .split-grid,
+    .integration-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(360px, 1.05fr);
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .reverse-grid {
+      grid-template-columns: minmax(360px, 1fr) minmax(0, 1fr);
+    }
+
+    .hero-copy h1,
+    .commercial-section h2,
+    .commercial-cta h2 {
+      color: #0f172a;
+      letter-spacing: 0;
+      line-height: 1.05;
+    }
+
+    .hero-copy h1 {
+      font-size: clamp(2.35rem, 4.8vw, 4.65rem);
+      margin: 0 0 1.25rem;
+    }
+
+    .hero-copy p,
+    .commercial-section p,
+    .commercial-cta p {
+      color: #475569;
+      font-size: 1.08rem;
+      line-height: 1.75;
+    }
+
+    .hero-copy p {
+      max-width: 660px;
+    }
+
+    .eyebrow {
+      color: var(--primary);
+      display: inline-block;
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+    }
+
+    .hero-actions,
+    .section-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .hero-media,
+    .image-card {
+      background: #0f172a;
+      border-radius: 22px;
+      box-shadow: 0 28px 70px rgba(15, 23, 42, 0.18);
+      margin: 0;
+      min-height: 430px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero-media img,
+    .image-card img {
+      border-radius: 0;
+      height: 100%;
+      min-height: 430px;
+      object-fit: cover;
+      width: 100%;
+    }
+
+    .wayfinding-slider-track {
+      height: 100%;
+      inset: 0;
+      position: absolute;
+      width: 100%;
+    }
+
+    .wayfinding-slide {
+      inset: 0;
+      opacity: 0;
+      position: absolute;
+      transition: opacity 900ms ease, transform 4200ms ease;
+      transform: scale(1.03);
+    }
+
+    .wayfinding-slide.active {
+      opacity: 1;
+      transform: scale(1);
+      z-index: 1;
+    }
+
+    .wayfinding-slider-dots {
+      align-items: center;
+      bottom: 1.15rem;
+      display: flex;
+      gap: 0.5rem;
+      justify-content: center;
+      left: 0;
+      position: absolute;
+      right: 0;
+      z-index: 2;
+    }
+
+    .wayfinding-slider-dot {
+      background: rgba(255, 255, 255, 0.62);
+      border: 0;
+      border-radius: 999px;
+      cursor: pointer;
+      height: 9px;
+      padding: 0;
+      transition: background 180ms ease, width 180ms ease;
+      width: 9px;
+    }
+
+    .wayfinding-slider-dot.active {
+      background: #ffffff;
+      width: 28px;
+    }
+
+    .image-card-transparent {
+      align-items: center;
+      background: transparent;
+      box-shadow: none;
+      display: flex;
+      justify-content: center;
+      overflow: visible;
+    }
+
+    .image-card-transparent img {
+      height: auto;
+      max-height: 560px;
+      max-width: 86%;
+      min-height: 0;
+      object-fit: contain;
+      width: auto;
+    }
+
+    .proof-strip {
+      background: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+      border-top: 1px solid #e2e8f0;
+      padding: 1.2rem 0;
+    }
+
+    .proof-grid {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .proof-card,
+    .feature-card,
+    .application-card,
+    .link-card {
+      background: #ffffff;
+      border: 1px solid #dbe5f2;
+      border-radius: 16px;
+      transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+    }
+
+    .proof-card {
+      align-items: center;
+      display: flex;
+      gap: 0.9rem;
+      padding: 1rem;
+    }
+
+    .proof-card strong,
+    .proof-card span,
+    .link-card strong,
+    .link-card span {
+      display: block;
+    }
+
+    .proof-card strong {
+      color: #0f172a;
+      font-size: 0.98rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .proof-card div span,
+    .link-card span {
+      color: #64748b;
+      line-height: 1.55;
+    }
+
+    .card-icon,
+    .feature-icon,
+    .application-icon,
+    .link-icon {
+      align-items: center;
+      border-radius: 14px;
+      display: inline-flex;
+      flex: 0 0 auto;
+      height: 44px;
+      justify-content: center;
+      width: 44px;
+    }
+
+    svg {
+      height: 23px;
+      width: 23px;
+    }
+
+    svg path {
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.8;
+    }
+
+    .commercial-section {
+      padding: 5.5rem 0;
+    }
+
+    .section-alt {
+      background: #f8fbff;
+    }
+
+    .commercial-section h2,
+    .commercial-cta h2 {
+      font-size: clamp(2rem, 3.5vw, 3.35rem);
+      margin: 0 0 1.2rem;
+    }
+
+    .feature-list {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .feature-card,
+    .application-card {
+      padding: 1.35rem;
+    }
+
+    .feature-card:hover,
+    .application-card:hover,
+    .link-card:hover {
+      border-color: rgba(26, 86, 219, 0.28);
+      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+      transform: translateY(-4px);
+    }
+
+    .feature-card h3,
+    .application-card h3 {
+      color: #0f172a;
+      font-size: 1.05rem;
+      margin: 1rem 0 0.45rem;
+    }
+
+    .feature-card p,
+    .application-card p {
+      font-size: 0.98rem;
+      margin: 0;
+    }
+
+    .cards-section {
+      display: grid;
+      gap: 2.25rem;
+    }
+
+    .section-head {
+      max-width: 780px;
+    }
+
+    .cards-grid {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .check-list {
+      display: grid;
+      gap: 1rem;
+      list-style: none;
+      margin: 1.5rem 0 0;
+      padding: 0;
+    }
+
+    .check-list li {
+      color: #475569;
+      line-height: 1.65;
+      padding-left: 2rem;
+      position: relative;
+    }
+
+    .check-list li::before {
+      background: var(--primary);
+      border: 5px solid var(--primary-light);
+      border-radius: 50%;
+      content: "";
+      height: 16px;
+      left: 0;
+      position: absolute;
+      top: 0.35rem;
+      width: 16px;
+    }
+
+    .integration-band {
+      background: linear-gradient(135deg, #eef6ff 0%, #ffffff 100%);
+    }
+
+    .link-grid {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .link-card {
+      display: grid;
+      gap: 0.45rem;
+      padding: 1.25rem;
+      text-decoration: none;
+    }
+
+    .link-card strong {
+      color: #0f172a;
+      font-size: 1.05rem;
+    }
+
+    .commercial-cta {
+      background: #0f172a;
+      color: #ffffff;
+      padding: 5rem 0;
+    }
+
+    .cta-inner {
+      max-width: 880px;
+      text-align: left;
+    }
+
+    .commercial-cta h2,
+    .commercial-cta p {
+      color: #ffffff;
+    }
+
+    .commercial-cta p {
+      color: #cbd5e1;
+      max-width: 760px;
+    }
+
+    .tone-blue .card-icon,
+    .tone-blue .feature-icon,
+    .tone-blue .application-icon,
+    .tone-blue .link-icon {
+      background: var(--primary-light);
+      color: var(--brand-accent);
+    }
+
+    .tone-teal .card-icon,
+    .tone-teal .feature-icon,
+    .tone-teal .application-icon,
+    .tone-teal .link-icon {
+      background: #ccfbf1;
+      color: #0f766e;
+    }
+
+    .tone-amber .card-icon,
+    .tone-amber .feature-icon,
+    .tone-amber .application-icon,
+    .tone-amber .link-icon {
+      background: #fef3c7;
+      color: #b45309;
+    }
+
+    .tone-violet .card-icon,
+    .tone-violet .feature-icon,
+    .tone-violet .application-icon,
+    .tone-violet .link-icon {
+      background: #ede9fe;
+      color: #6d28d9;
+    }
+
+    @media (max-width: 1000px) {
+      .hero-grid,
+      .split-grid,
+      .reverse-grid,
+      .integration-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+
+      .proof-grid,
+      .cards-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 700px) {
+      .commercial-hero,
+      .commercial-section,
+      .commercial-cta {
+        padding: 3.5rem 0;
+      }
+
+      .proof-grid,
+      .feature-list,
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-media,
+      .hero-media img,
+      .image-card,
+      .image-card img {
+        min-height: 300px;
+      }
+
+      .hero-actions .btn,
+      .section-actions .btn {
+        justify-content: center;
+        width: 100%;
+      }
+    }
+  </style>
 </BaseLayout>

@@ -1,0 +1,389 @@
+---
+const cases = [
+  {
+    title: "The Grass Company Tilburg",
+    category: "Digitale prijslijsten",
+    image: "/images/TGC02-400x284.jpg",
+    href: "/project/digitale-prijslijsten-voor-the-grass-company-tilburg/",
+  },
+  {
+    title: "Hotel Fritz! Amsterdam",
+    category: "Hospitality IPTV",
+    image: "/images/cases/fritz01.jpg",
+    href: "/project/hotel-fritz-in-amsterdam/",
+  },
+  {
+    title: "Audiovisuele oplossing voor RAV Hollands Midden",
+    category: "Hospitality IPTV",
+    image: "/images/cases/rav.jpg",
+    href: "/project/audiovisuele-oplossing-voor-rav-hollands-midden/",
+  },
+  {
+    title: "Touch Display Hotel",
+    category: "Touch infopanel",
+    image: "/images/cases/interactieve_touchscreen04.jpg",
+    href: "/project/touch-display-hotel/",
+  },
+  {
+    title: "Andaz Hotel Amsterdam",
+    category: "Room signage",
+    image: "/images/cases/andaz02.jpg",
+    href: "/project/room-signage-project-afgerond-bij-andaz-hotel-amsterdam/",
+  },
+  {
+    title: "Design Hotel Modez Arnhem",
+    category: "Hospitality TV",
+    image: "/images/cases/modez01.jpg",
+    href: "/project/vernieuwing-televisiesysteem-bij-design-hotel-modez-arnhem/",
+  },
+  {
+    title: "Zoomers Strandhuisjes Castricum",
+    category: "Hotel TV & Chromecast",
+    image: "/images/cases/zoomers01.jpg",
+    href: "/project/clubdisplay-moderniseert-zoomers-strandhuisjes-met-lg-hospitality-tvs-en-chromecast/",
+  },
+  {
+    title: "Cannabiswinkel Piramide Bussum",
+    category: "Narrowcasting",
+    image: "/images/cases/piramide01.jpg",
+    href: "/project/cannabiswinkel-piramide-bussum/",
+  },
+  {
+    title: "Htel Amstelveen",
+    category: "LG Pro:Centric",
+    image: "/images/cases/htel001.jpg",
+    href: "/project/innovatieve-gastvrijheid-htel-amstelveen-cobraspen-groep/",
+  },
+  {
+    title: "BlendIn Hotel Bloemendaal",
+    category: "Hotel TV & Chromecast",
+    image: "/images/cases/blendin02.jpg",
+    href: "/project/een-naadloze-integratie-van-technologie-bij-blendin-hotel-in-bloemendaal/",
+  },
+  {
+    title: "Roompot Grandvoir",
+    category: "LG Pro:Centric",
+    image: "/images/cases/grandvoir00.jpg",
+    href: "/project/clubdisplay-installeert-lg-procentric-cloud-bij-roompot-grandvoir/",
+  },
+  {
+    title: "VVV Alkmaar",
+    category: "Digitaal stoepbord",
+    image: "/images/cases/stoepbord04.jpg",
+    href: "/project/revolutionair-digitaal-stoepbord-nu-ook-bij-vvv-alkmaar/",
+  },
+  {
+    title: "Bernardus Lodge",
+    category: "OtrumCast",
+    image: "/images/cases/bernardus_lodge00.jpg",
+    href: "/project/chromecast-oplossing-voor-bernardus-lodge/",
+  },
+  {
+    title: "Onderwijs met narrowcasting",
+    category: "Interne communicatie",
+    image: "/images/cases/emmaschool02.jpg",
+    href: "/project/narrowcasting-in-het-onderwijs-zorgt-voor-meer-betrokkenheid/",
+  },
+  {
+    title: "Hotel Wren Urban Nest Dublin",
+    category: "Hospitality IPTV",
+    image: "/images/wren.jpeg",
+    href: "/project/hotel-wren-urban-nest-dublin-ierland/",
+  },
+  {
+    title: "SpecialSpex bestelzuil",
+    category: "Instore sales kiosk",
+    image: "/images/cases/specialspexkiosk01.jpg",
+    href: "/project/zelfservice-bestelzuil-specialspex/",
+  },
+  {
+    title: "Lensen Zaltbommel",
+    category: "Digital signage",
+    image: "/images/cases/pwa04.jpg",
+    href: "/project/lensen/",
+  },
+  {
+    title: "Voormalig weeshuis Gouda",
+    category: "Hospitality TV",
+    image: "/images/cases/14large.jpg",
+    href: "/project/moderne-hospitality-tvs-in-voormalig-weeshuis-gouda/",
+  },
+  {
+    title: "Self-storage Katwijk",
+    category: "Outdoor display",
+    image: "/images/self-storage-430x400-1-400x284.jpeg",
+    href: "/project/eerste-geautomatiseerde-container-self-storage-in-katwijk/",
+  },
+  {
+    title: "Beroepscampus Middelharnis",
+    category: "Narrowcasting",
+    image: "/images/cases/beroepscampus-middelharnis05.jpg",
+    href: "/project/narrowcasting-oplossing-verzorgd-voor-beroepscampus-in-middelharnis/",
+  },
+  {
+    title: "De Drie Linden Domburg",
+    category: "Bezoekerstelsysteem",
+    image: "/images/cases/vanderlinde.jpg",
+    href: "/project/bezoekerstelsysteem-voor-de-drie-linden-domburg/",
+  },
+  {
+    title: "Coffeeshop Sky Breda",
+    category: "Digitale menuborden",
+    image: "/images/cases/cs-sky05.jpg",
+    href: "/project/interactieve-menuborden-voor-coffeeshop-sky-breda/",
+  },
+  {
+    title: "In de Brouwerij Leeuwarden",
+    category: "Hospitality IPTV",
+    image: "/images/cases/brouwerij4.jpg",
+    href: "/project/hospitality-tv-en-ip-tv-bij-in-de-brouwerij-leeuwarden/",
+  },
+  {
+    title: "Van Til Interieur",
+    category: "Digitale posters",
+    image: "/images/cases/vantil02.jpg",
+    href: "/project/android-vrijstaande-digitale-posters-voor-van-til-interieur/",
+  },
+  {
+    title: "The Real Estate Company",
+    category: "Etalagedisplays",
+    image: "/images/cases/trec02.jpg",
+    href: "/project/the-real-estate-company/",
+  },
+  {
+    title: "Coffeeshop Roots Amersfoort",
+    category: "Digitale menuborden",
+    image: "/images/cases/csroots2.jpg",
+    href: "/project/digitale-menuborden-en-signage-voor-coffeeshop-roots-amersfoort/",
+  },
+  {
+    title: "Carteam narrowcasting netwerk",
+    category: "Digital signage",
+    image: "/images/cases/carteam4.jpg",
+    href: "/project/carteam-vervangt-papieren-posters-door-digital-signage/",
+  },
+  {
+    title: "Urban Design Hotel 171 Rotterdam",
+    category: "Hospitality TV",
+    image: "/images/cases/img_1654.jpg",
+    href: "/project/171-urban-design-hotel-in-rotterdam/",
+  },
+  {
+    title: "Grand Cafe Cremers",
+    category: "Digitale menuborden",
+    image: "/images/cases/creemers.jpg",
+    href: "/project/grand-cafe-cremers/",
+  },
+  {
+    title: "Coffeeshop Horizon Amersfoort",
+    category: "Interactief menubord",
+    image: "/images/cases/horizon04.jpg",
+    href: "/project/zelf-prijzen-en-producten-eenvoudig-en-snel-aanpassen/",
+  },
+  {
+    title: "Coffeeshop de Huyskamer Rotterdam",
+    category: "Digitale menuborden",
+    image: "/images/cases/huyskamer01.jpg",
+    href: "/project/digitale-menuborden-coffeeshop-de-huyskamer-rotterdam/",
+  },
+  {
+    title: "Coffeeshop Stingray",
+    category: "Digitaal menubord",
+    image: "/images/cases/stingray02.jpg",
+    href: "/project/digitaal-menubord-voor-coffeeshop-stingray/",
+  },
+  {
+    title: "Coffeeshop Puck Rotterdam",
+    category: "Interactieve menuborden",
+    image: "/images/cases/puck01.jpg",
+    href: "/project/interactieve-menuborden-voor-coffeeshop-puck-rotterdam/",
+  },
+  {
+    title: "KARWEI Berkel en Rodenrijs",
+    category: "Interne communicatie",
+    image: "/images/cases/karwei.jpg",
+    href: "/project/interne-communicatie-karwei-bouwmarkt-berkel-en-rodenrijs/",
+  },
+  {
+    title: "Coffeeshop Le Palais Leiden",
+    category: "Digitale menuborden",
+    image: "/images/cases/lepalais3-scaled.jpg",
+    href: "/project/interactieve-menuborden-voor-coffeeshop-le-palais-leiden/",
+  },
+  {
+    title: "Hotel Finn Almere",
+    category: "LG Pro:Centric",
+    image: "/images/cases/adamsmith1.jpg",
+    href: "/project/lg-procentric-tvs-en-hd-iptv-voor-hotel-finn-almere/",
+  },
+  {
+    title: "Out of Time",
+    category: "Digital signage",
+    image: "/images/cases/outoftime1.jpg",
+    href: "/project/automatische-concepten/",
+  },
+  {
+    title: "The Red Cow Moran Hotel",
+    category: "Chromecast",
+    image: "/images/cases/redcowmoran03.jpg",
+    href: "/project/chromecast-oplossing-voor-the-red-cow-moran-hotel/",
+  },
+  {
+    title: "De Rooi Pannen",
+    category: "Hospitality TV",
+    image: "/images/cases/rooipannen01.jpg",
+    href: "/project/hospitality-tvs-voor-een-nieuw-schoolhotel-van-de-rooi-pannen/",
+  },
+  {
+    title: "WTC Utrecht",
+    category: "Narrowcasting",
+    image: "/images/cases/wtc-hal.jpg",
+    href: "/project/wtc-utrecht/",
+  },
+  {
+    title: "Henny Rits Katwijk",
+    category: "Wachtverzachter",
+    image: "/images/cases/henny01.jpg",
+    href: "/project/wachtverzachter-voor-henny-rits-katwijk/",
+  },
+  {
+    title: "Mr. Lewis Rotterdam",
+    category: "Totale hotelervaring",
+    image: "/images/cases/mrlewis01.jpg",
+    href: "/project/totale-hotelervaring-voor-de-hotelgast-bij-mr-lewis-rotterdam/",
+  },
+  {
+    title: "Westerschelde Ferry",
+    category: "Informatieschermen",
+    image: "/images/cases/westerscheldeferry02.jpg",
+    href: "/project/informatieschermen-op-de-westerschelde-ferry/",
+  },
+  {
+    title: "Digitaal Canvas",
+    category: "Digital signage",
+    image: "/images/cases/digitaalcanvas1.jpg",
+    href: "/project/digitaal-canvas/",
+  },
+  {
+    title: "Lift and Learn Display Kiosk",
+    category: "Lift & learn",
+    image: "/images/liftlearn-400x284.jpg",
+    href: "/project/lift-and-learn-display-kiosk/",
+  },
+  {
+    title: "Coffeeshop Kronkel Nijmegen",
+    category: "Touch infopanel",
+    image: "/images/kronkel_infopanel-400x284.jpg",
+    href: "/project/touch-infopanel-coffeeshop-kronkel-nijmegen/",
+  },
+  {
+    title: "Hotel Okura Amsterdam",
+    category: "Wayfinding & room signage",
+    image: "/images/cases/okura_lobby.jpg",
+    href: "/project/way-finding-en-room-signage-hotel-okura-amsterdam/",
+  },
+  {
+    title: "Van der Linde Texel",
+    category: "Wachtverzachter",
+    image: "/images/cases/texel.jpg",
+    href: "/project/wachtverzachter-linde-bungalowverhuur-texel/",
+  },
+  {
+    title: "Voorhoutse Friet",
+    category: "Digitale menuborden",
+    image: "/images/cases/voorhoutsefriet1.jpg",
+    href: "/project/digitale-menuborden-voorhoutse-friet/",
+  },
+  {
+    title: "Golfbaan Zwolle",
+    category: "Digital signage",
+    image: "/images/cases/golfbaan_zwolle1.jpg",
+    href: "/project/golfbaan-zwolle/",
+  },
+  {
+    title: "Vishandel de Klok",
+    category: "Narrowcasting",
+    image: "/images/cases/klok.jpg",
+    href: "/project/wachtverzachter-vishandel-klok/",
+  },
+  {
+    title: "Dobber Outdoor Texel",
+    category: "Narrowcasting",
+    image: "/images/cases/dobber_shopshop.jpg",
+    href: "/project/narrowcasting-dobber-outdoor-texel/",
+  },
+];
+---
+
+<section style="padding:104px 0;background:#fff;overflow:hidden;">
+  <div style="width:min(calc(100% - 120px),1180px);margin:0 auto;">
+    <div style="display:flex;justify-content:flex-end;gap:12px;margin-bottom:28px;">
+      <button type="button" data-case-prev aria-label="Vorige cases" style="width:48px;height:48px;border-radius:999px;border:2px solid var(--primary);background:#fff;color:var(--primary);font-size:28px;line-height:1;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;">
+        ‹
+      </button>
+      <button type="button" data-case-next aria-label="Volgende cases" style="width:48px;height:48px;border-radius:999px;border:2px solid var(--primary);background:#fff;color:var(--primary);font-size:28px;line-height:1;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;">
+        ›
+      </button>
+    </div>
+
+    <div style="display:grid;grid-template-columns:300px minmax(0,1fr);gap:72px;align-items:center;">
+      <div>
+        <h2 style="margin:0;color:#16113c;font-size:clamp(32px,3vw,46px);line-height:1.05;letter-spacing:-.035em;font-weight:800;">
+          Ontdek onze projecten
+        </h2>
+        <p style="margin:20px 0 0;color:#2f2a55;font-size:16px;line-height:1.75;">
+          Laat u inspireren door digital signage projecten voor hotels, horeca, retail en coffeeshops.
+        </p>
+        <a href="/cases/" style="display:inline-flex;align-items:center;justify-content:center;margin-top:28px;min-height:48px;padding:0 24px;border-radius:999px;background:var(--primary);color:#fff;font-size:15px;font-weight:800;text-decoration:none;">
+          Bekijk alle projecten
+        </a>
+      </div>
+
+      <div data-case-rail style="display:grid;grid-auto-flow:column;grid-auto-columns:minmax(260px,320px);gap:28px;overflow-x:auto;padding:8px 34px 14px 0;scroll-behavior:smooth;scrollbar-width:none;background:transparent;">
+        {cases.map((item) => (
+          <a href={item.href} class="case-card-motion" style="position:relative;display:block;min-height:380px;overflow:hidden;border-radius:10px;background:transparent;box-shadow:0 18px 40px rgba(15,23,42,.16);color:#fff;text-decoration:none;transition:transform .28s ease, box-shadow .28s ease;">
+            <img src={item.image} alt={item.title} loading="lazy" style="display:block;width:100%;height:380px;object-fit:cover;border-radius:0;transition:transform .38s ease;" />
+            <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,23,42,0) 35%,rgba(15,23,42,.88) 100%);"></div>
+            <div style="position:absolute;left:18px;right:18px;bottom:18px;">
+              <div style="margin-bottom:7px;color:rgba(255,255,255,.78);font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;">
+                {item.category}
+              </div>
+              <h3 style="margin:0;color:#fff;font-size:23px;line-height:1.12;letter-spacing:-.025em;font-weight:800;">
+                {item.title}
+              </h3>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const rail = document.querySelector('[data-case-rail]');
+  const prev = document.querySelector('[data-case-prev]');
+  const next = document.querySelector('[data-case-next]');
+
+  prev?.addEventListener('click', () => {
+    rail?.scrollBy({ left: -360, behavior: 'smooth' });
+  });
+
+  next?.addEventListener('click', () => {
+    rail?.scrollBy({ left: 360, behavior: 'smooth' });
+  });
+</script>
+
+<style>
+  .case-card-motion:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 26px 56px rgba(15,23,42,.22) !important;
+  }
+
+  .case-card-motion:hover img {
+    transform: scale(1.06);
+  }
+
+  [data-case-rail]::-webkit-scrollbar {
+    display: none;
+  }
+</style>

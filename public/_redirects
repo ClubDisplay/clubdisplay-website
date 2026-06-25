@@ -1,44 +1,59 @@
-# SEO Redirects - Oude WordPress URLs naar nieuwe Astro URLs
-# Alle oude blog posts (root-level) redirecten naar /nieuws/
-/advertentie-en-informatiezuil-golfbaan-bentwoud/ /nieuws/ 301
-/betrek-winkelpersoneel-doet/ /nieuws/ 301
-/waarom-geen-tv-gebruiken-voor-narrowcasting/ /nieuws/ 301
-/golfclub-zwolle-start-clubdisplay-uniek-concept/ /nieuws/ 301
-/levering-digital-signage-public-displays/ /nieuws/ 301
-/ideal-qr-code/ /nieuws/ 301
-/netwerkvloer-hotel-valk-zwolle/ /nieuws/ 301
-/trouwpaviljoen-just-marry-op-huishoudbeurs/ /nieuws/ 301
-/wij-zijn-verhuisd/ /nieuws/ 301
-/genomineerd-voor-de-sterkste-schakel/ /nieuws/ 301
-/de-winkel-van-de-toekomst/ /nieuws/ 301
-/waar-is-ibeacon-gebleven/ /nieuws/ 301
-/beleving-creeren-is-verkopen/ /nieuws/ 301
-/narrowcasting-monitor-vs-televisiescherm/ /nieuws/ 301
-/wachttijdverzachting/ /nieuws/ 301
-/infocasting/ /nieuws/ 301
-/toepassingen-van-narrowcasting-1/ /nieuws/ 301
-/toepassingen-narrowcasting-4-branding-en-storytelling/ /nieuws/ 301
-/otrum-certificeert-professionele-displays-nec/ /nieuws/ 301
-/otrum-interactive-tv-solutions-are-now-fully-chromecast-enabled/ /nieuws/ 301
-/digital-signage-mobiel/ /nieuws/ 301
-/de-top-5-redenen-voor-bedrijven-om-te-investeren-in-digital-signage/ /nieuws/ 301
-/vertrektijden/ /nieuws/ 301
-/narrowcasting-etalageschermen/ /nieuws/ 301
-/hoe-het-internet-of-things-hotels-weer-van-deze-tijd-maakt/ /nieuws/ 301
-/3-easy-steps-to-increase-hotel-bookings/ /nieuws/ 301
-/hotel-tv-oplossingen/ /nieuws/ 301
-/is-the-hotel-front-desk-really-necessary/ /nieuws/ 301
-/hotel-guest-access-how-does-openkeys-mobile-key-work/ /nieuws/ 301
-/why-keyless-guest-entry-is-a-must-have-for-your-hotel/ /nieuws/ 301
-/the-hotel-owners-guide-to-cutting-operating-costs/ /nieuws/ 301
-/thuis-in-je-hotelkamer-met-lg-otrumcast-oplossing-voor-streaming/ /nieuws/ 301
-/hand-sanitizer-display/ /nieuws/ 301
-/virtual-remote-control-gelanceerd/ /nieuws/ 301
-/otrumcast-een-groot-succes-voor-hotel-171-rotterdam/ /nieuws/ 301
-/de-zeven-voordelen-van-airtame-voor-scholen/ /nieuws/ 301
-/hotel-tv-een-veilig-antwoord-op-de-vraag-naar-slimme-televisie/ /nieuws/ 301
-/de-winkels-mogen-weer-open-vanaf-volgende-week/ /nieuws/ 301
-/lg-en-netflix-sluiten-internationaal-partnerschap-voor-uitgebreide-contentservice-op-hotel-tvs/ /nieuws/ 301
-/meetings-met-gemak-dankzij-de-lg-onequick-share/ /nieuws/ 301
-/qr-codes-waarom-en-hoe-te-gebruiken-op-uw-iptv-interactieve-systeem/ /nieuws/ 301
-/een-volledig-digitale-beleving-voor-gasten-van-hotel-mr-lewis-in-rotterdam/ /nieuws/ 301
+# SEO Redirects - oude WordPress/blog-URL's naar de best passende nieuwe Astro pagina's
+# Belangrijk voor Google: oude URL's met waarde krijgen een 301 naar relevante content.
+
+# Verwijderde/gewijzigde hoofdpagina's
+/nieuws/ / 301
+/nieuws/* / 301
+/hospitality-tv/ /zakelijke-iptv-voor-hotels-en-bedrijven/ 301
+/interne-communicatie/ /narrowcasting-interne-communicatie/ 301
+/wayfinding-room-signage/ /wayfinding-en-room-signage/ 301
+/lg-procentric/ /zakelijke-iptv-voor-hotels-en-bedrijven/ 301
+/touch-displays-en-kiosken/ /display-kiosk/ 301
+/touch-display-kiosken/ /display-kiosk/ 301
+/high-brightness-displays/ /etalageschermen/ 301
+
+# Oude blogartikelen en losse landingspagina's naar relevante nieuwe pagina's
+/betrek-winkelpersoneel-doet/ /narrowcasting-interne-communicatie/ 301
+/waarom-geen-tv-gebruiken-voor-narrowcasting/ /displays/ 301
+/levering-digital-signage-public-displays/ /displays/ 301
+/ideal-qr-code/ /digital-signage/ 301
+/netwerkvloer-hotel-valk-zwolle/ /zakelijke-iptv-voor-hotels-en-bedrijven/ 301
+/wij-zijn-verhuisd/ /contact/ 301
+/genomineerd-voor-de-sterkste-schakel/ /over-ons/ 301
+/de-winkel-van-de-toekomst/ /retail/ 301
+/waar-is-ibeacon-gebleven/ /digital-signage/ 301
+/beleving-creeren-is-verkopen/ /digital-signage/ 301
+/narrowcasting-monitor-vs-televisiescherm/ /displays/ 301
+/wachttijdverzachting/ /digital-signage/ 301
+/infocasting/ /narrowcasting/ 301
+/toepassingen-van-narrowcasting-1/ /narrowcasting/ 301
+/toepassingen-narrowcasting-4-branding-en-storytelling/ /narrowcasting/ 301
+/otrum-certificeert-professionele-displays-nec/ /zakelijke-iptv-voor-hotels-en-bedrijven/ 301
+/otrum-interactive-tv-solutions-are-now-fully-chromecast-enabled/ /zakelijke-iptv-voor-hotels-en-bedrijven/ 301
+/digital-signage-mobiel/ /digital-signage/ 301
+/de-top-5-redenen-voor-bedrijven-om-te-investeren-in-digital-signage/ /digital-signage/ 301
+/vertrektijden/ /wayfinding-en-room-signage/ 301
+/narrowcasting-etalageschermen/ /etalageschermen/ 301
+/hoe-het-internet-of-things-hotels-weer-van-deze-tijd-maakt/ /interactieve-televisie/ 301
+/3-easy-steps-to-increase-hotel-bookings/ /zakelijke-iptv-voor-hotels-en-bedrijven/ 301
+/hotel-tv-oplossingen/ /zakelijke-iptv-voor-hotels-en-bedrijven/ 301
+/is-the-hotel-front-desk-really-necessary/ /display-kiosk/ 301
+/hotel-guest-access-how-does-openkeys-mobile-key-work/ /interactieve-televisie/ 301
+/why-keyless-guest-entry-is-a-must-have-for-your-hotel/ /interactieve-televisie/ 301
+/the-hotel-owners-guide-to-cutting-operating-costs/ /zakelijke-iptv-voor-hotels-en-bedrijven/ 301
+/hand-sanitizer-display/ /displays/ 301
+/virtual-remote-control-gelanceerd/ /interactieve-televisie/ 301
+/de-zeven-voordelen-van-airtame-voor-scholen/ /draadloos-presenteren/ 301
+/hotel-tv-een-veilig-antwoord-op-de-vraag-naar-slimme-televisie/ /interactieve-televisie/ 301
+/de-winkels-mogen-weer-open-vanaf-volgende-week/ /retail/ 301
+/lg-en-netflix-sluiten-internationaal-partnerschap-voor-uitgebreide-contentservice-op-hotel-tvs/ /zakelijke-iptv-voor-hotels-en-bedrijven/ 301
+/meetings-met-gemak-dankzij-de-lg-onequick-share/ /draadloos-presenteren/ 301
+/qr-codes-waarom-en-hoe-te-gebruiken-op-uw-iptv-interactieve-systeem/ /interactieve-televisie/ 301
+
+# Oude URL's die nu duidelijke casepagina's hebben
+/advertentie-en-informatiezuil-golfbaan-bentwoud/ /project/advertentie-en-informatiezuil-golfbaan-bentwoud/ 301
+/golfclub-zwolle-start-clubdisplay-uniek-concept/ /project/golfbaan-zwolle/ 301
+/trouwpaviljoen-just-marry-op-huishoudbeurs/ /project/trouwpaviljoen-just-marry-op-de-huishoudbeurs/ 301
+/thuis-in-je-hotelkamer-met-lg-otrumcast-oplossing-voor-streaming/ /project/streamen-en-casten-via-de-chromecast-oplossing-op-de-hotelkamer/ 301
+/otrumcast-een-groot-succes-voor-hotel-171-rotterdam/ /project/171-urban-design-hotel-in-rotterdam/ 301
+/een-volledig-digitale-beleving-voor-gasten-van-hotel-mr-lewis-in-rotterdam/ /project/totale-hotelervaring-voor-de-hotelgast-bij-mr-lewis-rotterdam/ 301

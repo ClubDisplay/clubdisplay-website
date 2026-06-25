@@ -1,14 +1,744 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+const iconPaths = {
+  sun: "M12 4V2 M12 22v-2 M4.93 4.93 3.52 3.52 M19.07 19.07l-1.41-1.41 M4 12H2 M22 12h-2 M4.93 19.07l1.41-1.41 M19.07 4.93l-1.41 1.41 M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z",
+  display: "M3 5h18v11H3z M8 21h8 M12 16v5",
+  clock: "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z M12 7v5l3 2",
+  temp: "M14 14.76V5a2 2 0 1 0-4 0v9.76a4 4 0 1 0 4 0z",
+  sensor: "M4 12a8 8 0 0 1 16 0 M7 12a5 5 0 0 1 10 0 M10 12a2 2 0 0 1 4 0 M12 16h.1",
+  content: "M4 5h16 M4 12h10 M4 19h16 M16 10l4 2-4 2z",
+  software: "M5 4h14a2 2 0 0 1 2 2v10H3V6a2 2 0 0 1 2-2z M8 20h8 M12 16v4",
+  install: "M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.1-3.1a6 6 0 0 1-7.8 7.8L7.7 19.3a2 2 0 1 1-3-3L10 11a6 6 0 0 1 7.8-7.8z",
+  check: "M20 6 9 17l-5-5",
+  arrow: "M5 12h14 M13 6l6 6-6 6",
+} as const;
+
+const heroSlides = [
+  { src: "/images/etalageschermen/outdoor-cheers-2.jpg", alt: "High-brightness buitenscherm bij Cheers overdag" },
+  { src: "/images/etalageschermen/outdoor-cheers.jpg", alt: "High-brightness buitenscherm bij Cheers in de avond" },
+  { src: "/images/etalageschermen/henny-rits-highbrightness.jpg", alt: "High-brightness etalagescherm bij Henny's Rits" },
+  { src: "/images/etalageschermen/highbrightness-leiden.jpg", alt: "Etalagescherm bij Oude Rijn Tandartsen in Leiden" },
+  { src: "/images/etalageschermen/geurts-makelaars.jpg", alt: "Etalagescherm bij Geurts Makelaars" },
+  { src: "/images/etalageschermen/etalagescherm-alphen.jpg", alt: "Staand etalagescherm in Alphen" },
+  { src: "/images/etalageschermen/etalagescherm-achterzijde.jpg", alt: "Achterzijde van een etalagescherm op standaard" },
+  { src: "/images/etalageschermen/etalagescherm-wit-achterzijde.jpg", alt: "Witte achterzijde van een etalagescherm in een lichte ruimte" },
+  { src: "/images/etalageschermen/etalagedisplay-anders.jpeg", alt: "Etalagedisplay verwerkt in een winkelpresentatie" },
+] as const;
+
+const slideDuration = heroSlides.length * 5;
+
+const proofHighlights = [
+  { title: "2.500 tot 4.000 cd/m2", text: "Zichtbaar achter glas en bij daglicht", icon: "sun", tone: "amber" },
+  { title: "24/7 inzetbaar", text: "Gemaakt voor professioneel gebruik", icon: "clock", tone: "blue" },
+  { title: "Sensor & koeling", text: "Helderheid past mee met de omgeving", icon: "sensor", tone: "teal" },
+  { title: "Content verzorgd", text: "Templates, campagnes en beheer mogelijk", icon: "content", tone: "violet" },
+] as const;
+
+const valueCards = [
+  {
+    title: "Waarom geen gewone tv?",
+    text: "Een consumenten-tv valt achter glas vaak weg door reflectie en zonlicht. Een high-brightness display is gebouwd voor veel licht, lange draaitijden en stabiele weergave.",
+    icon: "display",
+    tone: "blue",
+  },
+  {
+    title: "Waarom duurder?",
+    text: "De meerprijs zit in professionele panelen, hogere lichtopbrengst, warmteafvoer, betrouwbaarheid, sensoren en zakelijke servicebaarheid. Dat betaalt zich terug in zichtbaarheid.",
+    icon: "temp",
+    tone: "amber",
+  },
+  {
+    title: "Altijd actuele content",
+    text: "Via onze signage software plant u campagnes, wisselt u acties en toont u content op de juiste dagen en tijden. Wij kunnen ook de content voor u maken.",
+    icon: "software",
+    tone: "teal",
+  },
+  {
+    title: "Advies op locatie",
+    text: "We kijken naar looprichting, kijkafstand, zoninval, montagepositie, stroom, netwerk en schermformaat. Zo kiest u geen scherm op gevoel, maar op gebruik.",
+    icon: "install",
+    tone: "violet",
+  },
+] as const;
+
+const useCases = [
+  "Winkels en showrooms die aanbiedingen, collecties of acties willen tonen.",
+  "Horeca en hotels die voorbijgangers willen verleiden met sfeer, menu's of events.",
+  "Makelaars en dienstverleners die aanbod of informatie automatisch willen presenteren.",
+  "Locaties waar ook buiten openingstijd een professionele etalage zichtbaar moet blijven.",
+] as const;
+
+const advicePoints = [
+  {
+    title: "Helderheid",
+    text: "Bij etalages is lichtopbrengst cruciaal. Wij adviseren per locatie of indoor, high-brightness of outdoor hardware nodig is.",
+    icon: "sun",
+    tone: "amber",
+  },
+  {
+    title: "Plaatsing",
+    text: "Portrait of landscape, enkel- of dubbelzijdig, tegen glas of vrijstaand: de montage bepaalt sterk hoe goed passanten kijken.",
+    icon: "display",
+    tone: "blue",
+  },
+  {
+    title: "Contenttempo",
+    text: "Een passant heeft weinig tijd. Daarom maken we korte, duidelijke boodschappen die snel te begrijpen zijn.",
+    icon: "content",
+    tone: "violet",
+  },
+  {
+    title: "Software",
+    text: "Campagnes, dagdelen, acties en meerdere locaties worden centraal beheerd via narrowcasting software.",
+    icon: "software",
+    tone: "teal",
+  },
+] as const;
+
+const relatedLinks = [
+  { title: "Narrowcasting software", text: "Beheer acties, playlists, schermgroepen en planning centraal.", href: "/narrowcasting/" },
+  { title: "Digital signage hardware", text: "Meer over displays, players, montage en schermkeuze.", href: "/displays/" },
+  { title: "Digitale menuborden", text: "Voor horeca, foodservice en locaties met wisselende prijzen.", href: "/digitale-menuborden/" },
+] as const;
 ---
-<BaseLayout title="Etalageschermen" description="Etalageschermen voor winkelpuien en horecagelegenheden. Val op met dynamische etalage displays en trek meer voetgangers naar binnen." currentPath="/etalageschermen/">
-  <div class="container page-content">
-    <h1>Etalageschermen</h1>
-    <p>Etalageschermen zijn de ultieme manier om uw winkelpui of horecagelegenheid te laten opvallen. Waar voorbijgangers anders achteloos langs lopen, trekken heldere, dynamische schermen direct de aandacht. Of u nu nieuwe producten promoot, aanbiedingen toont of de sfeer van uw zaak overbrengt, een etalagescherm zorgt voor een professionele en moderne uitstraling die meer bezoekers naar binnen trekt.</p>
-    <p>Onze etalageschermen zijn speciaal ontworpen voor gebruik in etalages. Ze zijn voorzien van een hoge helderheid (tot 2500 nits), waardoor ze ook bij fel zonlicht uitstekend leesbaar blijven. De schermen zijn verkrijgbaar in verschillende formaten en kunnen zowel horizontaal als verticaal worden gemonteerd. Dankzij het slanke design passen ze naadloos in iedere etalage.</p>
-    <h2>Speciaal voor winkelstraten en horeca</h2>
-    <p>Of u nu een kledingwinkel, een café of een hotel runt, etalageschermen zijn een effectief marketingmiddel. U kunt eenvoudig wisselen tussen productvideo's, promoties en sfeerbeelden. Het beheer gebeurt volledig op afstand via onze narrowcasting software. Plan content vooruit of schakel direct naar een andere boodschap. Zo bent u altijd flexibel en actueel.</p>
-    <h2>Technische specificaties</h2>
-    <p>Onze etalageschermen zijn uitgerust met een IP5x-certificering tegen stof en vocht, 24/7 bedrijfszekerheid en een brandwerende backcover. Ze worden geleverd inclusief montagemateriaal en installatiebegeleiding. Vraag een vrijblijvend adviesgesprek aan om te ontdekken welk scherm het beste past bij uw etalage en doelstellingen.</p>
-  </div>
+
+<BaseLayout
+  title="Etalageschermen | High Brightness displays voor winkelruiten"
+  description="Etalageschermen en high-brightness displays voor winkels, horeca, showrooms en dienstverleners. ClubDisplay adviseert, levert, installeert en verzorgt content en softwarebeheer."
+  canonical="https://clubdisplay.nl/etalageschermen/"
+  currentPath="/etalageschermen/"
+>
+  <section class="commercial-hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow">High Brightness etalageschermen</span>
+        <h1>Een etalage die ook bij daglicht blijft opvallen</h1>
+        <p>
+          Met een professioneel etalagescherm toont u acties, producten, sfeerbeelden en campagnes op het moment dat voorbijgangers kijken. ClubDisplay adviseert over de juiste high-brightness hardware, installeert de schermen en kan de content volledig voor u verzorgen.
+        </p>
+        <div class="hero-actions">
+          <a href="/plan-jouw-gesprek/" class="btn btn-lg">Plan een adviesgesprek</a>
+          <a href="/narrowcasting/" class="btn btn-lg btn-outline">Bekijk software</a>
+        </div>
+      </div>
+
+      <div class="hero-media hero-slider" aria-label="Voorbeelden van high-brightness displays">
+        {heroSlides.map((slide, index) => (
+          <img
+            src={slide.src}
+            alt={slide.alt}
+            class:list={["hero-slide", { active: index === 0 }]}
+            loading={index === 0 ? "eager" : "lazy"}
+            decoding="async"
+            style={`animation-delay: ${index * 5}s; animation-duration: ${slideDuration}s;`}
+          />
+        ))}
+        <div class="slider-dots" aria-hidden="true">
+          {heroSlides.map((_, index) => (
+            <span
+              class:list={[{ active: index === 0 }]}
+              style={`animation-delay: ${index * 5}s; animation-duration: ${slideDuration}s;`}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="proof-strip">
+    <div class="container proof-grid">
+      {proofHighlights.map((item) => (
+        <article class:list={["proof-card", `tone-${item.tone}`]}>
+          <span class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d={iconPaths[item.icon]} />
+            </svg>
+          </span>
+          <div>
+            <strong>{item.title}</strong>
+            <span>{item.text}</span>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="commercial-section">
+    <div class="container split-grid">
+      <div>
+        <span class="eyebrow">Waarom high brightness?</span>
+        <h2>Een etalagescherm moet winnen van zonlicht, spiegeling en afstand</h2>
+        <p>
+          Een scherm achter glas lijkt simpel, maar in de praktijk is het een lastige plek. Zonlicht, reflectie, warmte en de afstand tot voorbijgangers bepalen of uw boodschap echt gezien wordt.
+        </p>
+        <p>
+          Daarom gebruiken we voor etalages professionele high-brightness displays. Ze zijn duurder dan gewone schermen, maar dat is niet voor niets: ze blijven zichtbaar waar een standaard scherm vaak donker, flets of onleesbaar wordt.
+        </p>
+      </div>
+      <div class="feature-list">
+        {valueCards.map((item) => (
+          <article class:list={["feature-card", `tone-${item.tone}`]}>
+            <span class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d={iconPaths[item.icon]} />
+              </svg>
+            </span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="commercial-section section-alt">
+    <div class="container visual-grid">
+      <figure class="image-card">
+        <img src="/images/etalageschermen/etalagedisplay-anders.jpeg" alt="Etalagedisplay verwerkt in een winkelpresentatie" />
+      </figure>
+      <div>
+        <span class="eyebrow">Advies op maat</span>
+        <h2>Niet ieder scherm is geschikt voor iedere etalage</h2>
+        <p>
+          We kijken vooraf naar de plek waar het scherm komt te hangen. Staat de zon direct op de ruit? Moet het scherm in portrait? Is er voldoende koeling? Is er stroom en netwerk? En hoe snel loopt iemand langs uw winkel?
+        </p>
+        <div class="advice-grid">
+          {advicePoints.map((item) => (
+            <article class:list={[`tone-${item.tone}`]}>
+              <span class="feature-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d={iconPaths[item.icon]} />
+                </svg>
+              </span>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="commercial-section">
+    <div class="container cards-section">
+      <div class="section-head">
+        <span class="eyebrow">Toepassingen</span>
+        <h2>Voor etalages die meer moeten doen dan alleen mooi zijn</h2>
+        <p>
+          Een digitaal etalagescherm is een flexibel verkoop- en informatiemiddel. U kunt meer tonen dan fysiek in de etalage past en u blijft zichtbaar buiten openingstijden.
+        </p>
+      </div>
+      <div class="use-grid">
+        {useCases.map((item) => (
+          <article>
+            <span aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d={iconPaths.check} />
+              </svg>
+            </span>
+            <p>{item}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="commercial-section section-dark">
+    <div class="container content-grid">
+      <div>
+        <span class="eyebrow">Content en software</span>
+        <h2>Wij kunnen ook de content verzorgen</h2>
+        <p>
+          Een helder scherm valt op, maar de boodschap moet ook kloppen. ClubDisplay kan templates, acties, animaties en campagnes ontwerpen in uw huisstijl. Via onze software plannen we content per scherm, dagdeel, datum of locatie.
+        </p>
+        <p>
+          Heeft u productdata, een CRM, kassasysteem of andere bron? Dan kijken we of we die informatie automatisch kunnen koppelen, zodat uw etalage actueel blijft zonder dubbel werk.
+        </p>
+      </div>
+      <div class="content-panel">
+        <h3>Wat we kunnen verzorgen</h3>
+        <ul>
+          <li>Ontwerp van templates en campagnebeelden.</li>
+          <li>Contentplanning voor acties, events en seizoenen.</li>
+          <li>Narrowcasting software, players en schermgroepen.</li>
+          <li>Installatie, monitoring, beheer en support.</li>
+        </ul>
+        <a href="/contact/" class="btn btn-lg btn-white">Bespreek uw etalage</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="commercial-section">
+    <div class="container software-section">
+      <div class="section-head">
+        <span class="eyebrow">Meer weten</span>
+        <h2>Combineer etalageschermen met de juiste software en hardware</h2>
+      </div>
+      <div class="related-grid">
+        {relatedLinks.map((item) => (
+          <a class="related-card" href={item.href}>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+            <span>
+              Meer bekijken
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d={iconPaths.arrow} />
+              </svg>
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="commercial-cta">
+    <div class="container cta-inner">
+      <span class="eyebrow">Vrijblijvend advies</span>
+      <h2>Wilt u weten welk etalagescherm past bij uw locatie?</h2>
+      <p>We kijken mee naar lichtinval, formaat, montage, software en content.</p>
+      <a href="/plan-jouw-gesprek/" class="btn btn-lg btn-white">Plan een adviesgesprek</a>
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+  .commercial-hero {
+    padding: 5.5rem 0 4.5rem;
+    background:
+      radial-gradient(circle at 84% 20%, rgba(var(--primary-rgb), 0.12), transparent 34%),
+      linear-gradient(135deg, #ffffff 0%, #eef6ff 100%);
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.92fr) minmax(360px, 1.08fr);
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    color: var(--primary);
+    font-size: 0.8125rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .hero-copy h1 {
+    font-size: clamp(2.6rem, 5.2vw, 4.8rem);
+    line-height: 1.02;
+    letter-spacing: -0.045em;
+    margin-bottom: 1.25rem;
+  }
+
+  .hero-copy p {
+    font-size: 1.125rem;
+    max-width: 620px;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+  }
+
+  .hero-media {
+    position: relative;
+    min-height: 470px;
+    border-radius: 22px;
+    overflow: hidden;
+    background: #0f172a;
+    box-shadow: var(--shadow-xl);
+  }
+
+  .hero-media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 52%, rgba(15, 23, 42, 0.34));
+    pointer-events: none;
+  }
+
+  .hero-slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0;
+    opacity: 0;
+    animation: heroFade 45s infinite;
+  }
+
+  @keyframes heroFade {
+    0%, 8% { opacity: 1; }
+    12%, 96% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
+  .slider-dots {
+    position: absolute;
+    left: 1.5rem;
+    bottom: 1.35rem;
+    z-index: 2;
+    display: flex;
+    gap: 0.45rem;
+  }
+
+  .slider-dots span {
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.68);
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3);
+    animation: dotPulse 45s infinite;
+  }
+
+  @keyframes dotPulse {
+    0%, 8% { width: 1.7rem; background: #fff; }
+    12%, 100% { width: 0.55rem; background: rgba(255, 255, 255, 0.68); }
+  }
+
+  .proof-strip {
+    background: #fff;
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .proof-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    transform: translateY(-1.6rem);
+  }
+
+  .proof-card {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.96);
+    border: 1px solid rgba(148, 163, 184, 0.26);
+    border-radius: 16px;
+    box-shadow: 0 18px 50px rgba(15, 23, 42, 0.08);
+  }
+
+  .proof-card div {
+    display: grid;
+    gap: 0.18rem;
+    min-width: 0;
+  }
+
+  .proof-card strong {
+    font-size: 0.95rem;
+  }
+
+  .proof-card span:last-child {
+    color: var(--text-secondary);
+    font-size: 0.8125rem;
+  }
+
+  .card-icon,
+  .feature-icon,
+  .use-grid span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 14px;
+  }
+
+  svg {
+    width: 1.35rem;
+    height: 1.35rem;
+    stroke: currentColor;
+    stroke-width: 1.9;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .tone-blue .card-icon,
+  .tone-blue .feature-icon { color: var(--brand-accent); background: var(--primary-light); }
+  .tone-teal .card-icon,
+  .tone-teal .feature-icon { color: #0f766e; background: #ccfbf1; }
+  .tone-amber .card-icon,
+  .tone-amber .feature-icon { color: #b45309; background: #fef3c7; }
+  .tone-violet .card-icon,
+  .tone-violet .feature-icon { color: #6d28d9; background: #ede9fe; }
+
+  .commercial-section {
+    padding: 6rem 0;
+  }
+
+  .section-alt {
+    background: linear-gradient(135deg, #f8fafc 0%, #eef6ff 100%);
+  }
+
+  .split-grid,
+  .visual-grid,
+  .content-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .split-grid h2,
+  .visual-grid h2,
+  .content-grid h2,
+  .section-head h2,
+  .cta-inner h2 {
+    font-size: clamp(2rem, 3.6vw, 3.7rem);
+    line-height: 1.08;
+    letter-spacing: -0.04em;
+  }
+
+  .feature-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .feature-card,
+  .advice-grid article,
+  .use-grid article,
+  .related-card,
+  .content-panel {
+    border: 1px solid rgba(148, 163, 184, 0.26);
+    border-radius: 18px;
+    background: #fff;
+    box-shadow: 0 16px 42px rgba(15, 23, 42, 0.06);
+  }
+
+  .feature-card {
+    padding: 1.35rem;
+  }
+
+  .feature-card h3 {
+    margin-top: 1rem;
+  }
+
+  .feature-card p,
+  .advice-grid p,
+  .related-card p {
+    margin-bottom: 0;
+  }
+
+  .image-card {
+    position: relative;
+    min-height: 520px;
+    margin: 0;
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: var(--shadow-xl);
+    background: #0f172a;
+  }
+
+  .image-card img {
+    width: 100%;
+    height: 100%;
+    min-height: 520px;
+    object-fit: cover;
+    border-radius: 0;
+  }
+
+  .advice-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .advice-grid article {
+    padding: 1.25rem;
+  }
+
+  .advice-grid .feature-icon {
+    margin-bottom: 1rem;
+  }
+
+  .section-head {
+    max-width: 780px;
+    margin-bottom: 2.5rem;
+  }
+
+  .use-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+
+  .use-grid article {
+    padding: 1.35rem;
+  }
+
+  .use-grid span {
+    color: var(--brand-accent);
+    background: var(--primary-light);
+    width: 2.4rem;
+    height: 2.4rem;
+    margin-bottom: 1rem;
+  }
+
+  .use-grid p {
+    margin-bottom: 0;
+    color: var(--text);
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
+  .section-dark {
+    background: #0f172a;
+    color: #fff;
+  }
+
+  .section-dark h2,
+  .section-dark h3,
+  .section-dark strong {
+    color: #fff;
+  }
+
+  .section-dark p,
+  .section-dark li {
+    color: #cbd5e1;
+  }
+
+  .content-panel {
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.16);
+    box-shadow: none;
+  }
+
+  .content-panel ul {
+    padding-left: 1.2rem;
+    margin-bottom: 2rem;
+  }
+
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .related-card {
+    display: grid;
+    align-content: start;
+    min-height: 210px;
+    padding: 1.5rem;
+    color: var(--text);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+
+  .related-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(var(--primary-rgb), 0.4);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .related-card span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-top: auto;
+    color: var(--primary);
+    font-weight: 700;
+  }
+
+  .related-card svg {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .commercial-cta {
+    padding: 5rem 0;
+    background:
+      radial-gradient(circle at 16% 20%, rgba(255, 255, 255, 0.18), transparent 30%),
+      linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  }
+
+  .cta-inner {
+    text-align: center;
+    max-width: 820px;
+    color: #fff;
+  }
+
+  .cta-inner .eyebrow,
+  .cta-inner h2,
+  .cta-inner p {
+    color: #fff;
+  }
+
+  @media (max-width: 980px) {
+    .hero-grid,
+    .split-grid,
+    .visual-grid,
+    .content-grid {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+
+    .proof-grid,
+    .use-grid,
+    .related-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .hero-media,
+    .image-card,
+    .hero-media img,
+    .image-card img {
+      min-height: 390px;
+    }
+  }
+
+  @media (max-width: 680px) {
+    .commercial-hero,
+    .commercial-section {
+      padding: 3.75rem 0;
+    }
+
+    .hero-copy h1,
+    .split-grid h2,
+    .visual-grid h2,
+    .content-grid h2,
+    .section-head h2,
+    .cta-inner h2 {
+      font-size: 2.35rem;
+    }
+
+    .proof-grid,
+    .feature-list,
+    .advice-grid,
+    .use-grid,
+    .related-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .proof-grid {
+      transform: none;
+      padding: 1rem 0;
+    }
+
+    .hero-media,
+    .image-card,
+    .hero-media img,
+    .image-card img {
+      min-height: 320px;
+    }
+
+    .hero-actions {
+      align-items: stretch;
+      flex-direction: column;
+    }
+
+    .hero-actions .btn {
+      justify-content: center;
+    }
+  }
+</style>

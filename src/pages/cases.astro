@@ -1,33 +1,255 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
-const allCases = await getCollection("cases");
-allCases.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+
+const cleanText = (value = "") =>
+  value
+    .replace(/\[[^\]]+\]/g, " ")
+    .replace(/https?:\/\/\S+/g, " ")
+    .replace(/[“”]/g, '"')
+    .replace(/[‘’]/g, "'")
+    .replace(/\s+/g, " ")
+    .trim();
+
+const createSummary = (entry) => {
+  const description = cleanText(entry.data.description);
+  const body = cleanText(entry.body || "");
+  const source = description.includes("et_pb") || description.startsWith("[") || description.length < 40
+    ? body
+    : description;
+
+  return source.length > 150 ? `${source.slice(0, 150).trim()}...` : source;
+};
+
+const allCases = (await getCollection("cases"))
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+  .map((entry) => ({
+    ...entry,
+    slug: entry.id.replace(/\.md$/, ""),
+    summary: createSummary(entry),
+    category: entry.data.category || entry.data.client || "Project",
+  }));
 ---
-<BaseLayout title="Cases" description="Bekijk onze digital signage cases. Inspirerende projecten in narrowcasting, hotel TV, digitale menuborden en etalageschermen voor diverse branches." currentPath="/cases/">
-  <div class="container page-content">
-    <h1>Onze Cases</h1>
-    <p>Wij hebben door de jaren heen talloze projecten mogen realiseren voor uiteenlopende opdrachtgevers. Van hotels en restaurants tot winkels, kantoren en zorginstellingen. Elke case laat zien hoe wij digital signage inzetten om communicatie te verbeteren, de gastbeleving te verrijken of de omzet te verhogen.</p>
-    <div class="case-grid">
-      {allCases.map(c => (
-        <a href={`/project/${c.slug}/`} class="case-card">
-          {c.data.image && <img src={c.data.image} alt={c.data.title} width="510" height="382" loading="lazy" />}
-          <div class="case-card-body">
-            <h3>{c.data.title}</h3>
-            <p class="case-date">{new Date(c.data.pubDate).toLocaleDateString("nl-NL", { year: "numeric", month: "long", day: "numeric" })}</p>
-          </div>
-        </a>
-      ))}
+
+<BaseLayout
+  title="Cases"
+  description="Bekijk alle ClubDisplay projecten in digital signage, hospitality TV, IPTV, digitale menuborden, narrowcasting, kiosken en room signage."
+  currentPath="/cases/"
+>
+  <section class="cases-hero">
+    <div class="container cases-hero-inner">
+      <p class="eyebrow">Projecten van ClubDisplay</p>
+      <h1>Alle cases op een rij</h1>
+      <p>
+        Bekijk hoe ClubDisplay schermcommunicatie toepast in hotels, horeca, retail,
+        coffeeshops, kantoren, onderwijs en publieke omgevingen.
+      </p>
     </div>
-  </div>
+  </section>
+
+  <section class="cases-overview">
+    <div class="container">
+      <div class="cases-count">
+        <span>{allCases.length} projecten</span>
+        <a href="/plan-jouw-gesprek/">Plan adviesgesprek</a>
+      </div>
+
+      <div class="cases-grid">
+        {allCases.map((item) => (
+          <a href={`/project/${item.slug}/`} class="project-card">
+            {item.data.image && (
+              <img src={item.data.image} alt={item.data.title} width="510" height="382" loading="lazy" />
+            )}
+            <div class="project-card-body">
+              <div class="project-meta">
+                <span>{item.category}</span>
+                <time datetime={item.data.pubDate.toISOString()}>
+                  {item.data.pubDate.toLocaleDateString("nl-NL", { year: "numeric", month: "short" })}
+                </time>
+              </div>
+              <h2>{item.data.title}</h2>
+              {item.summary && <p>{item.summary}</p>}
+              <span class="project-link">Bekijk case</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
-  .case-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
-  .case-card { display: block; border-radius: 0.75rem; overflow: hidden; border: 1px solid #e5e7eb; text-decoration: none; color: inherit; transition: box-shadow 0.2s, transform 0.2s; }
-  .case-card:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.08); transform: translateY(-2px); }
-  .case-card img { width: 100%; height: 200px; object-fit: cover; }
-  .case-card-body { padding: 1.25rem; }
-  .case-card-body h3 { margin: 0 0 0.5rem; font-size: 1rem; line-height: 1.3; }
-  .case-date { font-size: 0.813rem; color: #6b7280; margin: 0; }
+  .cases-hero {
+    padding: 96px 0 72px;
+    background: linear-gradient(180deg, #f2f7ff 0%, #ffffff 100%);
+  }
+
+  .cases-hero-inner {
+    max-width: 860px;
+  }
+
+  .eyebrow {
+    margin: 0 0 16px;
+    color: var(--primary);
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+
+  .cases-hero h1 {
+    max-width: 760px;
+    margin-bottom: 20px;
+    font-size: clamp(42px, 5vw, 72px);
+  }
+
+  .cases-hero p:not(.eyebrow) {
+    max-width: 720px;
+    margin: 0;
+    font-size: 19px;
+  }
+
+  .cases-overview {
+    padding: 72px 0 112px;
+    background: #fff;
+  }
+
+  .cases-count {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .cases-count span {
+    color: var(--text-secondary);
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  .cases-count a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0 20px;
+    border-radius: 999px;
+    background: var(--primary);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 800;
+  }
+
+  .cases-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 28px;
+  }
+
+  .project-card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    min-height: 100%;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: #fff;
+    color: var(--text);
+    box-shadow: 0 10px 30px rgba(15, 23, 42, .05);
+    transition: transform .24s ease, box-shadow .24s ease, border-color .24s ease;
+  }
+
+  .project-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(var(--primary-rgb), .35);
+    box-shadow: 0 24px 60px rgba(15, 23, 42, .12);
+    color: var(--text);
+  }
+
+  .project-card img {
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+    border-radius: 0;
+  }
+
+  .project-card-body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 22px;
+  }
+
+  .project-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 14px;
+    color: var(--primary);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  .project-meta time {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 12px;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  .project-card h2 {
+    margin: 0 0 12px;
+    font-size: 21px;
+    line-height: 1.18;
+    letter-spacing: -.025em;
+  }
+
+  .project-card p {
+    margin: 0 0 22px;
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  .project-link {
+    margin-top: auto;
+    color: var(--primary);
+    font-size: 14px;
+    font-weight: 800;
+  }
+
+  @media (max-width: 1000px) {
+    .cases-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 680px) {
+    .cases-hero {
+      padding: 64px 0 44px;
+    }
+
+    .cases-overview {
+      padding: 44px 0 72px;
+    }
+
+    .cases-count {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .cases-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .project-card img {
+      height: 210px;
+    }
+  }
 </style>

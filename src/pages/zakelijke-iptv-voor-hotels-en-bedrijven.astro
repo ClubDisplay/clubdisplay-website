@@ -1,14 +1,290 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+const iconPaths = {
+  tv: "M3 5h18v11H3z M8 21h8 M12 16v5",
+  link: "M10 13a5 5 0 0 0 7.1 0l2-2a5 5 0 0 0-7.1-7.1l-1.1 1.1 M14 11a5 5 0 0 0-7.1 0l-2 2A5 5 0 0 0 12 20l1.1-1.1",
+  cast: "M3 6h18v12h-7 M3 16a5 5 0 0 1 5 5 M3 12a9 9 0 0 1 9 9 M3 20h.1",
+  headset: "M4 13a8 8 0 0 1 16 0v4a2 2 0 0 1-2 2h-2v-7h4 M4 17a2 2 0 0 0 2 2h2v-7H4v5z M14 21h2",
+  info: "M12 17v-5 M12 8h.1 M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z",
+  channels: "M4 5h16v11H4z M8 20h8 M12 16v4 M7 9h10 M7 12h6",
+  streaming: "M5 5h14v10H5z M9 19h6 M12 15v4 M10 8l5 2.5-5 2.5z",
+  systems: "M4 7h6v6H4z M14 4h6v6h-6z M14 14h6v6h-6z M10 10h4 M10 16h4 M17 10v4",
+  hotel: "M4 21V5a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v16 M3 21h18 M8 7h2 M8 11h2 M14 7h2 M14 11h2",
+  care: "M12 21s-8-4.6-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 6.4-8 11-8 11z",
+  business: "M4 21V7h6V3h4v4h6v14 M3 21h18 M7 11h2 M7 15h2 M15 11h2 M15 15h2",
+} as const;
+
+const proofHighlights = [
+  { title: "LG Pro:Centric", text: "Hospitality platform", icon: "tv", tone: "blue" },
+  { title: "PMS-koppeling", text: "Persoonlijke gastinformatie", icon: "link", tone: "teal" },
+  { title: "Casting", text: "Eigen content van gasten", icon: "cast", tone: "amber" },
+  { title: "Support", text: "Beheer na oplevering", icon: "headset", tone: "violet" },
+] as const;
+
+const featureCards = [
+  {
+    title: "Interactieve hotelinformatie",
+    text: "Welkomstberichten, hotelgids, faciliteiten, openingstijden, roomservice en lokale informatie in uw eigen huisstijl.",
+    icon: "info",
+    tone: "blue",
+  },
+  {
+    title: "IPTV en zenderbeheer",
+    text: "Centrale distributie van live TV, zenderlijsten en content per locatie, verdieping, kamer of gastprofiel.",
+    icon: "channels",
+    tone: "teal",
+  },
+  {
+    title: "Casting en streaming",
+    text: "Gasten gebruiken veilig hun eigen apps en accounts, terwijl het systeem na uitchecken schoon wordt achtergelaten.",
+    icon: "streaming",
+    tone: "amber",
+  },
+  {
+    title: "Koppelingen met bestaande systemen",
+    text: "Integraties met PMS, netwerk, betaalsystemen en andere hospitality software waar dat waarde toevoegt.",
+    icon: "systems",
+    tone: "violet",
+  },
+] as const;
+
+const audienceCards = [
+  {
+    title: "Hotels en resorts",
+    text: "Een professionele gastkamerervaring met welkomstschermen, hotelinformatie, IPTV, casting en centraal beheer.",
+    icon: "hotel",
+    tone: "blue",
+  },
+  {
+    title: "Zorg en welzijn",
+    text: "Heldere informatie, ontspanning en centraal beheer voor kamers, wachtruimtes en publieke zones.",
+    icon: "care",
+    tone: "teal",
+  },
+  {
+    title: "Zakelijke locaties",
+    text: "TV, informatiekanalen en narrowcasting voor kantoren, lounges, vergaderruimtes en ontvangstruimtes.",
+    icon: "business",
+    tone: "violet",
+  },
+] as const;
+
+const heroSlides = [
+  { src: "/images/iptv/Zoomers.jpg", alt: "Hospitality TV in een strandhuisje van Zoomers" },
+  { src: "/images/iptv/BlendInPole.jpg", alt: "Hospitality TV op een vrijstaande paal in een hotelkamer" },
+  { src: "/images/iptv/GrandVoir.jpg", alt: "Hospitality TV in een lodge met uitzicht op het terras" },
+  { src: "/images/iptv/Htel.jpg", alt: "Hotel-tv ingebouwd in een houten wandpaneel" },
+  { src: "/images/iptv/Hotel171.jpg", alt: "Hotel TV met casting instructies in een moderne hotelkamer" },
+  { src: "/images/iptv/Bernardus_Lodge.jpg", alt: "Hospitality TV met castscherm bij Bernardus Lodge" },
+  { src: "/images/iptv/JustTexel.jpg", alt: "Hospitality TV in een hotelkamer van Just Texel" },
+  { src: "/images/iptv/MrLewisMuur.jpg", alt: "Hospitality TV aan de wand bij Mr Lewis" },
+  { src: "/images/iptv/MrLewis.jpg", alt: "Mr Lewis hotel-tv startscherm" },
+  { src: "/images/iptv/magnifique.jpg", alt: "Hospitality TV met hotelinformatie bij Magnifique" },
+  { src: "/images/iptv/FritzAmsterdam.jpg", alt: "Hotel-tv bij Hotel The Fritz Amsterdam" },
+  { src: "/images/iptv/Brouwerij.jpg", alt: "Hospitality TV in hotelsuite met bad" },
+  { src: "/images/iptv/RAV.jpg", alt: "TV-oplossing in zorgomgeving van RAV Hollands Midden" },
+  { src: "/images/iptv/RedCowMoran.jpg", alt: "Casting scherm in Red Cow Moran Hotel Dublin" },
+  { src: "/images/iptv/BlendInMuur.jpg", alt: "Ingebouwde hotel-tv bij Blendin" },
+  { src: "/images/iptv/BlendInBed.jpg", alt: "Hotelkamer met hospitality TV bij Blendin" },
+  { src: "/images/iptv/hotel-meyer.jpg", alt: "Hospitality TV met Hotel Meyer welkomstscherm" },
+  { src: "/images/iptv/hotel-meijer.jpg", alt: "Hotel-tv met Chromecast bij Hotel Meyer" },
+  { src: "/images/iptv/hotel-maf.jpg", alt: "Hospitality TV in kamer van MAF Haarlem" },
+  { src: "/images/iptv/anna-house.jpg", alt: "Hotel-tv met streaming apps bij Anna House" },
+  { src: "/images/iptv/lemontree.jpg", alt: "Hospitality TV in badkamer bij Lemon Tree" },
+  { src: "/images/iptv/lemontree-kamer.jpg", alt: "Hospitality TV in kamer van Lemon Tree" },
+] as const;
 ---
-<BaseLayout title="IPTV voor Hotels en Bedrijven" description="Zakelijke IPTV oplossingen voor hotels, ziekenhuizen en bedrijven. Centraal beheerde televisie, live TV, Video-on-Demand en meer." currentPath="/zakelijke-iptv-voor-hotels-en-bedrijven/">
-  <div class="container page-content">
-    <h1>IPTV voor Hotels en Bedrijven</h1>
-    <p>IPTV (Internet Protocol Television) is de moderne manier om televisie en video aan te bieden in een professionele omgeving. In tegenstelling tot traditionele coaxkabel-systemen, levert IPTV televisie via uw bestaande IP-netwerk. Dit biedt enorme flexibiliteit: u kunt eenvoudig kanalen toevoegen, Video-on-Demand aanbieden, content personaliseren en het systeem schalen zonder dure infrastructuur aan te passen.</p>
-    <p>Onze IPTV-oplossingen zijn geschikt voor hotels, ziekenhuizen, kantoren, zorginstellingen en onderwijsinstellingen. Elke locatie zijn eigen zenderlijst, eigen content en eigen huisstijl. Het systeem kan volledig worden geïntegreerd met uw bestaande infrastructuur, waaronder PMS, betaalsystemen en toegangscontrole.</p>
-    <h2>Functionaliteiten</h2>
-    <p>Ons IPTV-platform biedt een compleet pakket aan functies: live TV met elektronische programmagids, Video-on-Demand, welkomstberichten op maat, hotelinformatie, roomservice bestellingen, wekkerfunctionaliteit en integratie met smart home systemen. Alles wordt centraal beheerd via een intuïtief dashboard.</p>
-    <h2>Waarom overstappen op IPTV?</h2>
-    <p>IPTV is toekomstbestendig, eenvoudig uit te breiden en biedt een hogere beeldkwaliteit dan traditionele systemen. Daarnaast bespaart u op bekabeling en onderhoudskosten. Wij begeleiden u van advies tot installatie en onderhoud. Vraag een vrijblijvend gesprek aan en ontdek wat IPTV voor uw organisatie kan betekenen.</p>
-  </div>
+
+<BaseLayout
+  title="Hospitality TV & IPTV voor hotels en bedrijven"
+  description="Professionele hospitality TV en IPTV oplossingen voor hotels, zorginstellingen en bedrijven. LG Pro:Centric, casting, PMS-koppelingen, zenderbeheer, installatie en support."
+  canonical="https://clubdisplay.nl/zakelijke-iptv-voor-hotels-en-bedrijven/"
+  currentPath="/zakelijke-iptv-voor-hotels-en-bedrijven/"
+>
+  <section class="commercial-hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow">Hospitality TV & IPTV</span>
+        <h1>Hotel-tv die werkt voor gasten, receptie en beheer</h1>
+        <p>
+          ClubDisplay levert complete hospitality TV en IPTV-oplossingen voor hotels, zorginstellingen en zakelijke locaties. Van LG Pro:Centric en zenderbeheer tot casting, PMS-koppelingen, installatie en support.
+        </p>
+        <div class="hero-actions">
+          <a href="/plan-jouw-gesprek/" class="btn btn-lg">Plan een adviesgesprek</a>
+          <a href="/cases/" class="btn btn-lg btn-outline">Bekijk projecten</a>
+        </div>
+      </div>
+      <div class="hero-media">
+        {heroSlides.map((slide, index) => (
+          <img
+            class="hero-slide"
+            src={slide.src}
+            alt={slide.alt}
+            loading={index === 0 ? "eager" : "lazy"}
+            style={`--delay: ${index * 4}s`}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="proof-strip">
+    <div class="container proof-grid">
+      {proofHighlights.map((item) => (
+        <article class:list={["proof-card", `tone-${item.tone}`]}>
+          <span class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d={iconPaths[item.icon]} />
+            </svg>
+          </span>
+          <div>
+            <strong>{item.title}</strong>
+            <span>{item.text}</span>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="commercial-section">
+    <div class="container split-grid">
+      <div>
+        <span class="eyebrow">Wat wij leveren</span>
+        <h2>Een compleet TV-platform voor moderne gastbeleving</h2>
+        <p>
+          Een goed hospitality TV-systeem is meer dan een televisie op de kamer. Het is een kanaal voor gastinformatie, entertainment, merkbeleving en operationele communicatie. Wij zorgen dat hardware, software, netwerk en beheer logisch op elkaar aansluiten.
+        </p>
+      </div>
+      <div class="feature-list">
+        {featureCards.map((item) => (
+          <article class:list={["feature-card", `tone-${item.tone}`]}>
+            <span class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d={iconPaths[item.icon]} />
+              </svg>
+            </span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="commercial-section section-alt">
+    <div class="container cards-section">
+      <div class="section-head">
+        <span class="eyebrow">Voor wie</span>
+        <h2>Gebouwd voor locaties waar betrouwbaarheid telt</h2>
+      </div>
+      <div class="cards-grid">
+        {audienceCards.map((item) => (
+          <article class:list={["audience-card", `tone-${item.tone}`]}>
+            <span class="audience-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d={iconPaths[item.icon]} />
+              </svg>
+            </span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="commercial-section">
+    <div class="container process-grid">
+      <div>
+        <span class="eyebrow">Aanpak</span>
+        <h2>Van inventarisatie tot beheer</h2>
+        <p>
+          Wij starten bij uw locatie, netwerk en gastreis. Daarna adviseren we over schermen, platform, koppelingen en content. Na installatie blijven we beschikbaar voor beheer, wijzigingen en support.
+        </p>
+      </div>
+      <ol class="steps-list">
+        <li><strong>Inventarisatie</strong><span>Kamers, publieke ruimtes, netwerk, zenderwensen en bestaande systemen.</span></li>
+        <li><strong>Ontwerp en advies</strong><span>Keuze voor LG Pro:Centric, IPTV, casting, hardware en gewenste koppelingen.</span></li>
+        <li><strong>Installatie</strong><span>Configuratie, plaatsing, testen en overdracht aan uw team.</span></li>
+        <li><strong>Beheer en support</strong><span>Ondersteuning bij wijzigingen, storingen, content en uitbreidingen.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="commercial-cta">
+    <div class="container cta-inner">
+      <h2>Wilt u weten welke hospitality TV-oplossing past bij uw locatie?</h2>
+      <p>We denken vrijblijvend mee over de technische opzet, gastbeleving en beheerlast.</p>
+      <a href="/plan-jouw-gesprek/" class="btn btn-lg btn-white">Plan een adviesgesprek</a>
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+  .commercial-hero { padding: 5.5rem 0 4.5rem; background: linear-gradient(135deg, #fff 0%, #eef6ff 100%); }
+  .hero-grid { display: grid; grid-template-columns: minmax(0, 0.95fr) minmax(360px, 1.05fr); gap: 4rem; align-items: center; }
+  .eyebrow { display: inline-flex; color: var(--primary); font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1rem; }
+  .hero-copy h1 { font-size: clamp(2.25rem, 4.6vw, 4.25rem); line-height: 1.04; margin-bottom: 1.25rem; }
+  .hero-copy p { font-size: 1.125rem; max-width: 620px; }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; }
+  .hero-media { position: relative; border-radius: 20px; overflow: hidden; min-height: 420px; background: #0f172a; box-shadow: var(--shadow-xl); isolation: isolate; }
+  .hero-media::after { content: ""; position: absolute; inset: 0; border: 1px solid rgba(255,255,255,0.16); border-radius: inherit; pointer-events: none; z-index: 2; }
+  .hero-slide { position: absolute; inset: 0; width: 100%; height: 100%; min-height: 420px; object-fit: cover; border-radius: 0; opacity: 0; animation: heroSlideFade 88s infinite; animation-delay: var(--delay); }
+  .hero-slide:first-child { opacity: 1; }
+  @keyframes heroSlideFade {
+    0%, 7% { opacity: 1; transform: scale(1); }
+    10%, 100% { opacity: 0; transform: scale(1.025); }
+  }
+  .proof-strip { background: #fff; border-bottom: 1px solid var(--border-light); }
+  .proof-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; transform: translateY(-1.65rem); }
+  .proof-card { display: flex; align-items: center; gap: 0.85rem; padding: 1rem; background: #fff; border: 1px solid rgba(148, 163, 184, 0.28); border-radius: 16px; box-shadow: 0 18px 50px rgba(15, 23, 42, 0.08); }
+  .proof-card div { display: grid; gap: 0.2rem; min-width: 0; }
+  .proof-grid strong { color: var(--text); font-size: 0.95rem; }
+  .proof-grid span { color: var(--text-secondary); font-size: 0.8125rem; }
+  .card-icon, .feature-icon, .audience-icon { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; width: 2.75rem; height: 2.75rem; border-radius: 14px; }
+  .card-icon svg, .feature-icon svg, .audience-icon svg { width: 1.35rem; height: 1.35rem; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+  .tone-blue .card-icon, .tone-blue .feature-icon, .tone-blue .audience-icon { color: var(--brand-accent); background: var(--primary-light); }
+  .tone-teal .card-icon, .tone-teal .feature-icon, .tone-teal .audience-icon { color: #0f766e; background: #ccfbf1; }
+  .tone-amber .card-icon, .tone-amber .feature-icon, .tone-amber .audience-icon { color: #b45309; background: #fef3c7; }
+  .tone-violet .card-icon, .tone-violet .feature-icon, .tone-violet .audience-icon { color: #6d28d9; background: #ede9fe; }
+  .commercial-section { padding: 5.5rem 0; background: #fff; }
+  .section-alt { background: var(--bg-alt); }
+  .split-grid, .process-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 4rem; align-items: start; }
+  .split-grid h2, .section-head h2, .process-grid h2, .commercial-cta h2 { font-size: clamp(1.75rem, 2.8vw, 2.7rem); line-height: 1.12; }
+  .feature-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  .feature-card, .audience-card { position: relative; display: grid; align-content: start; gap: 0.85rem; border: 1px solid rgba(148, 163, 184, 0.28); border-radius: 18px; padding: 1.45rem; background: #fff; box-shadow: 0 18px 45px rgba(15, 23, 42, 0.06); overflow: hidden; transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease; }
+  .feature-card::before, .audience-card::before { content: ""; position: absolute; inset: 0 0 auto; height: 4px; background: var(--card-accent, var(--primary)); }
+  .tone-blue { --card-accent: var(--brand-accent); }
+  .tone-teal { --card-accent: #0d9488; }
+  .tone-amber { --card-accent: #f59e0b; }
+  .tone-violet { --card-accent: #7c3aed; }
+  .feature-card:hover, .audience-card:hover { transform: translateY(-4px); border-color: rgba(var(--primary-rgb), 0.22); box-shadow: 0 24px 60px rgba(15, 23, 42, 0.1); }
+  .feature-card h3, .audience-card h3 { margin-top: 0.2rem; }
+  .feature-list h3, .cards-grid h3 { font-size: 1rem; margin: 0 0 0.5rem; }
+  .feature-list p, .cards-grid p { font-size: 0.875rem; margin: 0; }
+  .section-head { max-width: 720px; margin-bottom: 2rem; }
+  .cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  .audience-card { min-height: 220px; }
+  .audience-icon { width: 3rem; height: 3rem; border-radius: 16px; margin-bottom: 0.15rem; }
+  .steps-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.75rem; counter-reset: step; }
+  .steps-list li { position: relative; display: grid; gap: 0.25rem; padding: 1.25rem 1.25rem 1.25rem 4rem; border: 1px solid var(--border); border-radius: 14px; background: #fff; }
+  .steps-list li::before { counter-increment: step; content: counter(step, decimal-leading-zero); position: absolute; left: 1.25rem; top: 1.25rem; color: var(--primary); font-size: 0.8125rem; font-weight: 800; }
+  .steps-list span { color: var(--text-secondary); font-size: 0.875rem; line-height: 1.55; }
+  .commercial-cta { padding: 5rem 0; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); }
+  .cta-inner { max-width: 760px; text-align: center; }
+  .commercial-cta h2, .commercial-cta p { color: #fff; }
+  .commercial-cta p { color: rgba(255,255,255,0.82); }
+
+  @media (max-width: 900px) {
+    .hero-grid, .split-grid, .process-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .proof-grid, .cards-grid, .feature-list { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 620px) {
+    .commercial-hero, .commercial-section, .commercial-cta { padding: 3.5rem 0; }
+    .hero-actions { flex-direction: column; }
+    .hero-actions .btn { width: 100%; justify-content: center; }
+    .hero-media, .hero-slide { min-height: 300px; }
+    .proof-grid, .cards-grid, .feature-list { grid-template-columns: 1fr; transform: none; margin: 1rem 0; }
+  }
+</style>

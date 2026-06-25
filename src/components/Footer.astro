@@ -1,69 +1,167 @@
-<footer class="footer">
+<footer class="footer" role="contentinfo">
   <div class="container">
     <div class="footer-grid">
-      <div>
-        <h4>ClubDisplay</h4>
-        <p>Full-service creatief Digital Signage bureau.<br />Specialist in narrowcasting en hospitality TV.</p>
+      <div class="footer-brand">
+        <a href="/" class="footer-logo-link" aria-label="ClubDisplay home">
+          <img src="/images/logo_club_display_diap.png" alt="ClubDisplay" class="footer-logo-img" width="260" height="90" />
+        </a>
+        <p class="footer-desc">
+          ClubDisplay is een gespecialiseerd digital signage bureau. Wij leveren en implementeren professionele schermoplossingen voor hospitality, horeca, retail, coffeeshops en kantoren. Van advies tot installatie, beheer en support.
+        </p>
+        <a href="/plan-jouw-gesprek/" class="footer-cta">Plan een vrijblijvend adviesgesprek <span aria-hidden="true">&rarr;</span></a>
       </div>
-      <div>
-        <h4>Expertises</h4>
-        <a href="/narrowcasting/">Narrowcasting</a>
-        <a href="/displays/">Digital Signage Hardware</a>
+      <div class="footer-col">
+        <h4>Oplossingen</h4>
+        <a href="/zakelijke-iptv-voor-hotels-en-bedrijven/">Hospitality TV & IPTV</a>
+        <a href="/interactieve-televisie/">Interactieve Televisie</a>
         <a href="/digitale-menuborden/">Digitale menuborden</a>
+        <a href="/digitale-menuborden/">Menuborden met kassakoppeling</a>
+        <a href="/narrowcasting/">Narrowcasting software</a>
+        <a href="/coffeeshop-signage/">Coffeeshop signage</a>
+        <a href="/wayfinding-en-room-signage/">Wayfinding & room signage</a>
         <a href="/etalageschermen/">Etalageschermen</a>
-        <a href="/wayfinding-en-room-signage/">Wayfinding & Room Signage</a>
       </div>
-      <div>
-        <h4>Interactive TV</h4>
-        <a href="/lg-procentric/">LG Pro:Centric</a>
-        <a href="/otrumcast/">Google Chromecast</a>
-        <a href="/zakelijke-iptv-voor-hotels-en-bedrijven/">Hotel IPTV</a>
+      <div class="footer-col">
+        <h4>Segmenten</h4>
+        <a href="/zakelijke-iptv-voor-hotels-en-bedrijven/">Hotel & hospitality</a>
+        <a href="/digitale-menuborden/">Horeca & restaurants</a>
+        <a href="/retail/">Retail</a>
+        <a href="/narrowcasting-interne-communicatie/">Kantoor & interne communicatie</a>
+        <a href="/coffeeshop-signage/">Coffeeshops</a>
+        <a href="/wayfinding-en-room-signage/">Zorg & welzijn</a>
       </div>
-      <div>
+      <div class="footer-col footer-col-contact">
         <h4>Contact</h4>
-        <p>Meer en Duin #247<br />2163 HE LISSE</p>
-        <p>T. +31 (0)85 760 2202</p>
-        <p>E. info@clubdisplay.nl</p>
-        <p>KvK: 65283449</p>
+        <p class="footer-address">Meer en Duin #247<br />2163 HE Lisse</p>
+        <p class="footer-phone"><a href="tel:+31857602202">+31 (0)85 760 2202</a></p>
+        <p class="footer-email"><a href="mailto:info@clubdisplay.nl">info@clubdisplay.nl</a></p>
+        <p class="footer-kvk">KvK: 65283449</p>
+        <div class="footer-sep"></div>
+        <a href="/over-ons/" class="footer-link">Over ons</a>
+        <a href="/cases/" class="footer-link">Cases</a>
+        <a href="/service-support/" class="footer-link">Support</a>
+        <a href="/kom-bij-ons-werken/" class="footer-link">Vacatures</a>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; {new Date().getFullYear()} ClubDisplay | Digital Signage Bureau</p>
-      <a href="/gegevensbescherming/">Privacy</a>
-      <a href="/voorwaarden/">Voorwaarden</a>
+      <p>&copy; {new Date().getFullYear()} ClubDisplay — Digital Signage Bureau</p>
+      <div class="footer-bottom-links">
+        <a href="/gegevensbescherming/">Privacybeleid</a>
+        <a href="/voorwaarden/">Algemene voorwaarden</a>
+      </div>
     </div>
   </div>
 </footer>
 
 <style>
   .footer {
-    background: #111827;
-    color: #9ca3af;
-    padding: 4rem 0 2rem;
+    background: var(--bg-dark);
+    color: #94a3b8;
+    padding: 5rem 0 2rem;
   }
   .footer-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 2rem;
-    margin-bottom: 3rem;
+    grid-template-columns: 1.5fr 1fr 1fr 1.25fr;
+    gap: 3rem;
+    margin-bottom: 3.5rem;
   }
-  .footer h4 { color: white; font-size: 1rem; margin-bottom: 1rem; }
-  .footer p { font-size: 0.875rem; line-height: 2; margin: 0; }
-  .footer a {
-    color: #9ca3af;
+  .footer-logo-link { display: inline-block; margin-bottom: 1.25rem; }
+  .footer-logo-img { display: block; height: 3.25rem; width: auto; border-radius: 0; }
+  .footer-desc {
+    font-size: 0.8125rem;
+    line-height: 1.7;
+    color: #64748b;
+    max-width: 340px;
+    margin: 0 0 1.5rem;
+  }
+  .footer-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #5eead4;
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .footer-cta:hover { color: #fff; }
+
+  .footer-col h4 {
+    color: #f1f5f9;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin: 0 0 1.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .footer-col a {
+    color: #94a3b8;
     display: block;
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
     line-height: 2;
     text-decoration: none;
+    transition: color 0.15s;
   }
-  .footer a:hover { color: white; }
+  .footer-col a:hover { color: #fff; }
+
+  .footer-address {
+    font-size: 0.8125rem;
+    line-height: 1.7;
+    color: #64748b;
+    margin: 0 0 0.75rem;
+  }
+  .footer-phone, .footer-email { margin: 0 0 0.25rem; }
+  .footer-phone a, .footer-email a {
+    display: inline;
+    font-size: 0.8125rem;
+    color: #94a3b8;
+    text-decoration: none;
+    transition: color 0.15s;
+    line-height: 1.8;
+  }
+  .footer-phone a:hover, .footer-email a:hover { color: #fff; }
+  .footer-kvk {
+    font-size: 0.75rem;
+    color: #475569;
+    margin-top: 0.5rem;
+  }
+  .footer-sep {
+    height: 1px;
+    background: #1e293b;
+    margin: 1.25rem 0;
+  }
+  .footer-link {
+    display: block;
+    font-size: 0.8125rem;
+    color: #64748b;
+    text-decoration: none;
+    line-height: 2;
+    transition: color 0.15s;
+  }
+  .footer-link:hover { color: #fff; }
+
   .footer-bottom {
     display: flex;
-    gap: 1.5rem;
-    padding-top: 2rem;
-    border-top: 1px solid #374151;
-    font-size: 0.813rem;
+    justify-content: space-between;
     align-items: center;
+    padding-top: 2rem;
+    border-top: 1px solid #1e293b;
+    font-size: 0.75rem;
+    flex-wrap: wrap;
+    gap: 1rem;
   }
-  .footer-bottom a { display: inline; }
+  .footer-bottom p { color: #475569; margin: 0; }
+  .footer-bottom-links { display: flex; gap: 1.5rem; }
+  .footer-bottom-links a { color: #475569; font-size: 0.75rem; text-decoration: none; transition: color 0.15s; }
+  .footer-bottom-links a:hover { color: #94a3b8; }
+
+  @media (max-width: 900px) {
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+    .footer { padding: 4rem 0 1.5rem; }
+  }
+  @media (max-width: 600px) {
+    .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .footer-bottom { flex-direction: column; text-align: center; }
+    .footer-bottom-links { justify-content: center; }
+  }
 </style>

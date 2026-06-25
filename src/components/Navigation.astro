@@ -4,38 +4,25 @@ interface Props {
 }
 const { currentPath = "/" } = Astro.props;
 
-const menu: Array<{
+interface MenuItem {
   label: string;
   href?: string;
   children?: Array<{ label: string; href: string }>;
-}> = [
+}
+
+const menu: MenuItem[] = [
   { label: "Home", href: "/" },
   {
-    label: "Expertises",
+    label: "Oplossingen",
     children: [
-      { label: "Hospitality Soundbar", href: "/hospitality-soundbar/" },
-      { label: "Etalageschermen", href: "/etalageschermen/" },
+      { label: "Hospitality TV & IPTV", href: "/zakelijke-iptv-voor-hotels-en-bedrijven/" },
+      { label: "Interactieve Televisie", href: "/interactieve-televisie/" },
       { label: "Digitale menuborden", href: "/digitale-menuborden/" },
-      { label: "Wayfinding & Room Signage", href: "/wayfinding-en-room-signage/" },
-      { label: "Draadloos presenteren", href: "/draadloos-presenteren/" },
-      { label: "Public Proof Display", href: "/public-proof-display/" },
-      { label: "Instore Sales Kiosk", href: "/instore-sales-kiosk/" },
-    ],
-  },
-  {
-    label: "Interactive TV",
-    children: [
-      { label: "LG Pro:Centric", href: "/lg-procentric/" },
-      { label: "Google Chromecast", href: "/otrumcast/" },
-      { label: "Hotel IPTV", href: "/zakelijke-iptv-voor-hotels-en-bedrijven/" },
-    ],
-  },
-  {
-    label: "Narrowcasting",
-    children: [
-      { label: "Narrowcasting Software", href: "/narrowcasting/" },
-      { label: "Digital Signage Hardware", href: "/displays/" },
-      { label: "Interne Communicatie", href: "/narrowcasting-interne-communicatie/" },
+      { label: "Narrowcasting software", href: "/narrowcasting/" },
+      { label: "Digital signage hardware", href: "/displays/" },
+      { label: "Wayfinding & room signage", href: "/wayfinding-en-room-signage/" },
+      { label: "Coffeeshop signage", href: "/coffeeshop-signage/" },
+      { label: "Etalageschermen", href: "/etalageschermen/" },
     ],
   },
   {
@@ -43,44 +30,49 @@ const menu: Array<{
     children: [
       { label: "Over ClubDisplay", href: "/over-ons/" },
       { label: "Cases", href: "/cases/" },
-      { label: "Blog", href: "/nieuws/" },
+      { label: "Support", href: "/service-support/" },
       { label: "Contact", href: "/contact/" },
-      { label: "Gegevensbescherming", href: "/gegevensbescherming/" },
     ],
   },
-  { label: "Support", href: "/service-support/" },
 ];
 
-function isActive(item: { href?: string; children?: Array<{ href: string }> }): boolean {
+function isActive(item: MenuItem): boolean {
   if (item.href && currentPath === item.href) return true;
   if (item.children) return item.children.some((c) => currentPath === c.href);
   return false;
 }
 ---
 
-<nav class="nav">
-  <div class="container">
-    <a href="/" class="logo">ClubDisplay</a>
-    <button class="hamburger" aria-label="Menu" data-toggle>
+<nav class="nav" aria-label="Hoofdnavigatie">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo" aria-label="ClubDisplay home">
+      <img src="/images/logo_club_Display.jpg" alt="ClubDisplay" width="180" height="52" />
+    </a>
+    <button class="nav-toggle" aria-label="Menu openen" aria-expanded="false" data-toggle>
       <span></span><span></span><span></span>
     </button>
-    <ul class="nav-links" data-menu>
+    <ul class="nav-menu" data-menu role="list">
       {menu.map((item) => (
-        <li class:list={{ "has-dropdown": item.children, active: isActive(item) }}>
+        <li class:list={{ "nav-item": true, "has-sub": item.children, active: isActive(item) }}>
           {item.href ? (
-            <a href={item.href}>{item.label}</a>
+            <a href={item.href} class="nav-link">{item.label}</a>
           ) : (
-            <span class="dropdown-trigger">{item.label}</span>
+            <span class="nav-link nav-trigger" tabindex="0" role="button" aria-expanded="false">{item.label}</span>
           )}
           {item.children && (
-            <div class="dropdown">
-              {item.children.map((child) => (
-                <a href={child.href}>{child.label}</a>
-              ))}
+            <div class="nav-sub">
+              <div class="nav-sub-inner">
+                {item.children.map((child) => (
+                  <a href={child.href} class="nav-sub-link">{child.label}</a>
+                ))}
+              </div>
             </div>
           )}
         </li>
       ))}
+      <li class="nav-item nav-support">
+        <a href="/contact/" class="nav-support-link">Contact opnemen</a>
+      </li>
     </ul>
   </div>
 </nav>
@@ -88,57 +80,232 @@ function isActive(item: { href?: string; children?: Array<{ href: string }> }): 
 <script>
   const toggle = document.querySelector('[data-toggle]');
   const menu = document.querySelector('[data-menu]');
+  const nav = document.querySelector('.nav');
+
   toggle?.addEventListener('click', () => {
-    menu?.classList.toggle('open');
+    const isOpen = menu?.classList.toggle('open');
+    toggle?.setAttribute('aria-expanded', String(isOpen));
     toggle?.classList.toggle('open');
+    document.body.style.overflow = isOpen ? 'hidden' : '';
   });
 
-  document.querySelectorAll('.has-dropdown > .dropdown-trigger').forEach((trigger) => {
+  document.querySelectorAll('.nav-trigger').forEach((trigger) => {
     trigger.addEventListener('click', (e) => {
-      const li = trigger.closest('.has-dropdown');
       if (window.innerWidth <= 900) {
-        e.preventDefault();
-        li?.classList.toggle('open');
+        const parent = trigger.closest('.nav-item');
+        const sub = parent?.querySelector('.nav-sub');
+        const expanded = trigger.getAttribute('aria-expanded') === 'true';
+        trigger.setAttribute('aria-expanded', String(!expanded));
+        sub?.classList.toggle('open');
       }
     });
   });
 
   document.addEventListener('click', (e) => {
-    document.querySelectorAll('.has-dropdown.open').forEach((el) => {
-      if (!el.contains(e.target as Node)) el.classList.remove('open');
-    });
+    if (!nav?.contains(e.target as Node)) {
+      document.querySelectorAll('.nav-item.open').forEach((el) => el.classList.remove('open'));
+    }
   });
 </script>
 
 <style>
-  .nav { background: white; border-bottom: 1px solid #e5e7eb; position: sticky; top: 0; z-index: 100; height: 4rem; }
-  .nav .container { display: flex; align-items: center; justify-content: space-between; height: 100%; max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
-  .logo { font-weight: 700; font-size: 1.5rem; color: #1a56db; text-decoration: none; flex-shrink: 0; }
-  .nav-links { display: flex; gap: 0.25rem; list-style: none; margin: 0; padding: 0; align-items: center; height: 100%; }
-  .nav-links > li { position: relative; height: 100%; display: flex; align-items: center; }
-  .nav-links > li > a, .nav-links > li > .dropdown-trigger { color: #1f2937; font-weight: 500; font-size: 0.875rem; text-decoration: none; padding: 0 0.75rem; height: 100%; display: flex; align-items: center; cursor: pointer; border-bottom: 2px solid transparent; transition: color 0.15s, border-color 0.15s; white-space: nowrap; }
-  .nav-links > li:hover > a, .nav-links > li:hover > .dropdown-trigger, .nav-links > li.active > a { color: #1a56db; border-bottom-color: #1a56db; }
-  .nav-links > li > .dropdown-trigger::after { content: ""; display: inline-block; width: 0; height: 0; border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 5px solid currentColor; margin-left: 6px; transition: transform 0.2s; }
-  .nav-links > li:hover > .dropdown-trigger::after { transform: rotate(180deg); }
-  .dropdown { display: none; position: absolute; top: 100%; left: 0; background: white; border: 1px solid #e5e7eb; border-radius: 0.5rem; box-shadow: 0 10px 40px rgba(0,0,0,0.1); min-width: 220px; padding: 0.5rem; z-index: 200; }
-  .has-dropdown:hover .dropdown { display: block; }
-  .dropdown a { display: block; padding: 0.5rem 0.75rem; color: #1f2937; text-decoration: none; font-size: 0.875rem; border-radius: 0.375rem; transition: background 0.15s; }
-  .dropdown a:hover { background: #f3f4f6; color: #1a56db; }
-  .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 0.25rem; }
-  .hamburger span { display: block; width: 24px; height: 2px; background: #1f2937; border-radius: 2px; transition: transform 0.2s, opacity 0.2s; }
-  .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-  .hamburger.open span:nth-child(2) { opacity: 0; }
-  .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.97);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border-light);
+    height: 4.75rem;
+  }
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+  }
+  .nav-logo { flex-shrink: 0; display: flex; align-items: center; }
+  .nav-logo img { display: block; height: 2.55rem; width: auto; border-radius: 0; }
+
+  .nav-menu {
+    display: flex;
+    gap: 0.125rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    height: 100%;
+  }
+  .nav-item {
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+  .nav-link {
+    color: var(--text-secondary);
+    font-weight: 500;
+    font-size: 0.875rem;
+    text-decoration: none;
+    padding: 0 0.875rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: color 0.15s;
+    white-space: nowrap;
+    position: relative;
+  }
+  .nav-link::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0.875rem;
+    right: 0.875rem;
+    height: 2px;
+    background: var(--primary);
+    transform: scaleX(0);
+    transition: transform 0.2s;
+  }
+  .nav-item:hover .nav-link,
+  .nav-item.active .nav-link { color: var(--primary); }
+  .nav-item:hover .nav-link::before,
+  .nav-item.active .nav-link::before { transform: scaleX(1); }
+  .nav-trigger { gap: 0.375rem; background: none; border: none; font-family: var(--font); font-size: 0.875rem; }
+  .nav-trigger::after {
+    content: '';
+    display: inline-block;
+    width: 0.375rem;
+    height: 0.375rem;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: rotate(45deg);
+    margin-top: -2px;
+    transition: transform 0.2s;
+  }
+  .nav-item:hover .nav-trigger::after { transform: rotate(225deg); margin-top: 2px; }
+
+  .nav-sub {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding-top: 0.5rem;
+  }
+  .has-sub:hover .nav-sub { display: block; }
+  .nav-sub-inner {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    min-width: 230px;
+    padding: 0.5rem;
+  }
+  .nav-sub-link {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.875rem;
+    border-radius: var(--radius-sm);
+    transition: background 0.12s, color 0.12s;
+  }
+  .nav-sub-link:hover { background: var(--primary-50); color: var(--primary); }
+
+  .nav-item.nav-cta { padding-left: 0.5rem; }
+  .nav-item.nav-cta .btn { font-size: 0.8125rem; padding: 0.5rem 1.125rem; }
+  .nav-support { padding-left: 0.5rem; }
+  .nav-support-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.25rem;
+    padding: 0 1rem;
+    border-radius: 999px;
+    background: var(--primary);
+    color: #fff !important;
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .nav-support-link:hover { background: var(--primary-dark); color: #fff !important; }
+
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.25rem;
+  }
+  .nav-toggle span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--text);
+    border-radius: 2px;
+    transition: transform 0.2s, opacity 0.2s;
+  }
+  .nav-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .nav-toggle.open span:nth-child(2) { opacity: 0; }
+  .nav-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
   @media (max-width: 900px) {
-    .hamburger { display: flex; }
-    .nav-links { display: none; position: absolute; top: 4rem; left: 0; right: 0; background: white; flex-direction: column; padding: 0.5rem; gap: 0; border-bottom: 1px solid #e5e7eb; box-shadow: 0 4px 12px rgba(0,0,0,0.08); height: auto; max-height: calc(100vh - 4rem); overflow-y: auto; }
-    .nav-links.open { display: flex; }
-    .nav-links > li { height: auto; flex-direction: column; align-items: stretch; }
-    .nav-links > li > a, .nav-links > li > .dropdown-trigger { padding: 0.75rem; border-bottom: none; height: auto; }
-    .nav-links > li > .dropdown-trigger::after { margin-left: auto; }
-    .has-dropdown.open > .dropdown-trigger::after { transform: rotate(180deg); }
-    .dropdown { display: none; position: static; box-shadow: none; border: none; border-radius: 0; padding: 0 0 0 1rem; }
-    .has-dropdown.open .dropdown { display: block; }
+    .nav-toggle { display: flex; }
+    .nav-menu {
+      display: none;
+      position: fixed;
+      top: 4rem;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #fff;
+      flex-direction: column;
+      padding: 0.5rem 1.5rem 2rem;
+      gap: 0;
+      height: auto;
+      overflow-y: auto;
+      border-top: 1px solid var(--border-light);
+    }
+    .nav-menu.open { display: flex; }
+    .nav-item { height: auto; flex-direction: column; align-items: stretch; }
+    .nav-link { padding: 0.75rem 0; height: auto; }
+    .nav-link::before { display: none; }
+    .nav-item.active .nav-link { color: var(--primary); }
+    .nav-trigger::after { margin-left: auto; }
+    .nav-item:hover .nav-trigger::after { transform: rotate(45deg); margin-top: -2px; }
+
+    .nav-sub {
+      display: none;
+      position: static;
+      transform: none;
+      padding: 0 0 0 1rem;
+      border: none;
+      box-shadow: none;
+    }
+    .has-sub.open .nav-sub { display: block; }
+    .nav-sub-inner {
+      border: none;
+      box-shadow: none;
+      padding: 0;
+      background: transparent;
+    }
+    .nav-sub-link { padding: 0.5rem 0; }
+
+    .nav-item.nav-cta {
+      padding: 1rem 0 0;
+    }
+    .nav-item.nav-cta .btn {
+      width: 100%;
+      justify-content: center;
+      padding: 0.75rem;
+      font-size: 0.938rem;
+    }
   }
 </style>

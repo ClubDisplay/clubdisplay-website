@@ -1,14 +1,299 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+const iconPaths = {
+  display: "M3 5h18v11H3z M8 21h8 M12 16v5",
+  sun: "M12 4V2 M12 22v-2 M4.93 4.93 3.52-1.41 M19.07 19.07l-1.41-1.41 M4 12H2 M22 12h-2 M4.93 19.07l1.41-1.41 M19.07 4.93l-1.41 1.41 M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z",
+  touch: "M8 11V5a2 2 0 0 1 4 0v6 M12 11V7a2 2 0 0 1 4 0v5 M16 12V9a2 2 0 0 1 4 0v5c0 4-2.5 7-7 7h-1c-2.2 0-3.8-.9-5-2.5L3 13.5a2 2 0 0 1 3-2.6L8 13",
+  player: "M4 7h16v10H4z M8 12h.1 M12 12h.1 M16 12h.1 M7 21h10 M12 17v4",
+  mount: "M5 4h14v10H5z M9 18h6 M12 14v4 M8 8h8",
+  network: "M12 5a3 3 0 1 0 0 6 3 3 0 0 0 0-6z M5 19a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M19 19a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M10 10l-3 4 M14 10l3 4",
+  clock: "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z M12 7v5l3 2",
+  check: "M20 6 9 17l-5-5",
+} as const;
+
+const proofHighlights = [
+  { title: "Professionele displays", text: "Voor langdurig zakelijk gebruik", icon: "display", tone: "blue" },
+  { title: "High-brightness", text: "Goed zichtbaar in etalage of daglicht", icon: "sun", tone: "amber" },
+  { title: "Mediaspelers", text: "Betrouwbare weergave en beheer", icon: "player", tone: "teal" },
+  { title: "Installatie", text: "Montage, bekabeling en oplevering", icon: "mount", tone: "violet" },
+] as const;
+
+const hardwareCards = [
+  {
+    title: "Indoor signage displays",
+    text: "Professionele schermen voor recepties, wachtruimtes, winkels, horeca, kantoren en publieke ruimtes. Geschikt voor dagelijks gebruik en centrale aansturing.",
+    icon: "display",
+    tone: "blue",
+    href: "/narrowcasting/",
+    link: "Bekijk narrowcasting software",
+  },
+  {
+    title: "High-brightness schermen",
+    text: "Voor etalages en lichte omgevingen waar gewone schermen wegvallen. We letten op helderheid, reflectie, koeling en kijkhoek.",
+    icon: "sun",
+    tone: "amber",
+    href: "/etalageschermen/",
+    link: "Bekijk etalageschermen",
+  },
+  {
+    title: "Menubord-hardware",
+    text: "Schermen voor horecazaken, hotels, snackbars en coffeeshops. Afgestemd op schermpositie, kijkafstand, menu-indeling en dagdelen.",
+    icon: "display",
+    tone: "teal",
+    href: "/digitale-menuborden/",
+    link: "Bekijk digitale menuborden",
+  },
+  {
+    title: "Mediaspelers en players",
+    text: "Een betrouwbare player zorgt dat content automatisch start, online blijft en op afstand beheerd kan worden. Soms is de player ingebouwd, soms extern.",
+    icon: "player",
+    tone: "blue",
+    href: "/narrowcasting/",
+    link: "Bekijk softwarekoppeling",
+  },
+  {
+    title: "Beugels, montage en netwerk",
+    text: "Hardware is pas goed als plaatsing klopt. Wij denken mee over VESA-beugels, kabelroutes, stroom, netwerk, wifi, koeling en servicebaarheid.",
+    icon: "network",
+    tone: "amber",
+    href: "/service-support/",
+    link: "Bekijk support",
+  },
+] as const;
+
+const decisionPoints = [
+  "Hoeveel uur per dag moet het scherm aan staan?",
+  "Komt het scherm binnen, buiten of achter glas te hangen?",
+  "Is portrait, landscape of een afwijkend formaat nodig?",
+  "Moet de content via narrowcasting, menuborden of een eigen app draaien?",
+  "Is touch, audio, casting, kassakoppeling of databronintegratie nodig?",
+  "Hoe worden stroom, netwerk, montage en beheer geregeld?",
+] as const;
+
+const softwareLinks = [
+  { title: "Narrowcasting software", text: "Voor centrale planning, contentbeheer en schermmonitoring.", href: "/narrowcasting/" },
+  { title: "Digitale menuborden", text: "Voor menu's, prijzen, acties en kassakoppelingen.", href: "/digitale-menuborden/" },
+  { title: "Etalageschermen", text: "Voor high-brightness schermen in winkelruiten.", href: "/etalageschermen/" },
+] as const;
 ---
-<BaseLayout title="Digital Signage Hardware" description="Professionele digital signage hardware van LG, Samsung en meer. Displays, kiosken, videowalls en accessoires voor elke toepassing." currentPath="/displays/">
-  <div class="container page-content">
-    <h1>Digital Signage Hardware</h1>
-    <p>De juiste hardware is de basis van elk succesvol digital signage project. ClubDisplay levert professionele displays en hardware van topmerken zoals LG, Samsung en Philips. Onze schermen zijn speciaal ontworpen voor intensief, continu gebruik en bieden een hogere helderheid, betere warmteafvoer en langere levensduur dan consumenten-tv's.</p>
-    <p>Wij bieden een compleet assortiment: van compacte 32-inch displays voor etalages tot grootschalige videowalls en transparante OLED-schermen. Elk product wordt geselecteerd op basis van uw specifieke toepassing, omgeving en budget. Daarnaast leveren wij alle benodigde accessoires zoals montagebeugels, kabels, mediaspelers en aanraakpanelen.</p>
-    <h2>Onze merken en productlijnen</h2>
-    <p>Wij zijn gecertificeerd partner van LG (waaronder LG Pro:Centric en LG webOS) en Samsung. Daarnaast werken we samen met andere vooraanstaande fabrikanten voor niche-oplossingen. Van public proof displays voor buitengebruik tot interactieve touchscreens voor vergaderruimtes, wij hebben de juiste hardware voor elke uitdaging.</p>
-    <h2>Advies en installatie</h2>
-    <p>Nieuw bij digital signage? Onze specialisten adviseren u vrijblijvend over de beste hardware voor uw project. Wij verzorgen ook de installatie, bekabeling en configuratie. Zo bent u verzekerd van een professioneel resultaat. Bekijk onze producten of neem contact op voor een persoonlijk advies.</p>
-  </div>
+
+<BaseLayout
+  title="Digital Signage Hardware | Displays, players en installatie"
+  description="Informatieve gids voor digital signage hardware: professionele displays, mediaspelers, high-brightness schermen, touch displays, montage, netwerk en softwarekoppelingen."
+  canonical="https://clubdisplay.nl/displays/"
+  currentPath="/displays/"
+>
+  <section class="commercial-hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow">Digital Signage Hardware</span>
+        <h1>De juiste schermen, players en montage voor uw digital signage</h1>
+        <p>
+          Goede digital signage begint bij hardware die past bij de plek, kijkafstand, lichtomstandigheden en software. ClubDisplay adviseert, levert en installeert professionele displays, mediaspelers, beugels en randapparatuur.
+        </p>
+        <div class="hero-actions">
+          <a href="/plan-jouw-gesprek/" class="btn btn-lg">Plan een adviesgesprek</a>
+          <a href="/narrowcasting/" class="btn btn-lg btn-outline">Bekijk software</a>
+        </div>
+      </div>
+      <figure class="hero-media">
+        <img src="/images/displays/HennyRits_HighBrightness.jpg" alt="High-brightness etalagescherm in een winkelomgeving" />
+      </figure>
+    </div>
+  </section>
+
+  <section class="proof-strip">
+    <div class="container proof-grid">
+      {proofHighlights.map((item) => (
+        <article class:list={["proof-card", `tone-${item.tone}`]}>
+          <span class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d={iconPaths[item.icon]} />
+            </svg>
+          </span>
+          <div>
+            <strong>{item.title}</strong>
+            <span>{item.text}</span>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="commercial-section">
+    <div class="container split-grid">
+      <div>
+        <span class="eyebrow">Waarom professioneel?</span>
+        <h2>Een consumenten-tv is meestal niet gemaakt voor digital signage</h2>
+        <p>
+          Een scherm dat dagelijks veel uren draait, vraagt om andere eigenschappen dan een gewone televisie. Denk aan hogere helderheid, betere warmteafvoer, stabiele firmware, professionele aansluitingen, portrait-ondersteuning en beheer op afstand.
+        </p>
+        <p>
+          Wij kijken niet alleen naar formaat en prijs, maar vooral naar de toepassing: wie kijkt ernaar, hoe lang staat het scherm aan, hoeveel licht valt erop en welke software moet er betrouwbaar op draaien?
+        </p>
+      </div>
+      <div class="criteria-panel">
+        <h3>Waar letten we op?</h3>
+        <div class="criteria-grid">
+          {decisionPoints.map((item) => (
+            <article class="criteria-item">
+              <span aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d={iconPaths.check} />
+                </svg>
+              </span>
+              <p>{item}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="commercial-section section-alt">
+    <div class="container cards-section">
+      <div class="section-head">
+        <span class="eyebrow">Hardware keuzes</span>
+        <h2>Van scherm tot player: dit zijn de belangrijkste bouwstenen</h2>
+        <p>
+          Digital signage hardware bestaat vaak uit meer dan alleen een display. De combinatie van scherm, player, montage, netwerk en software bepaalt of het systeem in de praktijk prettig werkt.
+        </p>
+      </div>
+      <div class="cards-grid">
+        {hardwareCards.map((item) => (
+          <article class:list={["hardware-card", `tone-${item.tone}`]}>
+            <span class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d={iconPaths[item.icon]} />
+              </svg>
+            </span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+            <a href={item.href}>{item.link} <span aria-hidden="true">-&gt;</span></a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="commercial-section">
+    <div class="container visual-grid">
+      <figure class="image-card">
+        <img src="/images/displays/Outdoor_Cheers.jpg" alt="Outdoor digital signage scherm bij een horecaterras" />
+      </figure>
+      <div>
+        <span class="eyebrow">Helderheid en omgeving</span>
+        <h2>Een scherm moet zichtbaar zijn op de plek waar het hangt</h2>
+        <p>
+          Bij schermkeuze is helderheid een van de belangrijkste factoren. Een display in een rustige wachtruimte vraagt iets anders dan een scherm in een etalage, bij een entree of op een plek met direct daglicht.
+        </p>
+        <ul class="check-list">
+          <li>Indoor schermen voor normale lichtomstandigheden.</li>
+          <li>High-brightness displays voor etalages en veel daglicht.</li>
+          <li>Outdoor en public-proof oplossingen voor intensievere omgevingen.</li>
+          <li>Juiste montagehoogte, kijkafstand en schermrichting.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="commercial-section section-alt">
+    <div class="container software-section">
+      <div class="section-head">
+        <span class="eyebrow">Hardware + software</span>
+        <h2>De hardware moet passen bij wat u wilt tonen</h2>
+        <p>
+          Een scherm is pas nuttig als de content eenvoudig te beheren is. Daarom koppelen we hardware altijd aan de juiste software en toepassing.
+        </p>
+      </div>
+      <div class="software-grid">
+        {softwareLinks.map((item) => (
+          <a class="software-card" href={item.href}>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+            <span>Meer bekijken <span aria-hidden="true">-&gt;</span></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="commercial-cta">
+    <div class="container cta-inner">
+      <h2>Twijfelt u welk scherm of welke player u nodig heeft?</h2>
+      <p>We kijken mee naar locatie, licht, montage, software, content en beheer.</p>
+      <a href="/plan-jouw-gesprek/" class="btn btn-lg btn-white">Plan een adviesgesprek</a>
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+  .commercial-hero { padding: 5.5rem 0 4.5rem; background: linear-gradient(135deg, #fff 0%, #eef6ff 100%); }
+  .hero-grid { display: grid; grid-template-columns: minmax(0, 0.95fr) minmax(360px, 1.05fr); gap: 4rem; align-items: center; }
+  .eyebrow { display: inline-flex; color: var(--primary); font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1rem; }
+  .hero-copy h1 { font-size: clamp(2.25rem, 4.6vw, 4.25rem); line-height: 1.04; margin-bottom: 1.25rem; }
+  .hero-copy p { font-size: 1.125rem; max-width: 620px; }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; }
+  .hero-media, .image-card { position: relative; border-radius: 20px; overflow: hidden; min-height: 420px; background: #0f172a; box-shadow: var(--shadow-xl); margin: 0; }
+  .hero-media img, .image-card img { width: 100%; height: 100%; min-height: 420px; object-fit: cover; border-radius: 0; }
+  .proof-strip { background: #fff; border-bottom: 1px solid var(--border-light); }
+  .proof-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; transform: translateY(-1.65rem); }
+  .proof-card { display: flex; align-items: center; gap: 0.85rem; padding: 1rem; background: #fff; border: 1px solid rgba(148, 163, 184, 0.28); border-radius: 16px; box-shadow: 0 18px 50px rgba(15, 23, 42, 0.08); }
+  .proof-card div { display: grid; gap: 0.2rem; min-width: 0; }
+  .proof-grid strong { color: var(--text); font-size: 0.95rem; }
+  .proof-grid span { color: var(--text-secondary); font-size: 0.8125rem; }
+  .card-icon, .feature-icon, .criteria-item span { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; width: 2.75rem; height: 2.75rem; border-radius: 14px; }
+  .card-icon svg, .feature-icon svg, .criteria-item svg { width: 1.35rem; height: 1.35rem; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+  .tone-blue .card-icon, .tone-blue .feature-icon { color: var(--brand-accent); background: var(--primary-light); }
+  .tone-teal .card-icon, .tone-teal .feature-icon { color: #0f766e; background: #ccfbf1; }
+  .tone-amber .card-icon, .tone-amber .feature-icon { color: #b45309; background: #fef3c7; }
+  .tone-violet .card-icon, .tone-violet .feature-icon { color: #6d28d9; background: #ede9fe; }
+  .tone-blue { --card-accent: var(--brand-accent); }
+  .tone-teal { --card-accent: #0d9488; }
+  .tone-amber { --card-accent: #f59e0b; }
+  .tone-violet { --card-accent: #7c3aed; }
+  .commercial-section { padding: 5.5rem 0; background: #fff; }
+  .section-alt { background: var(--bg-alt); }
+  .split-grid, .visual-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 4rem; align-items: center; }
+  .split-grid h2, .visual-grid h2, .section-head h2, .commercial-cta h2 { font-size: clamp(1.75rem, 2.8vw, 2.7rem); line-height: 1.12; }
+  .criteria-panel { padding: 1.6rem; border: 1px solid rgba(148, 163, 184, 0.28); border-radius: 20px; background: #fff; box-shadow: 0 18px 45px rgba(15, 23, 42, 0.06); }
+  .criteria-panel h3 { margin-top: 0; }
+  .criteria-grid { display: grid; gap: 0.8rem; }
+  .criteria-item { display: grid; grid-template-columns: auto 1fr; gap: 0.75rem; align-items: start; padding: 0.95rem; background: #f8fafc; border: 1px solid rgba(148, 163, 184, 0.22); border-radius: 15px; }
+  .criteria-item span { width: 2rem; height: 2rem; color: var(--brand-accent); background: var(--primary-light); border-radius: 999px; }
+  .criteria-item svg { width: 1rem; height: 1rem; }
+  .criteria-item p { margin: 0; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.55; }
+  .section-head { max-width: 760px; margin-bottom: 2rem; }
+  .cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  .hardware-card { position: relative; display: grid; align-content: start; gap: 0.85rem; border: 1px solid rgba(148, 163, 184, 0.28); border-radius: 18px; padding: 1.45rem; background: #fff; box-shadow: 0 18px 45px rgba(15, 23, 42, 0.06); overflow: hidden; transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease; }
+  .hardware-card::before { content: ""; position: absolute; inset: 0 0 auto; height: 4px; background: var(--card-accent, var(--primary)); }
+  .hardware-card:hover, .software-card:hover { transform: translateY(-4px); border-color: rgba(var(--primary-rgb), 0.22); box-shadow: 0 24px 60px rgba(15, 23, 42, 0.1); }
+  .hardware-card h3, .software-card h3 { font-size: 1rem; margin: 0 0 0.35rem; }
+  .hardware-card p, .software-card p { font-size: 0.875rem; margin: 0; color: var(--text-secondary); line-height: 1.65; }
+  .hardware-card a, .software-card span { color: var(--primary); font-weight: 800; font-size: 0.85rem; text-decoration: none; }
+  .check-list { display: grid; gap: 0.85rem; margin: 1.75rem 0 0; padding: 0; list-style: none; }
+  .check-list li { position: relative; padding-left: 1.8rem; color: var(--text-secondary); line-height: 1.65; }
+  .check-list li::before { content: ""; position: absolute; left: 0; top: 0.55rem; width: 0.65rem; height: 0.65rem; border-radius: 999px; background: var(--primary); box-shadow: 0 0 0 5px rgba(var(--primary-rgb), 0.1); }
+  .software-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  .software-card { display: grid; gap: 0.65rem; padding: 1.4rem; border-radius: 18px; border: 1px solid rgba(148, 163, 184, 0.28); background: #fff; text-decoration: none; transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease; }
+  .commercial-cta { padding: 5rem 0; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); }
+  .cta-inner { max-width: 760px; text-align: center; }
+  .commercial-cta h2, .commercial-cta p { color: #fff; }
+  .commercial-cta p { color: rgba(255,255,255,0.82); }
+
+  @media (max-width: 1020px) {
+    .cards-grid, .software-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 900px) {
+    .hero-grid, .split-grid, .visual-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .proof-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 620px) {
+    .commercial-hero, .commercial-section, .commercial-cta { padding: 3.5rem 0; }
+    .hero-actions { flex-direction: column; }
+    .hero-actions .btn { width: 100%; justify-content: center; }
+    .hero-media, .hero-media img, .image-card, .image-card img { min-height: 300px; }
+    .proof-grid, .cards-grid, .software-grid { grid-template-columns: 1fr; transform: none; margin: 1rem 0; }
+  }
+</style>

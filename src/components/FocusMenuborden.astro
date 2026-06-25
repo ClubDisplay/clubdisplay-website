@@ -1,0 +1,78 @@
+<section class="focus-sec" id="menuborden">
+  <div class="container">
+    <div class="focus-grid focus-rev">
+      <div class="focus-text">
+        <span class="focus-tag">Specialisme #2</span>
+        <h2>Digitale menuborden — dynamisch, met kassakoppeling</h2>
+        <p>Maak uw menukaart digitaal en beheer deze vanuit de cloud. Onze <strong>digitale menuborden met kassakoppeling</strong> stellen u in staat om prijzen, gerechten en promoties in real-time aan te passen. Geen gedrukte menu's meer, geen verouderde prijzen — altijd actueel en professioneel.</p>
+        <p>Of u nu een restaurant, hotel, café, snackbar of coffeeshop runt: digitale menuborden helpen u om sneller te schakelen, de omzet te verhogen en gasten te verrassen. Koppel uw kassasysteem voor automatische prijswijzigingen, stel dagdelen in en speel video-content af in uw eigen huisstijl.</p>
+        <div class="focus-tags">
+          <span>Kassakoppeling</span><span>Real-time prijzen</span><span>Dagdelen instellen</span>
+          <span>Promoties & video</span><span>Centrale aansturing</span><span>Eigen huisstijl</span>
+        </div>
+        <a href="/digitale-menuborden/" class="btn">Ontdek digitale menuborden <span aria-hidden="true">&rarr;</span></a>
+      </div>
+      <div class="focus-visual">
+        <div class="f-mockup f-mockup-dark">
+          <div class="f-bar"><span></span><span></span><span></span><span class="f-bar-label">Menubord</span></div>
+          <div class="f-menu-body">
+            <div class="fm-row"><span></span><span></span></div>
+            <div class="fm-row"><span></span><span></span></div>
+            <div class="fm-row hl"><span></span><span></span></div>
+            <div class="fm-row"><span></span><span></span></div>
+            <div class="fm-row"><span></span><span></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .focus-sec { padding: 7.5rem 0; background: var(--bg); }
+  .focus-grid { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 4rem; }
+  .focus-rev { direction: rtl; }
+  .focus-rev > * { direction: ltr; }
+  .focus-tag {
+    display: inline-block; background: var(--primary-light); color: var(--primary-dark);
+    padding: 0.25rem 0.875rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 1.25rem;
+  }
+  .focus-text h2 {
+    font-size: clamp(1.5rem, 2vw, 2rem); font-weight: 800;
+    letter-spacing: -0.02em; line-height: 1.15; margin: 0 0 1.25rem;
+  }
+  .focus-text p { font-size: 0.938rem; color: var(--text-secondary); line-height: 1.75; margin: 0 0 1rem; }
+  .focus-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.5rem 0 2rem; }
+  .focus-tags span {
+    background: #fff; border: 1px solid var(--border);
+    padding: 0.375rem 0.875rem; border-radius: 999px;
+    font-size: 0.8125rem; color: var(--text-secondary); font-weight: 500;
+  }
+
+  .f-mockup { border-radius: var(--radius-xl); overflow: hidden; box-shadow: var(--shadow-lg); }
+  .f-mockup-dark { background: #111827; border: 1px solid #1f2937; }
+  .f-mockup-dark .f-bar { background: #1f2937; border-bottom-color: #374151; }
+  .f-mockup-dark .f-bar-label { color: #6b7280; }
+  .f-bar {
+    padding: 0.75rem 1rem; display: flex;
+    gap: 0.375rem; align-items: center; border-bottom: 1px solid var(--border);
+  }
+  .f-bar span { width: 8px; height: 8px; border-radius: 50%; }
+  .f-bar span:nth-child(1) { background: #ef4444; }
+  .f-bar span:nth-child(2) { background: #f59e0b; }
+  .f-bar span:nth-child(3) { background: #10b981; }
+  .f-bar-label { font-size: 0.6875rem; font-weight: 600; color: var(--text-muted); margin-left: 0.5rem; text-transform: uppercase; letter-spacing: 0.04em; }
+  .f-menu-body { padding: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem; }
+  .fm-row { display: flex; justify-content: space-between; gap: 1rem; }
+  .fm-row span:first-child { height: 0.5rem; width: 60%; background: rgba(255,255,255,0.08); border-radius: 3px; }
+  .fm-row span:last-child { height: 0.5rem; width: 20%; background: rgba(255,255,255,0.08); border-radius: 3px; }
+  .fm-row.hl span { background: rgba(59,130,246,0.3) !important; }
+
+  @media (max-width: 900px) {
+    .focus-sec { padding: 5rem 0; }
+    .focus-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .focus-rev { direction: ltr; }
+    .focus-text h2 { font-size: 1.5rem; }
+  }
+</style>

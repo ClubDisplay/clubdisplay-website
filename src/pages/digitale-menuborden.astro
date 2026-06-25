@@ -1,14 +1,451 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+const menuBoardSlides = [
+  {
+    src: "/images/cases/digitalemenuborden01.jpg",
+    alt: "Digitale menuborden in een horecalocatie",
+  },
+  {
+    src: "/images/digitale-menuborden/digitalemenuborden-voorhout.jpg",
+    alt: "Digitaal menubord bij Voorhoutse Friet",
+  },
+  {
+    src: "/images/digitale-menuborden/cs-roots.jpg",
+    alt: "Digitale menuborden bij coffeeshop Roots",
+  },
+  {
+    src: "/images/digitale-menuborden/menubord-majestic.jpg",
+    alt: "Digitale menuborden bij Majestic",
+  },
+  {
+    src: "/images/digitale-menuborden/grasscompany.jpg",
+    alt: "Digitale prijslijsten bij The Grass Company",
+  },
+  {
+    src: "/images/digitale-menuborden/menubord-africa.jpg",
+    alt: "Digitaal menubord bij Africa",
+  },
+  {
+    src: "/images/digitale-menuborden/piramide-baliescherm.jpg",
+    alt: "Baliescherm met digitaal menu bij Piramide",
+  },
+  {
+    src: "/images/digitale-menuborden/piramide-03.jpg",
+    alt: "Digitaal menubord bij Piramide",
+  },
+  {
+    src: "/images/digitale-menuborden/piramide-01.jpg",
+    alt: "Digitale schermcommunicatie bij Piramide",
+  },
+];
+
+const iconPaths = {
+  receipt: "M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2H4z M8 7h8 M8 11h8 M8 15h5",
+  clock: "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z M12 7v5l3 2",
+  palette: "M12 3a9 9 0 0 0 0 18h1.4a2.1 2.1 0 0 0 1.5-3.6 1.2 1.2 0 0 1 .8-2h1.1A4.2 4.2 0 0 0 21 11.2C21 6.7 17 3 12 3z M7.5 11h.1 M9.5 7.7h.1 M14.2 7.7h.1 M16.5 11h.1",
+  network: "M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M18 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M12 22a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M8.4 7.1l2.1 9.2 M15.6 7.1l-2.1 9.2 M9 19h6",
+  refresh: "M20 6v5h-5 M4 18v-5h5 M18.3 9A7 7 0 0 0 6.4 6.7L4 9 M5.7 15a7 7 0 0 0 11.9 2.3L20 15",
+  calendar: "M8 2v4 M16 2v4 M3 10h18 M5 4h14a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z",
+  megaphone: "M3 11v3a2 2 0 0 0 2 2h2l3 5v-5l8 3V6l-8 3H5a2 2 0 0 0-2 2z M18 9a4 4 0 0 1 0 6",
+  screens: "M3 5h18v11H3z M8 21h8 M12 16v5 M6 8h5 M6 11h8",
+  restaurant: "M7 2v8 M4 2v8 M10 2v8 M4 6h6 M7 10v12 M17 2v20 M14 2h5v9a3 3 0 0 1-3 3h-2",
+  hotel: "M4 21V5a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v16 M3 21h18 M8 7h2 M8 11h2 M8 15h2 M14 7h2 M14 11h2 M14 15h2",
+  burger: "M4 13h16 M6 13a6 6 0 0 1 12 0 M5 16h14 M6 19h12 M8 10h.1 M12 9h.1 M16 10h.1",
+  store: "M4 10h16l-1-6H5l-1 6z M5 10v10h14V10 M8 14h8 M8 18h4",
+} as const;
+
+const proofHighlights = [
+  { title: "Kassakoppeling", text: "Prijzen automatisch actueel", icon: "receipt", tone: "blue" },
+  { title: "Dagdelen", text: "Ontbijt, lunch, diner en acties", icon: "clock", tone: "teal" },
+  { title: "Eigen huisstijl", text: "Professioneel menudesign", icon: "palette", tone: "amber" },
+  { title: "Centraal beheer", text: "Een of meerdere locaties", icon: "network", tone: "violet" },
+] as const;
+
+const benefitCards = [
+  {
+    title: "Realtime aanpassingen",
+    text: "Pas prijzen, teksten en productgroepen aan zonder opnieuw te printen of borden te vervangen.",
+    icon: "refresh",
+    tone: "blue",
+  },
+  {
+    title: "Planning per dagdeel",
+    text: "Toon automatisch ontbijt, lunch, diner, happy hour, aanbiedingen of seizoensmenu’s.",
+    icon: "calendar",
+    tone: "teal",
+  },
+  {
+    title: "Verkoopgerichte content",
+    text: "Maak specials, upsells en combideals zichtbaarder met beeld, beweging en duidelijke hiërarchie.",
+    icon: "megaphone",
+    tone: "amber",
+  },
+  {
+    title: "Meerdere schermen of locaties",
+    text: "Beheer schermen per vestiging, zone of formule vanuit één overzichtelijke omgeving.",
+    icon: "screens",
+    tone: "violet",
+  },
+] as const;
+
+const applicationCards = [
+  {
+    title: "Restaurants en cafés",
+    text: "Dagmenu’s, drankkaarten, acties, events en visuele specials in een stijl die past bij uw zaak.",
+    icon: "restaurant",
+    tone: "blue",
+  },
+  {
+    title: "Hotels en ontbijt",
+    text: "Ontbijtinformatie, openingstijden, arrangementen en hospitality content voor gasten.",
+    icon: "hotel",
+    tone: "teal",
+  },
+  {
+    title: "Snackbars en fast casual",
+    text: "Snelle menukeuzes, combideals, wachtrijcommunicatie en schermen boven de counter.",
+    icon: "burger",
+    tone: "amber",
+  },
+  {
+    title: "Coffeeshops",
+    text: "Digitale prijslijsten, productinformatie, huisregels en professionele schermcommunicatie.",
+    icon: "store",
+    tone: "violet",
+  },
+] as const;
 ---
-<BaseLayout title="Digitale Menuborden" description="Digitale menuborden voor restaurants, cafetaria's en hotels. Dynamische menuweergave, eenvoudig aanpasbaar en altijd actueel. Ontdek de voordelen." currentPath="/digitale-menuborden/">
-  <div class="container page-content">
-    <h1>Digitale Menuborden</h1>
-    <p>Digitale menuborden vervangen traditionele papieren menu's en prijskaarten door dynamische schermen die eenvoudig op afstand te beheren zijn. Of u nu een restaurant, lunchroom, hotel of bedrijfsrestaurant runt, met digitale menuborden presenteert u uw aanbod op een aantrekkelijke en professionele manier. Wijzig menu's, prijzen of aanbiedingen in real-time zonder dat u iets hoeft te printen.</p>
-    <p>Onze digitale menuborden werken op hoogwaardige schermen van onder andere LG en Samsung. U kunt kiezen uit staande of liggende formaten, enkele schermen of indrukwekkende videowalls. De content wordt beheerd via onze gebruiksvriendelijke narrowcasting software, waarmee u eenvoudig afspeellijsten samenstelt, schema's instelt en content aanpast per tijdstip of dagdeel.</p>
-    <h2>Voordelen van digitale menuborden</h2>
-    <p>Digitale menuborden bieden tal van voordelen ten opzichte van gedrukte menu's. U bespaart op printkosten, kunt eenvoudig A/B-testen uitvoeren met verschillende aanbiedingen en speelt direct in op voorraadwijzigingen. Daarnaast trekken bewegende beelden meer aandacht van gasten, wat leidt tot een hogere omzet uit aanbiedingen en specials. Uit onderzoek blijkt dat digitale menuborden de verkoop met 15 tot 30 procent kunnen verhogen.</p>
-    <h2>Eenvoudig beheer op afstand</h2>
-    <p>Met ons cloudgebaseerde platform beheert u al uw digitale menuborden vanaf één centrale plek. Voeg nieuwe gerechten toe, pas prijzen aan of wissel tussen dag- en avondmenu's in enkele seconden. U kunt ook specifieke schermen koppelen aan bepaalde zones, zodat gasten altijd de meest relevante informatie zien. Neem contact met ons op voor een vrijblijvende demonstratie.</p>
-  </div>
+
+<BaseLayout
+  title="Digitale menuborden voor horeca, hotels en cafés"
+  description="Digitale menuborden voor restaurants, hotels, cafés, snackbars en coffeeshops. Actuele prijzen, dagdelen, promoties, kassakoppeling, installatie en beheer."
+  canonical="https://clubdisplay.nl/digitale-menuborden/"
+  currentPath="/digitale-menuborden/"
+>
+  <section class="commercial-hero menu-hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow">Digitale menuborden</span>
+        <h1>Menu’s, prijzen en acties altijd actueel op uw schermen</h1>
+        <p>
+          ClubDisplay maakt digitale menuborden voor restaurants, hotels, cafés, snackbars en coffeeshops. U beheert prijzen, aanbiedingen en dagdelen centraal, met de mogelijkheid om kassasystemen te koppelen.
+        </p>
+        <div class="hero-actions">
+          <a href="/plan-jouw-gesprek/" class="btn btn-lg">Plan een adviesgesprek</a>
+          <a href="#kassakoppeling" class="btn btn-lg btn-outline">Bekijk kassakoppeling</a>
+        </div>
+      </div>
+      <div class="hero-media menu-slider" data-menu-slider>
+        <div class="menu-slider-track">
+          {menuBoardSlides.map((slide, index) => (
+            <img
+              src={slide.src}
+              alt={slide.alt}
+              class:list={["menu-slide", { active: index === 0 }]}
+              loading={index === 0 ? "eager" : "lazy"}
+              decoding="async"
+            />
+          ))}
+        </div>
+        <div class="menu-slider-dots" aria-label="Digitale menuborden slider">
+          {menuBoardSlides.map((_, index) => (
+            <button
+              type="button"
+              class:list={["menu-slider-dot", { active: index === 0 }]}
+              aria-label={`Toon foto ${index + 1}`}
+              data-slide-dot={index}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="proof-strip">
+    <div class="container proof-grid">
+      {proofHighlights.map((item) => (
+        <article class:list={["proof-card", `tone-${item.tone}`]}>
+          <span class="proof-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d={iconPaths[item.icon]} />
+            </svg>
+          </span>
+          <div>
+            <strong>{item.title}</strong>
+            <span>{item.text}</span>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="commercial-section">
+    <div class="container split-grid">
+      <div>
+        <span class="eyebrow">Waarom digitaal</span>
+        <h2>Sneller wijzigen, beter presenteren en minder printwerk</h2>
+        <p>
+          Papieren menu’s en statische prijslijsten zijn snel verouderd. Met digitale menuborden past u prijzen, gerechten en acties direct aan. Daardoor blijft uw aanbod actueel en kunt u beter inspelen op drukte, voorraad en marge.
+        </p>
+      </div>
+      <div class="feature-list">
+        {benefitCards.map((item) => (
+          <article class:list={["feature-card", `tone-${item.tone}`]}>
+            <span class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d={iconPaths[item.icon]} />
+              </svg>
+            </span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="commercial-section section-alt" id="kassakoppeling">
+    <div class="container split-grid reverse-grid">
+      <figure class="highlight-panel">
+        <img
+          src="/images/digitale-menuborden/piramide-baliescherm.jpg"
+          alt="Baliescherm met digitaal menu en kassakoppeling"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+      <div>
+        <span class="eyebrow">Kassakoppeling</span>
+        <h2>Menuborden die meebewegen met uw kassa</h2>
+        <p>
+          Een kassakoppeling voorkomt dubbel werk en verkleint de kans op prijsverschillen tussen kassa en scherm. Afhankelijk van uw kassasysteem kunnen productnamen, prijzen, beschikbaarheid of categorieën worden gekoppeld.
+        </p>
+        <ul class="check-list">
+          <li>Prijswijzigingen sneller doorvoeren</li>
+          <li>Producten of specials makkelijker tonen of verbergen</li>
+          <li>Minder handmatig onderhoud aan menuschermen</li>
+          <li>Consistente informatie voor gasten en medewerkers</li>
+        </ul>
+        <div class="section-actions">
+          <a href="/plan-jouw-gesprek/" class="btn btn-lg">Plan een adviesgesprek</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="commercial-section">
+    <div class="container cards-section">
+      <div class="section-head">
+        <span class="eyebrow">Toepassingen</span>
+        <h2>Voor elke horecavorm een passend menubord</h2>
+      </div>
+      <div class="cards-grid">
+        {applicationCards.map((item) => (
+          <article class:list={["application-card", `tone-${item.tone}`]}>
+            <span class="application-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d={iconPaths[item.icon]} />
+              </svg>
+            </span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="commercial-cta">
+    <div class="container cta-inner">
+      <h2>Wilt u digitale menuborden die direct passen bij uw zaak?</h2>
+      <p>We kijken mee naar schermpositie, menustructuur, kassasysteem, content en beheer.</p>
+      <a href="/plan-jouw-gesprek/" class="btn btn-lg btn-white">Plan een adviesgesprek</a>
+    </div>
+  </section>
 </BaseLayout>
+
+<script>
+  const sliders = document.querySelectorAll('[data-menu-slider]');
+
+  sliders.forEach((slider) => {
+    const slides = Array.from(slider.querySelectorAll('.menu-slide'));
+    const dots = Array.from(slider.querySelectorAll('[data-slide-dot]'));
+    let activeIndex = 0;
+    let timer;
+
+    const showSlide = (nextIndex) => {
+      activeIndex = (nextIndex + slides.length) % slides.length;
+      slides.forEach((slide, index) => slide.classList.toggle('active', index === activeIndex));
+      dots.forEach((dot, index) => dot.classList.toggle('active', index === activeIndex));
+    };
+
+    const start = () => {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || slides.length < 2) return;
+      timer = window.setInterval(() => showSlide(activeIndex + 1), 4200);
+    };
+
+    const restart = () => {
+      if (timer) window.clearInterval(timer);
+      start();
+    };
+
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        showSlide(index);
+        restart();
+      });
+    });
+
+    start();
+  });
+</script>
+
+<style>
+  .commercial-hero { padding: 5.5rem 0 4.5rem; background: linear-gradient(135deg, #fff 0%, #f0fdfa 100%); }
+  .hero-grid { display: grid; grid-template-columns: minmax(0, 0.95fr) minmax(360px, 1.05fr); gap: 4rem; align-items: center; }
+  .eyebrow { display: inline-flex; color: var(--primary); font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1rem; }
+  .hero-copy h1 { font-size: clamp(2.25rem, 4.6vw, 4.25rem); line-height: 1.04; margin-bottom: 1.25rem; }
+  .hero-copy p { font-size: 1.125rem; max-width: 620px; }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; }
+  .hero-media { position: relative; border-radius: 18px; overflow: hidden; min-height: 420px; box-shadow: var(--shadow-xl); background: #0f172a; }
+  .menu-slider-track { position: absolute; inset: 0; }
+  .menu-slide { position: absolute; inset: 0; width: 100%; height: 100%; min-height: 420px; object-fit: cover; border-radius: 0; opacity: 0; transform: scale(1.025); transition: opacity 0.7s ease, transform 4.2s ease; }
+  .menu-slide.active { opacity: 1; transform: scale(1); }
+  .menu-slider-dots { position: absolute; left: 0; right: 0; bottom: 1rem; z-index: 2; display: flex; justify-content: center; gap: 0.45rem; padding: 0 1rem; }
+  .menu-slider-dot { width: 9px; height: 9px; padding: 0; border: 0; border-radius: 999px; background: rgba(255,255,255,0.5); cursor: pointer; box-shadow: 0 1px 6px rgba(15,23,42,0.35); transition: width 0.2s ease, background 0.2s ease; }
+  .menu-slider-dot.active { width: 26px; background: #fff; }
+  .proof-strip { background: #fff; border-bottom: 1px solid var(--border-light); }
+  .proof-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; transform: translateY(-1.65rem); }
+  .proof-card {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    min-height: 96px;
+    padding: 1rem;
+    border: 1px solid rgba(148,163,184,0.25);
+    border-radius: 18px;
+    background: linear-gradient(145deg, #fff 0%, #f8fafc 100%);
+    box-shadow: 0 18px 45px rgba(15,23,42,0.07);
+  }
+  .proof-icon, .feature-icon, .application-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    border-radius: 16px;
+  }
+  .proof-icon { width: 46px; height: 46px; }
+  .proof-icon svg, .feature-icon svg, .application-icon svg { width: 23px; height: 23px; }
+  .proof-icon path, .feature-icon path, .application-icon path { stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+  .proof-card div { display: grid; gap: 0.15rem; }
+  .proof-grid strong { color: var(--text); font-size: 0.95rem; }
+  .proof-grid span { color: var(--text-secondary); font-size: 0.8125rem; }
+  .tone-blue .proof-icon, .tone-blue .feature-icon, .tone-blue .application-icon { color: var(--brand-accent); background: var(--primary-light); }
+  .tone-teal .proof-icon, .tone-teal .feature-icon, .tone-teal .application-icon { color: #0f766e; background: #ccfbf1; }
+  .tone-amber .proof-icon, .tone-amber .feature-icon, .tone-amber .application-icon { color: #b45309; background: #fef3c7; }
+  .tone-violet .proof-icon, .tone-violet .feature-icon, .tone-violet .application-icon { color: #6d28d9; background: #ede9fe; }
+  .commercial-section { padding: 5.5rem 0; background: #fff; }
+  .section-alt { background: var(--bg-alt); }
+  .split-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 4rem; align-items: start; }
+  .reverse-grid { grid-template-columns: 1fr 1fr; align-items: center; }
+  .split-grid h2, .section-head h2, .commercial-cta h2 { font-size: clamp(1.75rem, 2.8vw, 2.7rem); line-height: 1.12; }
+  .feature-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  .feature-card {
+    position: relative;
+    display: grid;
+    align-content: start;
+    gap: 0.65rem;
+    min-height: 174px;
+    padding: 1.45rem;
+    border: 1px solid rgba(148,163,184,0.24);
+    border-radius: 18px;
+    background: #fff;
+    box-shadow: 0 16px 38px rgba(15,23,42,0.06);
+    overflow: hidden;
+  }
+  .feature-card::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: 4px;
+    background: var(--card-accent, var(--primary));
+  }
+  .feature-card.tone-blue { --card-accent: var(--brand-accent); background: linear-gradient(145deg, #ffffff 0%, var(--primary-50) 100%); }
+  .feature-card.tone-teal { --card-accent: #0f766e; background: linear-gradient(145deg, #ffffff 0%, #f0fdfa 100%); }
+  .feature-card.tone-amber { --card-accent: #f59e0b; background: linear-gradient(145deg, #ffffff 0%, #fffbeb 100%); }
+  .feature-card.tone-violet { --card-accent: #7c3aed; background: linear-gradient(145deg, #ffffff 0%, #f5f3ff 100%); }
+  .feature-icon { width: 48px; height: 48px; margin-bottom: 0.1rem; }
+  .feature-list h3, .cards-grid h3 { font-size: 1rem; margin: 0 0 0.25rem; }
+  .feature-list p, .cards-grid p { font-size: 0.875rem; margin: 0; }
+  .highlight-panel {
+    min-height: 330px;
+    margin: 0;
+    border-radius: 18px;
+    overflow: hidden;
+    background: #0f172a;
+    box-shadow: 0 24px 60px rgba(15,23,42,0.16);
+  }
+  .highlight-panel img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 330px;
+    object-fit: cover;
+    border-radius: 0;
+  }
+  .check-list { list-style: none; padding: 0; margin: 1.5rem 0 0; display: grid; gap: 0.7rem; }
+  .check-list li { position: relative; padding-left: 1.65rem; color: var(--text-secondary); }
+  .check-list li::before { content: ""; position: absolute; left: 0; top: 0.55rem; width: 8px; height: 8px; background: var(--primary); border-radius: 50%; }
+  .section-actions { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2rem; }
+  .section-head { max-width: 720px; margin-bottom: 2rem; }
+  .cards-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
+  .application-card {
+    position: relative;
+    display: grid;
+    align-content: start;
+    gap: 0.65rem;
+    min-height: 220px;
+    padding: 1.55rem;
+    border: 1px solid rgba(148,163,184,0.24);
+    border-radius: 18px;
+    background: #fff;
+    box-shadow: 0 16px 38px rgba(15,23,42,0.06);
+    overflow: hidden;
+  }
+  .application-card::after {
+    content: "";
+    position: absolute;
+    right: -34px;
+    top: -34px;
+    width: 110px;
+    height: 110px;
+    border-radius: 999px;
+    background: var(--soft-orb, rgba(var(--primary-rgb),0.08));
+  }
+  .application-card.tone-blue { --soft-orb: rgba(var(--brand-accent-rgb),0.13); background: linear-gradient(145deg, #ffffff 0%, var(--primary-50) 100%); }
+  .application-card.tone-teal { --soft-orb: rgba(15,118,110,0.12); background: linear-gradient(145deg, #ffffff 0%, #f0fdfa 100%); }
+  .application-card.tone-amber { --soft-orb: rgba(245,158,11,0.14); background: linear-gradient(145deg, #ffffff 0%, #fffbeb 100%); }
+  .application-card.tone-violet { --soft-orb: rgba(124,58,237,0.12); background: linear-gradient(145deg, #ffffff 0%, #f5f3ff 100%); }
+  .application-icon { width: 52px; height: 52px; margin-bottom: 0.35rem; }
+  .application-card h3, .application-card p, .application-icon { position: relative; z-index: 1; }
+  .commercial-cta { padding: 5rem 0; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); }
+  .cta-inner { max-width: 760px; text-align: center; }
+  .commercial-cta h2, .commercial-cta p { color: #fff; }
+  .commercial-cta p { color: rgba(255,255,255,0.82); }
+
+  @media (max-width: 1000px) {
+    .cards-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 900px) {
+    .hero-grid, .split-grid, .reverse-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .proof-grid, .feature-list { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 620px) {
+    .commercial-hero, .commercial-section, .commercial-cta { padding: 3.5rem 0; }
+    .hero-actions { flex-direction: column; }
+    .hero-actions .btn { width: 100%; justify-content: center; }
+    .hero-media, .hero-media img { min-height: 300px; }
+    .proof-grid, .cards-grid, .feature-list { grid-template-columns: 1fr; transform: none; margin: 1rem 0; }
+  }
+</style>

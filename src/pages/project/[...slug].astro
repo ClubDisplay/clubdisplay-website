@@ -1,60 +1,329 @@
 ---
 import { getCollection } from "astro:content";
+import { existsSync } from "node:fs";
+import { basename, join } from "node:path";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { caseMedia } from "../../data/caseMedia";
 
 export async function getStaticPaths() {
   const cases = await getCollection("cases");
   return cases.map((c) => ({
-    params: { slug: c.slug },
+    params: { slug: c.id.replace(/\.md$/, "") },
     props: { entry: c },
   }));
 }
 
 const { entry } = Astro.props;
-const { Content } = await entry.render();
+const entrySlug = entry.id.replace(/\.md$/, "");
+
+const cleanCaseText = (value = "") =>
+  value
+    .replace(/\[[^\]]+\]/g, " ")
+    .replace(/https?:\/\/\S+/g, " ")
+    .replace(/[“”]/g, '"')
+    .replace(/[‘’]/g, "'")
+    .replace(/\s+/g, " ")
+    .trim();
+
+const cleanedBody = cleanCaseText(entry.body || "");
+const cleanedParagraphs = cleanedBody
+  .replace(/([.!?])\s+(?=[A-ZÀ-ÖØ-Þ])/g, "$1\n")
+  .split(/\n+/)
+  .map((paragraph) => paragraph.trim())
+  .filter(Boolean)
+  .filter((paragraph) => paragraph.length > 35);
+const cleanDescription = cleanCaseText(entry.data.description);
+const pageDescription =
+  cleanDescription.includes("et_pb") || cleanDescription.startsWith("[")
+    ? cleanedParagraphs.join(" ").slice(0, 220)
+    : cleanDescription;
 
 const allCases = await getCollection("cases");
+
+const getCaseTopic = (caseEntry) => {
+  const haystack = [
+    caseEntry.id,
+    caseEntry.data.title,
+    caseEntry.data.description,
+    caseEntry.data.client,
+    caseEntry.data.category,
+    caseEntry.body,
+  ]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase();
+
+  if (/rav|ambulance/.test(haystack)) {
+    return "algemeen";
+  }
+
+  if (/menubord|menuborden|coffeeshop|prijslijst|bierkaart/.test(haystack)) {
+    return "menuborden";
+  }
+
+  if (
+    /hospitality|hotel|strandhuis|strandhotel|iptv|ip tv|chromecast|otrum|pro:centric|procentric|hotel-tv|hotel tv|lg hospitality/.test(
+      haystack,
+    )
+  ) {
+    return "hospitality";
+  }
+
+  if (/room signage|way ?finding|bewegwijzering|vergaderruimte/.test(haystack)) {
+    return "wayfinding";
+  }
+
+  if (/etalage|outdoor|stoepbord|high brightness/.test(haystack)) {
+    return "retail";
+  }
+
+  if (/kiosk|zuil|touch|selfie|shop/.test(haystack)) {
+    return "kiosk";
+  }
+
+  if (/onderwijs|interne communicatie|narrowcasting|public display|digital signage/.test(haystack)) {
+    return "narrowcasting";
+  }
+
+  return "algemeen";
+};
+
+const currentTopic = getCaseTopic(entry);
 const related = allCases
-  .filter((c) => c.slug !== entry.slug)
-  .sort(() => Math.random() - 0.5)
+  .filter((c) => c.id !== entry.id)
+  .filter((c) => getCaseTopic(c) === currentTopic)
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
   .slice(0, 3);
+const relatedTitle = currentTopic === "hospitality" ? "Meer hospitality projecten" : "Gerelateerde projecten";
+
+const isZoomersProposal = entrySlug === "clubdisplay-moderniseert-zoomers-strandhuisjes-met-lg-hospitality-tvs-en-chromecast";
+const isVideo = (src = "") => /\.(mp4|webm|mov)$/i.test(src);
+const isUsefulProjectMedia = (src = "") =>
+  !/lg-partner|warning-|mall\.png|clothing-shop|painting\.png|park\.png|toilet\.png|meeting\.png|stop\.png|street-map|store\.png|lake\.png|avatar|logo|placeholder/i.test(src);
+const publicAssetExists = (src = "") => {
+  if (!src.startsWith("/") || src.startsWith("//")) return true;
+  try {
+    return existsSync(join(process.cwd(), "public", decodeURIComponent(src.replace(/^\//, ""))));
+  } catch {
+    return existsSync(join(process.cwd(), "public", src.replace(/^\//, "")));
+  }
+};
+const resolveProjectMediaSrc = (src = "") => {
+  if (!src || src.startsWith("http") || src.startsWith("//")) return src || "";
+  if (publicAssetExists(src)) return src;
+  if (src.startsWith("/images/cases/live/")) {
+    const flatCaseImage = `/images/cases/${basename(src)}`;
+    if (publicAssetExists(flatCaseImage)) return flatCaseImage;
+  }
+  return "";
+};
+const topicLabels = {
+  hospitality: "Hospitality TV & IPTV",
+  menuborden: "Digitale menuborden",
+  wayfinding: "Wayfinding & room signage",
+  retail: "Retail signage",
+  kiosk: "Interactieve kiosk",
+  narrowcasting: "Narrowcasting",
+  algemeen: "Digital signage",
+};
+const topicHeroCopy = {
+  hospitality: "Een professionele hospitality-oplossing die gasten meer gemak geeft en beheer voor de locatie eenvoudiger maakt.",
+  menuborden: "Een digitale menubordoplossing waarmee prijzen, acties en informatie snel actueel blijven op de juiste schermen.",
+  wayfinding: "Een duidelijke schermoplossing voor routing, ruimte-informatie en communicatie op locatie.",
+  retail: "Een zichtbare schermoplossing voor winkels, etalages en locaties waar presentatie direct moet opvallen.",
+  kiosk: "Een interactieve oplossing waarmee bezoekers snel informatie vinden of zelf een actie uitvoeren.",
+  narrowcasting: "Een narrowcasting-oplossing waarmee medewerkers, bezoekers of klanten op het juiste moment de juiste informatie zien.",
+  algemeen: "Een digital signage project waarin advies, hardware, content en beheer samenkomen in een werkende oplossing.",
+};
+const topicBenefits = {
+  hospitality: [["Gast", "een betere kamerervaring met duidelijke informatie en entertainment"], ["Beheer", "professionele inrichting die centraal en overzichtelijk blijft"], ["LG", "hospitality-ready schermoplossing voor hotel en verblijf"], ["Support", "advies, installatie en beheer door ClubDisplay"]],
+  menuborden: [["Actueel", "prijzen en acties snel aanpassen zonder drukwerk"], ["Rust", "heldere menustructuur voor gasten en medewerkers"], ["Content", "professionele templates passend bij de locatie"], ["Support", "installatie en beheer door ClubDisplay"]],
+  wayfinding: [["Route", "bezoekers vinden sneller hun bestemming"], ["Ruimte", "duidelijke informatie bij zalen, ruimtes of events"], ["Beheer", "content eenvoudig aanpassen wanneer de situatie verandert"], ["Support", "advies, installatie en beheer door ClubDisplay"]],
+  retail: [["Zichtbaar", "boodschappen vallen beter op in winkel of etalage"], ["Actueel", "campagnes en acties snel vernieuwen"], ["Impact", "heldere beelden op professionele displays"], ["Support", "advies, installatie en beheer door ClubDisplay"]],
+  kiosk: [["Interactief", "bezoekers bedienen zichzelf op een duidelijke manier"], ["Snel", "informatie of acties direct beschikbaar op locatie"], ["Flexibel", "content en functies afstemmen op het gebruik"], ["Support", "advies, installatie en beheer door ClubDisplay"]],
+  narrowcasting: [["Bereik", "informatie zichtbaar waar mensen werken, wachten of bewegen"], ["Regie", "content centraal beheren per scherm of locatie"], ["Continu", "een professionele communicatiestroom zonder losse middelen"], ["Support", "advies, installatie en beheer door ClubDisplay"]],
+  algemeen: [["Advies", "een oplossing gekozen op basis van locatie en gebruik"], ["Installatie", "professionele schermen en techniek op locatie"], ["Content", "communicatie die past bij doelgroep en omgeving"], ["Support", "beheer en ondersteuning door ClubDisplay"]],
+};
+const zoomersLocalImages = [
+  "/images/cases/zoomers_strandhuisjes.jpg",
+  "/images/cases/zoomers_tv_1.jpg",
+  "/images/cases/zoomers_tv_2.jpg",
+  "/images/cases/zoomers_keuken.jpg",
+  "/images/cases/zoomers_keuken_2.jpg",
+  "/images/cases/zoomers_douche_new.jpg",
+  "/images/cases/zoomers_wc.jpg",
+];
+const liveMedia = (caseMedia[entrySlug] || []).filter(isUsefulProjectMedia);
+const projectMedia = [
+  ...new Set(
+    [
+      ...(isZoomersProposal ? zoomersLocalImages : []),
+      ...liveMedia,
+      ...(entry.data.image ? [entry.data.image] : []),
+    ]
+      .map(resolveProjectMediaSrc)
+      .filter(Boolean),
+  ),
+]
+  .slice(0, 14)
+  .map((src) => ({ src, alt: `${entry.data.title} projectbeeld`, isVideo: isVideo(src) }));
+const mainSlideshowMedia = projectMedia;
+const sideSlideshowMedia = projectMedia.length > 1 ? [...projectMedia.slice(2), ...projectMedia.slice(0, 2)] : projectMedia;
+const zoomersSections = [
+  {
+    label: "Achtergrond",
+    title: "Meer comfort in acht strandhuisjes",
+    text: "Zoomers Strandhuisjes wilde gasten aan de kust een modernere entertainmentervaring bieden. ClubDisplay rustte alle acht strandhuisjes uit met LG hospitality TV's, ingericht voor hotelgebruik en eenvoudig beheer.",
+  },
+  {
+    label: "Oplossing",
+    title: "LG Hospitality TV met Quick-menu",
+    text: "Het LG Quick-menu geeft gasten direct toegang tot tv-functies, informatie over het strandhuisje en lokale tips. Voor beheer blijft de omgeving flexibel en professioneel ingericht.",
+  },
+  {
+    label: "Streaming",
+    title: "Chromecast via QR-code",
+    text: "Gasten kunnen hun eigen content streamen vanaf telefoon, tablet of laptop. Door de QR-code-koppeling is verbinden snel en duidelijk, zonder ingewikkelde instellingen.",
+  },
+];
+const defaultSections = cleanedParagraphs.slice(0, 3).map((paragraph, index) => ({
+  label: ["Achtergrond", "Oplossing", "Resultaat"][index] || "Project",
+  title: ["De vraag achter het project", "De oplossing op locatie", "Het resultaat in gebruik"][index] || "Projectaanpak",
+  text: paragraph,
+}));
+const storySections = isZoomersProposal ? zoomersSections : defaultSections;
+const heroIntro = isZoomersProposal
+  ? "Een moderne tv- en streamingervaring voor gasten van Zoomers Strandhuisjes, met LG hospitality TV's, Quick-menu en Chromecast via QR-code."
+  : pageDescription || topicHeroCopy[currentTopic];
+const benefitCards = isZoomersProposal
+  ? [["8", "strandhuisjes voorzien van hospitality TV"], ["QR", "snel verbinden met Chromecast"], ["LG", "professionele hotel-tv's met Quick-menu"], ["Gast", "eigen content streamen zonder gedoe"]]
+  : topicBenefits[currentTopic];
+const projectClient = entry.data.client || entry.data.title.split(" bij ").pop()?.split(" voor ").pop() || "ClubDisplay project";
+const projectResult = benefitCards[0]?.[1] || "een professionele schermoplossing op locatie";
+const relatedCards = related.map((c) => ({
+  entry: c,
+  slug: c.id.replace(/\.md$/, ""),
+  image: resolveProjectMediaSrc(c.data.image || ""),
+}));
 ---
 
-<BaseLayout title={entry.data.title} description={entry.data.description} currentPath={`/project/${entry.slug}/`}>
-  <div class="breadcrumbs">
-    <div class="container">
-      <a href="/">Home</a> / <a href="/cases/">Cases</a> / <span>{entry.data.title}</span>
+<BaseLayout title={entry.data.title} description={pageDescription || entry.data.title} currentPath={`/project/${entrySlug}/`}>
+  <section class="case-story-hero">
+    <div class="container story-hero-grid">
+      <div class="story-hero-copy">
+        <p class="story-eyebrow">Succesverhaal {topicLabels[currentTopic]}</p>
+        <h1>{entry.data.title}</h1>
+        <p>{heroIntro}</p>
+        <div class="story-actions">
+          <a href="/plan-jouw-gesprek/" class="btn">Plan adviesgesprek</a>
+          <a href="/cases/" class="btn btn-outline">Alle cases</a>
+        </div>
+      </div>
+      {mainSlideshowMedia.length > 0 && (
+        <div class="story-hero-media" aria-label={`Beelden van ${entry.data.title}`}>
+          <div class="story-slideshow story-slideshow-main">
+            {mainSlideshowMedia.map((media, index) => (
+              media.isVideo ? (
+                <video src={media.src} muted playsinline loop style={`--slide-index:${index};`}></video>
+              ) : (
+                <img src={media.src} alt={media.alt} style={`--slide-index:${index};`} />
+              )
+            ))}
+          </div>
+          {sideSlideshowMedia.length > 1 && (
+            <div class="story-slideshow story-slideshow-side">
+              {sideSlideshowMedia.map((media, index) => (
+                media.isVideo ? (
+                  <video src={media.src} muted playsinline loop style={`--slide-index:${index};`}></video>
+                ) : (
+                  <img src={media.src} alt={media.alt} style={`--slide-index:${index};`} />
+                )
+              ))}
+            </div>
+          )}
+        </div>
+      )}
     </div>
-  </div>
+  </section>
 
-  {entry.data.image && (
-    <div class="case-hero-img">
-      <img src={entry.data.image} alt={entry.data.title} />
+  <section class="story-overview">
+    <div class="container story-overview-grid">
+      <aside class="story-facts">
+        <span>Project</span>
+        <strong>{projectClient}</strong>
+        <span>Oplossing</span>
+        <strong>{topicLabels[currentTopic]}</strong>
+        <span>Resultaat</span>
+        <strong>{projectResult}</strong>
+      </aside>
+
+      <div class="story-content">
+        {(storySections.length ? storySections : [{ label: "Project", title: "Een oplossing op maat", text: heroIntro }]).map((section) => (
+          <section class="story-section">
+            <p>{section.label}</p>
+            <h2>{section.title}</h2>
+            <span>{section.text}</span>
+          </section>
+        ))}
+      </div>
     </div>
+  </section>
+
+  <section class="story-benefits">
+    <div class="container">
+      <div class="story-benefits-head">
+        <p class="story-eyebrow">De voordelen op een rij</p>
+        <h2>{isZoomersProposal ? "Techniek die gasten direct begrijpen" : "Schermcommunicatie die past bij de locatie"}</h2>
+      </div>
+      <div class="benefit-grid">
+        {benefitCards.map(([label, text]) => (
+          <article>
+            <strong>{label}</strong>
+            <span>{text}</span>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {projectMedia.length > 1 && (
+    <section class="story-gallery">
+      <div class="container">
+        <div class="story-gallery-head">
+          <p class="story-eyebrow">Projectbeelden</p>
+          <h2>{isZoomersProposal ? "Een rustige strandhuisjeservaring, met techniek die gewoon werkt." : "Beelden uit het project en de installatie op locatie."}</h2>
+        </div>
+        <div class="story-gallery-grid">
+          {projectMedia.map((media) => (
+            media.isVideo ? (
+              <video src={media.src} controls muted playsinline preload="metadata"></video>
+            ) : (
+              <img src={media.src} alt={media.alt} loading="lazy" />
+            )
+          ))}
+        </div>
+      </div>
+    </section>
   )}
 
-  <article class="container case-article">
-    <div class="case-meta">
-      <time datetime={entry.data.pubDate.toISOString()}>
-        {entry.data.pubDate.toLocaleDateString("nl-NL", { year: "numeric", month: "long", day: "numeric" })}
-      </time>
-      {entry.data.client && <span class="case-client">Klant: {entry.data.client}</span>}
+  <section class="story-cta">
+    <div class="container story-cta-inner">
+      <div>
+        <p class="story-eyebrow">Ook slimmer communiceren?</p>
+        <h2>{currentTopic === "hospitality" ? "Maak van elke kamer een betere gastbeleving." : "Maak van uw locatie een sterker communicatiemiddel."}</h2>
+      </div>
+      <a href="/plan-jouw-gesprek/" class="btn btn-white">Plan adviesgesprek</a>
     </div>
-    <h1>{entry.data.title}</h1>
-    <Content />
-    <div class="case-nav">
-      <a href="/cases/">&larr; Terug naar alle cases</a>
-    </div>
-  </article>
+  </section>
 
   {related.length > 0 && (
     <section class="section section-alt">
       <div class="container">
-        <h2>Gerelateerde projecten</h2>
+        <h2>{relatedTitle}</h2>
         <div class="case-grid">
-          {related.map(c => (
-            <a href={`/project/${c.slug}/`} class="case-card">
-              {c.data.image && <img src={c.data.image} alt={c.data.title} width="510" height="382" loading="lazy" />}
+          {relatedCards.map(({ entry: c, slug, image }) => (
+            <a href={`/project/${slug}/`} class="case-card">
+              {image && <img src={image} alt={c.data.title} width="510" height="382" loading="lazy" />}
               <div class="case-card-body">
                 <h3>{c.data.title}</h3>
               </div>
@@ -74,17 +343,315 @@ const related = allCases
     color: #6b7280;
   }
   .breadcrumbs a { color: #6b7280; text-decoration: none; }
-  .breadcrumbs a:hover { color: #1a56db; }
+  .breadcrumbs a:hover { color: var(--primary); }
   .breadcrumbs span { color: #1f2937; }
 
-  .case-hero-img { background: #f3f4f6; }
-  .case-hero-img img { width: 100%; max-height: 500px; object-fit: cover; display: block; border-radius: 0; }
+  .case-story-hero {
+    padding: 88px 0 96px;
+    background: linear-gradient(135deg, #eef6ff 0%, #ffffff 58%, #eef4fb 100%);
+    overflow: hidden;
+  }
 
-  .case-article { max-width: 800px; padding: 3rem 1.5rem; }
-  .case-article h1 { margin-top: 0; }
+  .story-hero-grid {
+    display: grid;
+    grid-template-columns: minmax(360px, 520px) minmax(0, 1fr);
+    gap: 64px;
+    align-items: center;
+  }
+
+  .story-hero-copy {
+    min-width: 0;
+  }
+
+  .story-eyebrow {
+    margin: 0 0 16px;
+    color: var(--primary);
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: .13em;
+    line-height: 1.4;
+    text-transform: uppercase;
+  }
+
+  .story-hero-copy h1 {
+    margin: 0 0 22px;
+    max-width: 560px;
+    font-size: clamp(40px, 4vw, 58px);
+    line-height: 1;
+    letter-spacing: -.055em;
+  }
+
+  .story-hero-copy > p:not(.story-eyebrow) {
+    max-width: 520px;
+    margin: 0;
+    color: #334155;
+    font-size: 19px;
+    line-height: 1.75;
+  }
+
+  .story-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 34px;
+  }
+
+  .story-hero-media {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr .74fr;
+    gap: 18px;
+    align-items: end;
+    min-width: 0;
+  }
+
+  .story-slideshow {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    border-radius: 16px;
+    background: #dbe7f5;
+    box-shadow: 0 28px 80px rgba(15, 23, 42, .18);
+  }
+
+  .story-slideshow-main {
+    height: 560px;
+  }
+
+  .story-slideshow-side {
+    height: 390px;
+    margin-bottom: -44px;
+  }
+
+  .story-slideshow img,
+  .story-slideshow video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0;
+    opacity: 0;
+    transform: scale(1.025);
+    animation: zoomersFade 28s infinite;
+    animation-delay: calc(var(--slide-index) * 4s);
+  }
+
+  .story-overview {
+    padding: 96px 0;
+    background: #fff;
+  }
+
+  .story-overview-grid {
+    display: grid;
+    grid-template-columns: 320px minmax(0, 1fr);
+    gap: 84px;
+    align-items: start;
+  }
+
+  .story-facts {
+    position: sticky;
+    top: 116px;
+    display: grid;
+    gap: 10px;
+    padding: 28px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 18px 48px rgba(15, 23, 42, .07);
+  }
+
+  .story-facts span {
+    color: var(--primary);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: .11em;
+    text-transform: uppercase;
+  }
+
+  .story-facts strong {
+    margin-bottom: 18px;
+    color: var(--text);
+    font-size: 17px;
+    line-height: 1.45;
+  }
+
+  .story-facts strong:last-child {
+    margin-bottom: 0;
+  }
+
+  .story-content {
+    display: grid;
+    gap: 34px;
+  }
+
+  .story-section {
+    padding: 0;
+  }
+
+  .story-section p {
+    margin: 0 0 12px;
+    color: var(--primary);
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+
+  .story-section h2 {
+    max-width: 760px;
+    margin: 0 0 12px;
+    font-size: clamp(25px, 2.2vw, 34px);
+    line-height: 1.16;
+  }
+
+  .story-section span {
+    display: block;
+    max-width: 760px;
+    color: #475569;
+    font-size: 18px;
+    line-height: 1.8;
+  }
+
+  .story-benefits {
+    padding: 88px 0;
+    background: #f7faff;
+  }
+
+  .story-benefits-head {
+    max-width: 760px;
+    margin-bottom: 32px;
+  }
+
+  .story-benefits-head h2 {
+    margin-bottom: 0;
+    font-size: clamp(34px, 4vw, 56px);
+    line-height: 1.04;
+  }
+
+  .benefit-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .benefit-grid article {
+    min-height: 210px;
+    padding: 26px;
+    border: 1px solid #dbe7f5;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 10px 34px rgba(15, 23, 42, .05);
+  }
+
+  .benefit-grid strong {
+    display: block;
+    margin-bottom: 28px;
+    color: var(--primary);
+    font-size: 44px;
+    line-height: 1;
+  }
+
+  .benefit-grid span {
+    color: #1e293b;
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.45;
+  }
+
+  .story-gallery {
+    padding: 96px 0;
+    background: #fff;
+  }
+
+  .story-gallery-head {
+    max-width: 760px;
+    margin-bottom: 32px;
+  }
+
+  .story-gallery-head h2 {
+    margin: 0;
+    font-size: clamp(28px, 3vw, 42px);
+    line-height: 1.12;
+  }
+
+  .story-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .story-gallery img,
+  .story-gallery video {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+
+  .story-gallery img:first-child,
+  .story-gallery video:first-child {
+    grid-column: span 2;
+    grid-row: span 2;
+    height: 536px;
+  }
+
+  .story-cta {
+    padding: 78px 0;
+    background: #102a5c;
+  }
+
+  .story-cta-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+  }
+
+  .story-cta .story-eyebrow {
+    color: #9fc4e7;
+  }
+
+  .story-cta h2 {
+    max-width: 720px;
+    margin: 0;
+    color: #fff;
+    font-size: clamp(32px, 4vw, 56px);
+    line-height: 1.05;
+  }
+
+  @keyframes zoomersFade {
+    0% {
+      opacity: 0;
+      transform: scale(1.025);
+    }
+    6% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    18% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    24% {
+      opacity: 0;
+      transform: scale(1.015);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(1.025);
+    }
+  }
+
+  .case-hero-img { background: #eef4fb; }
+  .case-hero-img img { width: min(calc(100% - 96px), 1180px); max-height: 560px; margin: 0 auto; object-fit: cover; display: block; border-radius: 0 0 16px 16px; }
+
+  .case-article { max-width: 860px; padding: 4.5rem 0; }
+  .case-article h1 { margin-top: 0; font-size: clamp(34px, 4vw, 58px); }
+  .case-copy p { font-size: 18px; line-height: 1.85; }
 
   .case-meta { display: flex; gap: 1rem; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; }
-  .case-client { font-size: 0.875rem; background: #e8effd; color: #1a56db; padding: 0.25rem 0.75rem; border-radius: 999px; font-weight: 500; }
+  .case-client { font-size: 0.875rem; background: var(--primary-light); color: var(--primary); padding: 0.25rem 0.75rem; border-radius: 999px; font-weight: 500; }
 
   .case-nav { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #e5e7eb; }
   .case-nav a { font-weight: 500; }
@@ -98,4 +665,86 @@ const related = allCases
   .case-card img { width: 100%; height: 200px; object-fit: cover; border-radius: 0; }
   .case-card-body { padding: 1.25rem; }
   .case-card-body h3 { margin: 0; font-size: 1rem; line-height: 1.3; }
+
+  @media (max-width: 1000px) {
+    .story-hero-grid,
+    .story-overview-grid,
+    .story-gallery-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .story-slideshow-main,
+    .story-slideshow-side {
+      height: 420px;
+      margin-bottom: 0;
+    }
+
+    .story-gallery-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .story-gallery img,
+    .story-gallery video,
+    .story-gallery img:first-child,
+    .story-gallery video:first-child {
+      grid-column: auto;
+      grid-row: auto;
+      height: 280px;
+    }
+
+    .story-facts {
+      position: static;
+    }
+
+    .benefit-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .story-cta-inner {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .case-story-hero,
+    .story-overview,
+    .story-benefits,
+    .story-gallery,
+    .story-cta {
+      padding: 56px 0;
+    }
+
+    .story-hero-grid {
+      gap: 38px;
+    }
+
+    .story-hero-media {
+      grid-template-columns: 1fr;
+    }
+
+    .story-slideshow-main,
+    .story-slideshow-side {
+      height: 300px;
+    }
+
+    .story-gallery-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .story-gallery img,
+    .story-gallery video,
+    .story-gallery img:first-child,
+    .story-gallery video:first-child {
+      height: 300px;
+    }
+
+    .benefit-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .case-hero-img img { width: min(100% - 32px, 1180px); max-height: 380px; }
+    .case-article { padding: 3rem 0; }
+    .case-copy p { font-size: 16px; }
+  }
 </style>
