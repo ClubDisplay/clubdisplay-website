@@ -1,0 +1,121 @@
+<div class="cookie-banner" data-cookie-banner hidden>
+  <div class="cookie-card" role="dialog" aria-live="polite" aria-label="Cookie melding">
+    <div class="cookie-copy">
+      <h2>Cookies en privacy</h2>
+      <p>
+        ClubDisplay gebruikt noodzakelijke cookies om de website goed te laten werken. Met uw toestemming gebruiken we ook externe diensten zoals formulieren, agenda's, kaarten en video's.
+      </p>
+      <a href="/cookiebeleid/">Lees ons cookiebeleid</a>
+    </div>
+    <div class="cookie-actions">
+      <button type="button" class="cookie-btn cookie-btn-ghost" data-cookie-choice="necessary">Alleen noodzakelijk</button>
+      <button type="button" class="cookie-btn" data-cookie-choice="all">Alles accepteren</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const banner = document.querySelector('[data-cookie-banner]');
+  const consentKey = 'clubdisplay-cookie-consent';
+
+  if (!localStorage.getItem(consentKey)) {
+    banner?.removeAttribute('hidden');
+  }
+
+  document.querySelectorAll('[data-cookie-choice]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const choice = button.getAttribute('data-cookie-choice') || 'necessary';
+      localStorage.setItem(consentKey, choice);
+      banner?.setAttribute('hidden', '');
+    });
+  });
+</script>
+
+<style>
+  .cookie-banner[hidden] {
+    display: none;
+  }
+
+  .cookie-banner {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10000;
+    padding: 1rem;
+    pointer-events: none;
+  }
+
+  .cookie-card {
+    width: min(100%, 980px);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1.25rem;
+    align-items: center;
+    padding: 1.1rem 1.2rem;
+    border: 1px solid rgba(148, 163, 184, 0.28);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.97);
+    box-shadow: 0 18px 55px rgba(15, 23, 42, 0.16);
+    backdrop-filter: blur(10px);
+    pointer-events: auto;
+  }
+
+  .cookie-copy h2 {
+    margin: 0 0 0.25rem;
+    font-size: 1rem;
+    line-height: 1.25;
+  }
+
+  .cookie-copy p {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    line-height: 1.55;
+  }
+
+  .cookie-copy a {
+    display: inline-block;
+    margin-top: 0.35rem;
+    font-size: 0.82rem;
+    font-weight: 700;
+  }
+
+  .cookie-actions {
+    display: flex;
+    gap: 0.65rem;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  .cookie-btn {
+    min-height: 2.55rem;
+    padding: 0 1.1rem;
+    border: 1px solid var(--primary);
+    border-radius: 999px;
+    background: var(--primary);
+    color: #fff;
+    font: inherit;
+    font-size: 0.875rem;
+    font-weight: 800;
+    cursor: pointer;
+  }
+
+  .cookie-btn-ghost {
+    background: #fff;
+    color: var(--primary);
+  }
+
+  @media (max-width: 720px) {
+    .cookie-card {
+      grid-template-columns: 1fr;
+      padding: 1rem;
+    }
+
+    .cookie-actions,
+    .cookie-btn {
+      width: 100%;
+    }
+  }
+</style>
