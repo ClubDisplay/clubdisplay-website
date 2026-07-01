@@ -1,14 +1,200 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
-<BaseLayout title="Plan een Gesprek" description="Plan een vrijblijvend gesprek met ClubDisplay. Ontdek hoe digital signage, narrowcasting of hotel TV uw organisatie kan versterken." currentPath="/plan-jouw-gesprek/">
-  <div class="container page-content">
-    <h1>Plan een Gesprek</h1>
-    <p>Wilt u vrijblijvend sparren over de mogelijkheden van digital signage voor uw organisatie? Plan dan een gesprek met een van onze specialisten. Of het nu gaat om digitale menuborden, hotel TV, narrowcasting voor interne communicatie of een complete digital signage oplossing: wij denken graag met u mee.</p>
-    <p>Tijdens het gesprek bespreken we uw wensen, uitdagingen en budget. Op basis daarvan doen wij een voorstel voor een oplossing op maat. Geen druk, geen verplichtingen. Het doel is om u te informeren en te adviseren over wat er mogelijk is met digital signage.</p>
-    <h2>Hoe werkt het?</h2>
-    <p>U kiest via onze online agenda een datum en tijdstip dat u het beste uitkomt. Het gesprek kan telefonisch, via videobel of op locatie plaatsvinden. Wij zijn flexibel en passen ons aan uw voorkeur aan. Na het gesprek ontvangt u een samenvatting en eventueel een voorstel op maat.</p>
-    <h2>Waarom een gesprek?</h2>
-    <p>Digital signage biedt veel mogelijkheden, maar de juiste keuzes hangen af van uw specifieke situatie. Door een gratis adviesgesprek te plannen, voorkomt u verkeerde investeringen en ontdekt u wat echt werkt voor uw organisatie. Klik hieronder om direct een moment in te plannen. Wij kijken uit naar onze kennismaking.</p>
-  </div>
+<BaseLayout title="Plan een Adviesgesprek" description="Plan direct een vrijblijvend adviesgesprek met ClubDisplay over digital signage, narrowcasting, hospitality TV, menuborden en schermoplossingen." currentPath="/plan-jouw-gesprek/">
+  <main>
+    <section class="schedule-hero">
+      <div class="container schedule-grid">
+        <div class="schedule-copy">
+          <p class="eyebrow">Vrijblijvend advies</p>
+          <h1>Plan een adviesgesprek met ClubDisplay</h1>
+          <p>
+            Kies direct een moment dat past. We bespreken uw locatie, doelgroep, gewenste schermen,
+            software, content en eventuele koppelingen met kassasystemen of andere databronnen.
+          </p>
+          <div class="schedule-actions">
+            <a class="btn btn-lg" href="#afspraak-plannen">Kies een moment</a>
+            <a class="btn btn-lg btn-outline" href="/contact/">Contact opnemen</a>
+          </div>
+        </div>
+
+        <aside class="schedule-summary" aria-label="Wat bespreken we tijdens het adviesgesprek">
+          <div class="summary-item">
+            <span>01</span>
+            <strong>Uw toepassing</strong>
+            <p>Hospitality TV, digitale menuborden, narrowcasting, etalage of wayfinding.</p>
+          </div>
+          <div class="summary-item">
+            <span>02</span>
+            <strong>Hardware en software</strong>
+            <p>Welke schermen, spelers, montage en beheeromgeving passen bij uw locatie.</p>
+          </div>
+          <div class="summary-item">
+            <span>03</span>
+            <strong>Volgende stap</strong>
+            <p>U krijgt eerlijk advies over aanpak, planning en mogelijke kosten.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="afspraak-plannen" class="calendar-section">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Agenda</p>
+          <h2>Kies direct een datum en tijd</h2>
+          <p>De afspraak wordt ingepland via Calendly. Werkt de agenda niet direct, open dan Calendly in een nieuw venster.</p>
+        </div>
+
+        <div class="calendar-card">
+          <div class="calendly-inline-widget" data-url="https://calendly.com/clubdisplay/gratis-afspraak" style="min-width:320px;height:760px;"></div>
+        </div>
+
+        <p class="calendar-fallback">
+          <a href="https://calendly.com/clubdisplay/gratis-afspraak" target="_blank" rel="noopener">Open Calendly in een nieuw venster</a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <script is:inline type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
 </BaseLayout>
+
+<style>
+  .schedule-hero {
+    padding: clamp(72px, 8vw, 118px) 0 48px;
+    background:
+      radial-gradient(circle at 82% 18%, rgba(var(--primary-rgb), .12), transparent 34%),
+      linear-gradient(180deg, #f5f9fd 0%, #ffffff 100%);
+  }
+
+  .schedule-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(320px, .75fr);
+    gap: clamp(32px, 6vw, 84px);
+    align-items: center;
+  }
+
+  .eyebrow {
+    margin: 0 0 16px;
+    color: var(--primary);
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  .schedule-copy h1 {
+    max-width: 760px;
+    margin: 0;
+    color: var(--heading);
+    font-size: clamp(48px, 6.4vw, 86px);
+    line-height: .95;
+    letter-spacing: 0;
+  }
+
+  .schedule-copy p {
+    max-width: 640px;
+    margin: 26px 0 0;
+    color: var(--muted);
+    font-size: clamp(18px, 2vw, 21px);
+    line-height: 1.7;
+  }
+
+  .schedule-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 34px;
+  }
+
+  .schedule-summary {
+    display: grid;
+    gap: 14px;
+  }
+
+  .summary-item {
+    padding: 24px;
+    border: 1px solid rgba(86, 144, 211, .22);
+    border-radius: 22px;
+    background: rgba(255, 255, 255, .82);
+    box-shadow: 0 20px 54px rgba(15, 23, 42, .08);
+  }
+
+  .summary-item span {
+    display: inline-flex;
+    width: 42px;
+    height: 42px;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    border-radius: 14px;
+    background: rgba(86, 144, 211, .14);
+    color: var(--primary);
+    font-weight: 900;
+  }
+
+  .summary-item strong {
+    display: block;
+    color: var(--heading);
+    font-size: 18px;
+  }
+
+  .summary-item p {
+    margin: 8px 0 0;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+
+  .calendar-section {
+    padding: clamp(70px, 8vw, 110px) 0;
+    background: #fff;
+  }
+
+  .section-head {
+    max-width: 760px;
+    margin-bottom: 30px;
+  }
+
+  .section-head h2 {
+    margin: 0;
+    color: var(--heading);
+    font-size: clamp(36px, 4vw, 56px);
+    line-height: 1;
+  }
+
+  .section-head p:last-child {
+    margin: 18px 0 0;
+    color: var(--muted);
+    font-size: 18px;
+    line-height: 1.65;
+  }
+
+  .calendar-card {
+    overflow: hidden;
+    border: 1px solid rgba(86, 144, 211, .24);
+    border-radius: 28px;
+    background: #fff;
+    box-shadow: 0 28px 80px rgba(15, 23, 42, .10);
+  }
+
+  .calendar-fallback {
+    margin: 18px 0 0;
+    text-align: center;
+  }
+
+  .calendar-fallback a {
+    color: var(--primary);
+    font-weight: 800;
+  }
+
+  @media (max-width: 900px) {
+    .schedule-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .schedule-hero {
+      padding-top: 54px;
+    }
+  }
+</style>
