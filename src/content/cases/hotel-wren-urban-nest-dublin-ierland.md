@@ -1,7 +1,7 @@
 ---
 title: "Hotel Wren Urban Nest Dublin, Ierland"
 description: "Karakter van toen in combinatie met comfort van nu
-						Uitgebreide mogelijkheden hospitality tv en koppeling met..."
+ Uitgebreide mogelijkheden hospitality tv en koppeling met..."
 pubDate: 2021-10-18
 image: "/images/wren.jpeg"
 ---

@@ -1,8 +1,8 @@
 ---
 title: "Selfie Kiosk Hotel de Nachtegaal"
 description: "Selfie Kiosk Hotel de Nachtegaal
-						De Selfie oplossing is een leuke en speelse touchscreen applicatie voor jong en oud.
-						..."
+ De Selfie oplossing is een leuke en speelse touchscreen applicatie voor jong en oud.
+ ..."
 pubDate: 2016-12-22
 image: "/images/cases/selfie_kiosk_nachtegaal.jpg"
 ---

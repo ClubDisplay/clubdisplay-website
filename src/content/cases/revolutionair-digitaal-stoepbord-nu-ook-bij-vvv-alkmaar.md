@@ -1,7 +1,7 @@
 ---
 title: "Revolutionair Digitaal Stoepbord nu ook bij VVV Alkmaar"
 description: "Revolutionair Digitaal Stoepbord nu ook bij VVV Alkmaar
-						Dit innovatieve en hufterproof stoepbord is nu te bewonderen bij VVV..."
+ Dit innovatieve en hufterproof stoepbord is nu te bewonderen bij VVV..."
 pubDate: 2023-04-11
 image: "/images/cases/stoepbord04.jpg"
 ---

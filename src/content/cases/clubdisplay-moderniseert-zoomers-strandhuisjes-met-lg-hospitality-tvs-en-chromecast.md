@@ -1,7 +1,7 @@
 ---
 title: "ClubDisplay Moderniseert Zoomers Strandhuisjes met LG Hospitality TV’s en Chromecast"
 description: "Zoomers Strandhuisjes
-						ClubDisplay Moderniseert Zoomers Strandhuisjes met LG Hospitality TV's en..."
+ ClubDisplay Moderniseert Zoomers Strandhuisjes met LG Hospitality TV's en..."
 pubDate: 2024-07-11
 image: "/images/cases/zoomers_douche.jpg"
 ---

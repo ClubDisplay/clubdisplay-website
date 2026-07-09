@@ -1,7 +1,7 @@
 ---
 title: "Totale hotelervaring voor de hotelgast bij Mr. Lewis Rotterdam"
 description: "Boutique hotel Mr. Lewis Rotterdam
-						Totale hotelervaring voor de hotelgast bij Mr. Lewis..."
+ Totale hotelervaring voor de hotelgast bij Mr. Lewis..."
 pubDate: 2022-07-21
 image: "/images/cases/mrlewis01.jpg"
 ---

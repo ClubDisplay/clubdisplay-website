@@ -1,7 +1,7 @@
 ---
 title: "Narrowcasting in de horeca"
 description: "Slimme schermen voor Café Hotel Restaurant Boerhaave, tot in het kleinste kamertje
-						Flexibel schakelen tussen hd tv en eigen reclame..."
+ Flexibel schakelen tussen hd tv en eigen reclame..."
 pubDate: 2019-07-01
 image: "/images/cases/dsc_5126.jpg"
 ---

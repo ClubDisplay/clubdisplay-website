@@ -1,7 +1,7 @@
 ---
 title: "Evenementen en bewegwijzering efficiënt aankondigen via scherm(en)"
 description: "Evenementen en bewegwijzering efficiënt aankondigen via scherm(en)
-						Ook Alexander Hotel Noordwijk kiest voor digital signage van..."
+ Ook Alexander Hotel Noordwijk kiest voor digital signage van..."
 pubDate: 2019-09-17
 image: "/images/cases/alexanderhotellobby-1.jpg"
 ---

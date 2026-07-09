@@ -1,8 +1,8 @@
 ---
 title: "Digital Signage Vishandel de Klok"
 description: "\"Wachtverzachter\" Vishandel de Klok
-						Als retailer heeft u uiteindelijk maar één doel en dat is het optimaliseren van de klantbeleving.
-						..."
+ Als retailer heeft u uiteindelijk maar één doel en dat is het optimaliseren van de klantbeleving.
+ ..."
 pubDate: 2017-01-19
 image: "/images/cases/klok.jpg"
 ---

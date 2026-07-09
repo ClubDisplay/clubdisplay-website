@@ -1,7 +1,7 @@
 ---
 title: "Grand Café Cremers"
 description: "Grand Café Cremers
-						Ouderwetse gezelligheid van toen met media-opties van..."
+ Ouderwetse gezelligheid van toen met media-opties van..."
 pubDate: 2020-08-19
 image: "/images/cases/img_1198.jpg"
 ---

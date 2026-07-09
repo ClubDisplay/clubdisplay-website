@@ -1,7 +1,7 @@
 ---
 title: "Met één druk op de knop"
 description: "Met één druk op de knop.
-						Kiezen, kopen en betalen via interactieve touchscreens bij Coffeeshop Eerste..."
+ Kiezen, kopen en betalen via interactieve touchscreens bij Coffeeshop Eerste..."
 pubDate: 2020-10-06
 image: "/images/cases/eerstekamer.jpg"
 ---

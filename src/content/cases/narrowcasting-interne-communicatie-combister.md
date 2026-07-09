@@ -1,7 +1,7 @@
 ---
 title: "Narrowcasting voor interne communicatie CombiSter"
 description: "Narrowcasting voor interne communicatie
-						Narrowcasting schermen op strategische plekken binnen het pand van..."
+ Narrowcasting schermen op strategische plekken binnen het pand van..."
 pubDate: 2017-08-16
 image: "/images/cases/dsc_4833-3.jpg"
 ---

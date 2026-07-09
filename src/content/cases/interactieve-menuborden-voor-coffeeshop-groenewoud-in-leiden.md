@@ -1,7 +1,7 @@
 ---
 title: "Interactieve menuborden voor Coffeeshop Groenewoud in Leiden."
 description: "Zelf prijzen en andere info eenvoudig en snel aanpassen.
-						Interactieve menuborden voor Coffeeshop Groenewoud in..."
+ Interactieve menuborden voor Coffeeshop Groenewoud in..."
 pubDate: 2019-06-26
 image: "/images/cases/digitalemenuborden01.jpg"
 ---

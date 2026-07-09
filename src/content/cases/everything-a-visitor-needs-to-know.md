@@ -1,7 +1,7 @@
 ---
 title: "Everything a visitor needs to know"
-description: "Everything a visitor needs  to know.
-						Narrowcasting at the..."
+description: "Everything a visitor needs to know.
+ Narrowcasting at the..."
 pubDate: 2019-10-24
 image: "/images/cases/adamsmith1.jpg"
 ---
