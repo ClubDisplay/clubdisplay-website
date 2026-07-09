@@ -25,13 +25,19 @@ const cleanCaseText = (value = "") =>
     .replace(/\s+/g, " ")
     .trim();
 
-const cleanedBody = cleanCaseText(entry.body || "");
-const cleanedParagraphs = cleanedBody
+const rawBody = entry.body || "";
+const markdownParagraphs = rawBody
+  .split(/\n{2,}/)
+  .map((paragraph) => cleanCaseText(paragraph))
+  .filter(Boolean)
+  .filter((paragraph) => paragraph.length > 35);
+const fallbackSentenceParagraphs = cleanCaseText(rawBody)
   .replace(/([.!?])\s+(?=[A-ZÀ-ÖØ-Þ])/g, "$1\n")
   .split(/\n+/)
   .map((paragraph) => paragraph.trim())
   .filter(Boolean)
   .filter((paragraph) => paragraph.length > 35);
+const cleanedParagraphs = markdownParagraphs.length > 1 ? markdownParagraphs : fallbackSentenceParagraphs;
 const cleanDescription = cleanCaseText(entry.data.description);
 const pageDescription =
   cleanDescription.includes("et_pb") || cleanDescription.startsWith("[")
@@ -186,9 +192,19 @@ const zoomersSections = [
     text: "Gasten kunnen hun eigen content streamen vanaf telefoon, tablet of laptop. Door de QR-code-koppeling is verbinden snel en duidelijk, zonder ingewikkelde instellingen.",
   },
 ];
-const defaultSections = cleanedParagraphs.slice(0, 3).map((paragraph, index) => ({
-  label: ["Achtergrond", "Oplossing", "Resultaat"][index] || "Project",
-  title: ["De vraag achter het project", "De oplossing op locatie", "Het resultaat in gebruik"][index] || "Projectaanpak",
+const defaultSectionLabels = ["Achtergrond", "Oplossing", "Automatisering", "Schermen op locatie", "Beheer", "Interactie", "Resultaat"];
+const defaultSectionTitles = [
+  "De vraag achter het project",
+  "De oplossing op locatie",
+  "Automatisch actueel via kassakoppeling",
+  "De juiste schermen op de juiste plek",
+  "Eenvoudig beheer achter de bar",
+  "Productinformatie via infotouch",
+  "Het resultaat in gebruik",
+];
+const defaultSections = cleanedParagraphs.slice(0, 7).map((paragraph, index) => ({
+  label: defaultSectionLabels[index] || "Project",
+  title: defaultSectionTitles[index] || "Projectaanpak",
   text: paragraph,
 }));
 const storySections = isZoomersProposal ? zoomersSections : defaultSections;
