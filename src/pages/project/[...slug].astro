@@ -202,9 +202,21 @@ const defaultSectionTitles = [
   "Productinformatie via infotouch",
   "Het resultaat in gebruik",
 ];
+const sectionTitleOverrides: Record<string, string[]> = {
+  "lg-hospitality-tv-en-procentric-cloud-voor-magnifique-x": [
+    "De vraag achter het project",
+    "De oplossing op locatie",
+    "Automatisch schoon via Virtual PMS",
+    "Hospitality TV in suites, lobby's en bar",
+    "Centraal beheer via Pro:Centric Cloud",
+    "Netflix, Chromecast en gastinformatie",
+    "Het resultaat in gebruik",
+  ],
+};
+const activeSectionTitles = sectionTitleOverrides[entrySlug] || defaultSectionTitles;
 const defaultSections = cleanedParagraphs.slice(0, 7).map((paragraph, index) => ({
   label: defaultSectionLabels[index] || "Project",
-  title: defaultSectionTitles[index] || "Projectaanpak",
+  title: activeSectionTitles[index] || "Projectaanpak",
   text: paragraph,
 }));
 const storySections = isZoomersProposal ? zoomersSections : defaultSections;
