@@ -239,20 +239,27 @@ const breadcrumbSchema = {
         .btn-lg { padding: 0.875rem 2rem; font-size: 0.938rem; }
       }
 
-      /* Slideshow fix: stop broken CSS animations, first slide visible by default */
+      /* Slideshow fix: disable broken CSS animations; JS handles visibility */
       .hero-slide,
       .story-slideshow img,
-      .story-slideshow video {
+      .story-slideshow video,
+      .slider-dots span {
         animation: none !important;
-        transition: opacity 1.2s ease-in-out, transform 8s ease;
       }
-      .hero-slide:first-child,
-      .story-slideshow img:first-child,
-      .story-slideshow video:first-child {
+      /* Single images: always visible even if JS is slow */
+      .hero-slide:only-child,
+      .story-slideshow img:only-child,
+      .story-slideshow video:only-child {
+        opacity: 1 !important;
+        transform: scale(1) !important;
+      }
+      /* Multiple images: first visible by default; JS overrides during cycling */
+      body .hero-slide.hero-slide:first-child,
+      body .story-slideshow.story-slideshow img:first-child,
+      body .story-slideshow.story-slideshow video:first-child {
         opacity: 1;
         transform: scale(1);
       }
-      .slider-dots span { animation: none !important; }
     </style>
   </head>
   <body>
@@ -266,13 +273,13 @@ const breadcrumbSchema = {
       (function () {
         function initSlideshow(container, selector, interval) {
           const slides = container.querySelectorAll(selector);
-          if (slides.length <= 1) return;
           slides.forEach((slide, i) => {
             slide.style.animation = 'none';
             slide.style.opacity = i === 0 ? '1' : '0';
             slide.style.transform = i === 0 ? 'scale(1)' : 'scale(1.025)';
             slide.style.transition = 'opacity 1.2s ease-in-out, transform 8s ease';
           });
+          if (slides.length <= 1) return;
           let current = 0;
           setInterval(() => {
             slides[current].style.opacity = '0';
