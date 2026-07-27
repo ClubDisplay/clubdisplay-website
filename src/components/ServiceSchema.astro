@@ -1,0 +1,40 @@
+---
+export interface Props {
+  name: string;
+  description: string;
+  url: string;
+  serviceType?: string;
+  providerName?: string;
+  providerUrl?: string;
+  areaServed?: string;
+}
+
+const {
+  name,
+  description,
+  url,
+  serviceType = "Service",
+  providerName = "ClubDisplay",
+  providerUrl = "https://clubdisplay.nl/",
+  areaServed = "NL",
+} = Astro.props;
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": serviceType,
+  name,
+  description,
+  url,
+  provider: {
+    "@type": "Organization",
+    name: providerName,
+    url: providerUrl,
+  },
+  areaServed: {
+    "@type": "Country",
+    name: areaServed,
+  },
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />
