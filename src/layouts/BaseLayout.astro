@@ -10,9 +10,10 @@ export interface Props {
   noindex?: boolean;
   ogImage?: string;
   currentPath?: string;
+  breadcrumbLabel?: string;
 }
 
-const { title, description, canonical, noindex, ogImage, currentPath } = Astro.props;
+const { title, description, canonical, noindex, ogImage, currentPath, breadcrumbLabel } = Astro.props;
 const site = "https://clubdisplay.nl";
 const defaultDesc =
   "ClubDisplay is een gespecialiseerd digital signage bureau. Wij leveren professionele schermoplossingen voor hospitality, horeca, retail, coffeeshops en kantoren.";
@@ -21,6 +22,33 @@ const pageDesc = description || defaultDesc;
 const canonicalUrl = canonical || (currentPath ? `${site}${currentPath}` : site);
 const pageUrl = canonicalUrl;
 const imageUrl = ogImage || `${site}/images/og-default.jpg`;
+
+const pathSegments = (currentPath || "").split("/").filter(Boolean);
+const lastSegment = pathSegments[pathSegments.length - 1];
+const lastUrl = `${site}${currentPath || "/"}`;
+const lastName = breadcrumbLabel || (lastSegment ? lastSegment.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase()) : "Home");
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": site,
+    },
+    ...(lastSegment
+      ? [
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": lastName,
+            "item": lastUrl,
+          },
+        ]
+      : []),
+  ],
+};
 ---
 
 <!doctype html>
@@ -85,6 +113,7 @@ const imageUrl = ogImage || `${site}/images/og-default.jpg`;
       }
     }
     </script>
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
     <style is:global>
       *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
       :root {

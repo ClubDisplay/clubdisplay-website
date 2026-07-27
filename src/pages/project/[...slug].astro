@@ -253,7 +253,7 @@ const relatedCards = related.map((c) => ({
 }));
 ---
 
-<BaseLayout title={entry.data.title} description={pageDescription || entry.data.title} currentPath={`/project/${entrySlug}/`}>
+<BaseLayout title={entry.data.title} description={pageDescription || entry.data.title} currentPath={`/project/${entrySlug}/`} breadcrumbLabel={entry.data.title}>
   <section class="case-story-hero">
     <div class="container story-hero-grid">
       <div class="story-hero-copy">
