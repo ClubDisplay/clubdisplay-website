@@ -1,5 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import ServiceSchema from "../components/ServiceSchema.astro";
+import FAQ from "../components/FAQ.astro";
 
 const iconPaths = {
   map: "M9 18l-6 3V6l6-3 6 3 6-3v15l-6 3-6-3z M9 3v15 M15 6v15",
@@ -78,6 +80,14 @@ const linkCards = [
   { title: "Digital signage hardware", text: "Schermen, players, beugels en installatie voor elke omgeving.", href: "/displays/", icon: "plug", tone: "teal" },
   { title: "Service en support", text: "Ondersteuning bij installatie, beheer, wijzigingen en storingen.", href: "/service-support/", icon: "users", tone: "amber" },
 ] as const;
+
+const faqItems = [
+  { q: "Wat is wayfinding?", a: "Wayfinding is het digitaal weergeven van routes, plattegronden en bestemmingen zodat bezoekers zelfstandig hun weg vinden in een gebouw of terrein.", html: "Wayfinding is het digitaal weergeven van routes, plattegronden en bestemmingen zodat bezoekers zelfstandig hun weg vinden in een gebouw of terrein." },
+  { q: "Wat is room signage?", a: "Room signage toont de status van een vergaderruimte, zaal of behandelkamer: vrij, bezet of gereserveerd. Ideaal voor hotels, kantoren, zorginstellingen en eventlocaties.", html: "Room signage toont de status van een vergaderruimte, zaal of behandelkamer: vrij, bezet of gereserveerd. Ideaal voor hotels, kantoren, zorginstellingen en eventlocaties." },
+  { q: "Kan wayfinding gekoppeld worden aan agenda-software?", a: "Ja, we koppelen wayfinding en room signage met Outlook, Exchange, Microsoft 365, Google Calendar en andere room booking systemen. Ook kunnen we het via onze eigen signage software laten lopen.", html: "Ja, we koppelen wayfinding en room signage met Outlook, Exchange, Microsoft 365, Google Calendar en andere room booking systemen. Ook kunnen we het via onze eigen signage software laten lopen." },
+  { q: "Voor welke locaties is wayfinding geschikt?", a: "Wayfinding is geschikt voor hotels, kantoren, zorginstellingen, scholen, universiteiten, winkelcentra, musea, evenementenlocaties en publieke gebouwen.", html: "Wayfinding is geschikt voor hotels, kantoren, zorginstellingen, scholen, universiteiten, winkelcentra, musea, evenementenlocaties en publieke gebouwen." },
+  { q: "Wat levert ClubDisplay op het gebied van wayfinding?", a: "ClubDisplay levert schermen, software, montage, koppelingen, contentopzet, training en doorlopende support. We leveren dus het complete systeem, niet alleen een scherm.", html: "ClubDisplay levert schermen, software, montage, koppelingen, contentopzet, training en doorlopende support. We leveren dus het complete systeem, niet alleen een scherm." },
+] as const;
 ---
 
 <BaseLayout
@@ -86,6 +96,11 @@ const linkCards = [
   canonical="https://clubdisplay.nl/wayfinding-en-room-signage/"
   currentPath="/wayfinding-en-room-signage/"
 >
+  <ServiceSchema
+    name="Wayfinding en room signage"
+    description="Digitale wayfinding en room signage voor hotels, kantoren, zorginstellingen, scholen en publieke gebouwen. Routes, zaalstatus, agenda-koppelingen, installatie en support."
+    url="https://clubdisplay.nl/wayfinding-en-room-signage/"
+  />
   <section class="commercial-hero">
     <div class="container hero-grid">
       <div class="hero-copy">
@@ -254,6 +269,8 @@ const linkCards = [
       </div>
     </div>
   </section>
+
+  <FAQ items={faqItems} title="Veelgestelde vragen over wayfinding en room signage" subtitle="Wayfinding & room signage" />
 
   <script>
     const slider = document.querySelector("[data-wayfinding-slider]");
