@@ -3,6 +3,7 @@ import sitemap from "@astrojs/sitemap";
 
 const sitemapExclude = [
   "/display-kiosk/",
+  "/displays/",
   "/hospitality-soundbar/",
   "/hotel-smart-iptv/",
   "/hotelontzorgd/",
