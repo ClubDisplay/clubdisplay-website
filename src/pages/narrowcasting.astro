@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import FAQ from "../components/FAQ.astro";
 
 const iconPaths = {
   cloud: "M17.5 19H8a5 5 0 1 1 1-9.9A6.5 6.5 0 0 1 21 12.5 3.5 3.5 0 0 1 17.5 19z",
@@ -71,8 +72,8 @@ const integrationTiles = [
 ---
 
 <BaseLayout
-  title="Narrowcasting software voor professionele schermen"
-  description="Narrowcasting software voor centraal schermbeheer, contentplanning, templates, live data, AI-koppelingen, POS-koppelingen, monitoring en support."
+  title="Narrowcasting software & platform voor bedrijven"
+  description="Narrowcasting software van ClubDisplay voor centraal beheer van al uw digitale schermen. Geschikt voor horeca, hotels, retail, kantoren en zorg. Plan een demo."
   canonical="https://clubdisplay.nl/narrowcasting/"
   currentPath="/narrowcasting/"
 >
@@ -80,7 +81,7 @@ const integrationTiles = [
     <div class="container hero-grid">
       <div class="hero-copy">
         <span class="eyebrow">Narrowcasting software</span>
-        <h1>Beheer elk scherm, elke locatie en elke boodschap vanuit één platform</h1>
+        <h1>Narrowcasting: beheer elk scherm, elke locatie en elke boodschap vanuit één platform</h1>
         <p>
           Met onze narrowcasting software ontwerpt, plant, publiceert en monitort u content voor schermen in hotels, horeca, retail, kantoren, zorginstellingen en coffeeshops. ClubDisplay werkt hiervoor met een professioneel CMS op basis van Wallboard-technologie, aangevuld met onze inrichting, templates, koppelingen, training en support.
         </p>
@@ -271,6 +272,7 @@ const integrationTiles = [
       <a href="/plan-jouw-gesprek/" class="btn btn-lg btn-white">Plan een adviesgesprek</a>
     </div>
   </section>
+  <FAQ />
 </BaseLayout>
 
 <style>

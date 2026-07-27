@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import FAQ from "../components/FAQ.astro";
 
 const iconPaths = {
   sun: "M12 4V2 M12 22v-2 M4.93 4.93 3.52 3.52 M19.07 19.07l-1.41-1.41 M4 12H2 M22 12h-2 M4.93 19.07l1.41-1.41 M19.07 4.93l-1.41 1.41 M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z",
@@ -104,8 +105,8 @@ const relatedLinks = [
 ---
 
 <BaseLayout
-  title="Etalageschermen | High Brightness displays voor winkelruiten"
-  description="Etalageschermen en high-brightness displays voor winkels, horeca, showrooms en dienstverleners. ClubDisplay adviseert, levert, installeert en verzorgt content en softwarebeheer."
+  title="Etalageschermen & high brightness displays voor winkels"
+  description="Professionele etalageschermen en high brightness displays voor winkels, makelaars, horeca en showrooms. Advies, levering, installatie en content. Vraag offerte."
   canonical="https://clubdisplay.nl/etalageschermen/"
   currentPath="/etalageschermen/"
 >
@@ -113,7 +114,7 @@ const relatedLinks = [
     <div class="container hero-grid">
       <div class="hero-copy">
         <span class="eyebrow">High Brightness etalageschermen</span>
-        <h1>Een etalage die ook bij daglicht blijft opvallen</h1>
+        <h1>Etalageschermen: een etalage die ook bij daglicht blijft opvallen</h1>
         <p>
           Met een professioneel etalagescherm toont u acties, producten, sfeerbeelden en campagnes op het moment dat voorbijgangers kijken. ClubDisplay adviseert over de juiste high-brightness hardware, installeert de schermen en kan de content volledig voor u verzorgen.
         </p>
@@ -300,6 +301,7 @@ const relatedLinks = [
       <a href="/plan-jouw-gesprek/" class="btn btn-lg btn-white">Plan een adviesgesprek</a>
     </div>
   </section>
+  <FAQ />
 </BaseLayout>
 
 <style>

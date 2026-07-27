@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import FAQ from "../components/FAQ.astro";
 
 const iconPaths = {
   tv: "M3 5h18v11H3z M8 21h8 M12 16v5",
@@ -98,7 +99,7 @@ const heroSlides = [
 
 <BaseLayout
   title="Hospitality TV & IPTV voor hotels en bedrijven"
-  description="Professionele hospitality TV en IPTV oplossingen voor hotels, zorginstellingen en bedrijven. LG Pro:Centric, casting, PMS-koppelingen, zenderbeheer, installatie en support."
+  description="Professionele hospitality TV en IPTV oplossingen voor hotels, zorginstellingen en bedrijven. LG Pro:Centric, casting, PMS-koppeling, zenderbeheer, installatie en support. Plan een gesprek."
   canonical="https://clubdisplay.nl/zakelijke-iptv-voor-hotels-en-bedrijven/"
   currentPath="/zakelijke-iptv-voor-hotels-en-bedrijven/"
 >
@@ -106,7 +107,7 @@ const heroSlides = [
     <div class="container hero-grid">
       <div class="hero-copy">
         <span class="eyebrow">Hospitality TV & IPTV</span>
-        <h1>Hotel-tv die werkt voor gasten, receptie en beheer</h1>
+        <h1>Hospitality TV & IPTV: hotel-tv die werkt voor gasten, receptie en beheer</h1>
         <p>
           ClubDisplay levert complete hospitality TV en IPTV-oplossingen voor hotels, zorginstellingen en zakelijke locaties. Van LG Pro:Centric en zenderbeheer tot casting, PMS-koppelingen, installatie en support.
         </p>
@@ -219,6 +220,7 @@ const heroSlides = [
       <a href="/plan-jouw-gesprek/" class="btn btn-lg btn-white">Plan een adviesgesprek</a>
     </div>
   </section>
+  <FAQ />
 </BaseLayout>
 
 <style>

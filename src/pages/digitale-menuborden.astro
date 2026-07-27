@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import FAQ from "../components/FAQ.astro";
 
 const menuBoardSlides = [
   {
@@ -118,8 +119,8 @@ const applicationCards = [
 ---
 
 <BaseLayout
-  title="Digitale menuborden voor horeca, hotels en cafés"
-  description="Digitale menuborden voor restaurants, hotels, cafés, snackbars en coffeeshops. Actuele prijzen, dagdelen, promoties, kassakoppeling, installatie en beheer."
+  title="Digitale menuborden voor horeca: prijzen, kassakoppeling & voorbeelden"
+  description="Digitale menuborden voor restaurants, cafés, hotels en snackbars. Actuele prijzen, dagdelen, kassakoppeling, installatie en beheer. Vraag een offerte."
   canonical="https://clubdisplay.nl/digitale-menuborden/"
   currentPath="/digitale-menuborden/"
 >
@@ -127,7 +128,7 @@ const applicationCards = [
     <div class="container hero-grid">
       <div class="hero-copy">
         <span class="eyebrow">Digitale menuborden</span>
-        <h1>Menu’s, prijzen en acties altijd actueel op uw schermen</h1>
+        <h1>Digitale menuborden: menu’s, prijzen en acties altijd actueel op uw schermen</h1>
         <p>
           ClubDisplay maakt digitale menuborden voor restaurants, hotels, cafés, snackbars en coffeeshops. U beheert prijzen, aanbiedingen en dagdelen centraal, met de mogelijkheid om kassasystemen te koppelen.
         </p>
@@ -263,6 +264,7 @@ const applicationCards = [
       <a href="/plan-jouw-gesprek/" class="btn btn-lg btn-white">Plan een adviesgesprek</a>
     </div>
   </section>
+  <FAQ />
 </BaseLayout>
 
 <script>
