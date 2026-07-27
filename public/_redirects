@@ -8,6 +8,7 @@ http://www.clubdisplay.nl/* https://clubdisplay.nl/:splat 301
 # Verwijderde/gewijzigde hoofdpagina's
 /otrumcast/ /casting-oplossingen/ 301
 /displays/* /digital-signage-hardware/ 301
+/display-kiosk/ /touch-displays-kiosken/ 301
 /nieuws/ / 301
 /nieuws/* / 301
 /zakelijke-iptv-voor-hotels-en-bedrijven/ /hospitality-tv/ 301
