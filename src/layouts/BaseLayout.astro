@@ -238,6 +238,21 @@ const breadcrumbSchema = {
         .btn { font-size: 0.875rem; padding: 0.75rem 1.5rem; }
         .btn-lg { padding: 0.875rem 2rem; font-size: 0.938rem; }
       }
+
+      /* Slideshow fix: stop broken CSS animations, first slide visible by default */
+      .hero-slide,
+      .story-slideshow img,
+      .story-slideshow video {
+        animation: none !important;
+        transition: opacity 1.2s ease-in-out, transform 8s ease;
+      }
+      .hero-slide:first-child,
+      .story-slideshow img:first-child,
+      .story-slideshow video:first-child {
+        opacity: 1;
+        transform: scale(1);
+      }
+      .slider-dots span { animation: none !important; }
     </style>
   </head>
   <body>
@@ -247,5 +262,42 @@ const breadcrumbSchema = {
     </main>
     <Footer />
     <CookieBanner />
+    <script>
+      (function () {
+        function initSlideshow(container, selector, interval) {
+          const slides = container.querySelectorAll(selector);
+          if (slides.length <= 1) return;
+          slides.forEach((slide, i) => {
+            slide.style.animation = 'none';
+            slide.style.opacity = i === 0 ? '1' : '0';
+            slide.style.transform = i === 0 ? 'scale(1)' : 'scale(1.025)';
+            slide.style.transition = 'opacity 1.2s ease-in-out, transform 8s ease';
+          });
+          let current = 0;
+          setInterval(() => {
+            slides[current].style.opacity = '0';
+            slides[current].style.transform = 'scale(1.025)';
+            current = (current + 1) % slides.length;
+            slides[current].style.opacity = '1';
+            slides[current].style.transform = 'scale(1)';
+          }, interval);
+        }
+
+        function initAllSlideshows() {
+          document.querySelectorAll('.hero-media').forEach((container) => {
+            initSlideshow(container, '.hero-slide', 8000);
+          });
+          document.querySelectorAll('.story-slideshow').forEach((container) => {
+            initSlideshow(container, 'img, video', 6000);
+          });
+        }
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', initAllSlideshows);
+        } else {
+          initAllSlideshows();
+        }
+      })();
+    </script>
   </body>
 </html>
