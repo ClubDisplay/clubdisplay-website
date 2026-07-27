@@ -49,3 +49,26 @@ Image paths in frontmatter are absolute (e.g., `/images/cases/foo.jpg`).
 
 - `astro.config.mjs`: `trailingSlash: "always"`, `build.format: "directory"`, sitemap with weekly changefreq
 - `tsconfig.json`: extends `astro/tsconfigs/strict`
+
+## Recent SEO work (2026-07)
+
+### New commercial landing pages
+These pages share a layout: hero slideshow, USP strip, features, audience cards, process steps, CTA, FAQ, and `ServiceSchema`:
+
+- `/interne-communicatie/`
+- `/hospitality-tv/`
+- `/iptv-hotel/`
+- `/casting-oplossingen/`
+- `/digitale-menuborden-kassakoppeling/`
+- `/digital-signage-hardware/`
+- `/touch-displays-kiosken/`
+
+### Slideshow fix
+`BaseLayout` disables the old CSS keyframe animations (`animation: none !important`) and runs a small JS controller that fades between slides. A single image stays visible; multiple images cycle smoothly.
+
+### Navigation
+- `/touch-displays-kiosken/` was added to the main navigation and footer.
+- Old service URLs redirect to the new canonical pages via `public/_redirects`.
+
+### Images
+Custom page images are copied to `public/images/<page>/` and referenced in the page's `heroSlides` array.
