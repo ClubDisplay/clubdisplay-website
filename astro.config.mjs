@@ -9,6 +9,7 @@ const sitemapExclude = [
   "/instore-sales-kiosk/",
   "/narrowcasting-interne-communicatie/",
   "/otrum-enterprise/",
+  "/otrumcast/",
   "/pricing/",
   "/probeer-30-dagen-gratis/",
   "/public-proof-display/",
