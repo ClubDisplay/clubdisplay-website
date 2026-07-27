@@ -1,119 +1,87 @@
 ---
+export interface FAQItem {
+  q: string;
+  a: string;
+  html?: string;
+}
+
+export interface Props {
+  items?: FAQItem[];
+  title?: string;
+  subtitle?: string;
+}
+
+const {
+  items: propItems,
+  title = "Antwoord op de meest gestelde vragen",
+  subtitle = "Veelgestelde vragen",
+} = Astro.props;
+
+const defaultItems: FAQItem[] = [
+  {
+    q: "Wat kost digital signage?",
+    a: "De kosten hangen af van het aantal schermen, type hardware, softwarelicentie en eventuele maatwerkcontent. Onze narrowcasting software is beschikbaar vanaf €19 per maand per scherm. Hardware varieert van €899 voor een instapmodel tot €2.500+ voor professionele hospitality displays. We maken altijd een vrijblijvende offerte op maat.",
+    html: "De kosten hangen af van het aantal schermen, type hardware, softwarelicentie en eventuele maatwerkcontent. Onze narrowcasting software is beschikbaar vanaf €19 per maand per scherm. Hardware (schermen, beugels, mediaspelers) varieert van €899 voor een instapmodel tot €2.500+ voor professionele hospitality displays van LG of Samsung. We maken altijd een vrijblijvende offerte op maat.",
+  },
+  {
+    q: "Wat heb ik nodig voor digital signage?",
+    a: "Je hebt drie dingen nodig: een professioneel scherm, narrowcasting software om content te beheren, en content in je huisstijl. ClubDisplay levert dit compleet: advies, hardware, installatie, vormgeving en support.",
+    html: "Je hebt drie dingen nodig: een <strong>professioneel scherm</strong> (geen consumenten-tv), <strong>narrowcasting software</strong> om content te beheren, en <strong>content</strong> in je huisstijl. ClubDisplay levert dit compleet: wij adviseren, selecteren de juiste hardware, installeren alles, verzorgen de vormgeving en blijven beschikbaar voor beheer en support.",
+  },
+  {
+    q: "Kunnen digitale menuborden gekoppeld worden aan een kassasysteem?",
+    a: "Ja, dat is een van onze specialismes. We koppelen digitale menuborden aan kassasystemen zodat prijzen, producten en aanbiedingen automatisch worden gesynchroniseerd. Bij een prijswijziging in de kassa wordt het scherm direct bijgewerkt.",
+    html: "Ja, dat is een van onze specialismes. We koppelen digitale menuborden aan kassasystemen zodat prijzen, producten en aanbiedingen automatisch worden gesynchroniseerd. Bij een prijswijziging in de kassa wordt het scherm direct bijgewerkt — geen handmatig werk, geen fouten. We hebben ervaring met koppelingen voor diverse kassasystemen in de horeca en retail.",
+  },
+  {
+    q: "Werkt ClubDisplay met LG Pro:Centric?",
+    a: "Zeker. ClubDisplay is gespecialiseerd in LG Pro:Centric en officieel partner. Wij leveren, installeren en beheren Pro:Centric systemen voor hotels en andere hospitality-omgevingen.",
+    html: "Zeker. ClubDisplay is gespecialiseerd in LG Pro:Centric en officieel partner. Wij leveren, installeren en beheren Pro:Centric systemen voor hotels en andere hospitality-omgevingen. Denk aan maatwerk welkomstberichten, PMS-koppeling, zenderbeheer en integratie met streamingdiensten zoals Netflix en YouTube.",
+  },
+  {
+    q: "Is digital signage geschikt voor coffeeshops?",
+    a: "Ja, wij hebben specifieke ervaring met digital signage voor coffeeshops. Denk aan digitale prijslijsten, productinformatie, wachtrijcommunicatie en menuborden, allemaal centraal beheerbaar.",
+    html: "Ja, wij hebben specifieke ervaring met digital signage voor coffeeshops. Denk aan digitale prijslijsten, productinformatie, wachtrijcommunicatie en menuborden — allemaal centraal beheerbaar en afgestemd op een professionele, rustige uitstraling. De content is volledig aanpasbaar aan je huisstijl en voldoet aan de geldende richtlijnen.",
+  },
+  {
+    q: "Regelt ClubDisplay ook installatie en beheer?",
+    a: "Jazeker. Wij geloven in een compleet zorgeloze ervaring. Onze werkwijze omvat het hele traject: inventarisatie, advies, hardware- en softwarekeuze, installatie, contentontwerp, systeemkoppelingen én doorlopend beheer en support.",
+    html: "Jazeker. Wij geloven in een compleet zorgeloze ervaring. Onze werkwijze omvat het hele traject: inventarisatie, advies, hardware- en softwarekeuze, installatie op locatie, contentontwerp, systeemkoppelingen én doorlopend beheer en support. Je hoeft nergens zelf achteraan. Ook na oplevering blijven we beschikbaar voor vragen, updates en onderhoud.",
+  },
+];
+
+const items = propItems || defaultItems;
+
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Wat kost digital signage?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "De kosten hangen af van het aantal schermen, type hardware, softwarelicentie en eventuele maatwerkcontent. Onze narrowcasting software is beschikbaar vanaf €19 per maand per scherm. Hardware varieert van €899 voor een instapmodel tot €2.500+ voor professionele hospitality displays. We maken altijd een vrijblijvende offerte op maat."
-      }
+  "mainEntity": items.map((item) => ({
+    "@type": "Question",
+    "name": item.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.a,
     },
-    {
-      "@type": "Question",
-      "name": "Wat heb ik nodig voor digital signage?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Je hebt drie dingen nodig: een professioneel scherm, narrowcasting software om content te beheren, en content in je huisstijl. ClubDisplay levert dit compleet: advies, hardware, installatie, vormgeving en support."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Kunnen digitale menuborden gekoppeld worden aan een kassasysteem?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Ja, dat is een van onze specialismes. We koppelen digitale menuborden aan kassasystemen zodat prijzen, producten en aanbiedingen automatisch worden gesynchroniseerd. Bij een prijswijziging in de kassa wordt het scherm direct bijgewerkt."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Werkt ClubDisplay met LG Pro:Centric?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Zeker. ClubDisplay is gespecialiseerd in LG Pro:Centric en officieel partner. Wij leveren, installeren en beheren Pro:Centric systemen voor hotels en andere hospitality-omgevingen."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Is digital signage geschikt voor coffeeshops?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Ja, wij hebben specifieke ervaring met digital signage voor coffeeshops. Denk aan digitale prijslijsten, productinformatie, wachtrijcommunicatie en menuborden, allemaal centraal beheerbaar."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Regelt ClubDisplay ook installatie en beheer?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Jazeker. Wij geloven in een compleet zorgeloze ervaring. Onze werkwijze omvat het hele traject: inventarisatie, advies, hardware- en softwarekeuze, installatie, contentontwerp, systeemkoppelingen én doorlopend beheer en support."
-      }
-    }
-  ]
+  })),
 };
 ---
 
 <section class="faq" id="faq">
   <div class="container">
-    <div class="section-label">Veelgestelde vragen</div>
-    <h2 class="section-title">Antwoord op de meest gestelde vragen</h2>
+    <div class="section-label">{subtitle}</div>
+    <h2 class="section-title">{title}</h2>
     <div class="faq-grid">
-      <details class="faq-item" name="faq">
-        <summary class="faq-question">
-          <span>Wat kost digital signage?</span>
-          <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-        </summary>
-        <div class="faq-answer">
-          <p>De kosten hangen af van het aantal schermen, type hardware, softwarelicentie en eventuele maatwerkcontent. Onze narrowcasting software is beschikbaar vanaf €19 per maand per scherm. Hardware (schermen, beugels, mediaspelers) varieert van €899 voor een instapmodel tot €2.500+ voor professionele hospitality displays van LG of Samsung. We maken altijd een vrijblijvende offerte op maat.</p>
-        </div>
-      </details>
-      <details class="faq-item" name="faq">
-        <summary class="faq-question">
-          <span>Wat heb ik nodig voor digital signage?</span>
-          <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-        </summary>
-        <div class="faq-answer">
-          <p>Je hebt drie dingen nodig: een <strong>professioneel scherm</strong> (geen consumenten-tv), <strong>narrowcasting software</strong> om content te beheren, en <strong>content</strong> in je huisstijl. ClubDisplay levert dit compleet: wij adviseren, selecteren de juiste hardware, installeren alles, verzorgen de vormgeving en blijven beschikbaar voor beheer en support.</p>
-        </div>
-      </details>
-      <details class="faq-item" name="faq">
-        <summary class="faq-question">
-          <span>Kunnen digitale menuborden gekoppeld worden aan een kassasysteem?</span>
-          <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-        </summary>
-        <div class="faq-answer">
-          <p>Ja, dat is een van onze specialismes. We koppelen digitale menuborden aan kassasystemen zodat prijzen, producten en aanbiedingen automatisch worden gesynchroniseerd. Bij een prijswijziging in de kassa wordt het scherm direct bijgewerkt — geen handmatig werk, geen fouten. We hebben ervaring met koppelingen voor diverse kassasystemen in de horeca en retail.</p>
-        </div>
-      </details>
-      <details class="faq-item" name="faq">
-        <summary class="faq-question">
-          <span>Werkt ClubDisplay met LG Pro:Centric?</span>
-          <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-        </summary>
-        <div class="faq-answer">
-          <p>Zeker. ClubDisplay is gespecialiseerd in LG Pro:Centric en officieel partner. Wij leveren, installeren en beheren Pro:Centric systemen voor hotels en andere hospitality-omgevingen. Denk aan maatwerk welkomstberichten, PMS-koppeling, zenderbeheer en integratie met streamingdiensten zoals Netflix en YouTube.</p>
-        </div>
-      </details>
-      <details class="faq-item" name="faq">
-        <summary class="faq-question">
-          <span>Is digital signage geschikt voor coffeeshops?</span>
-          <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-        </summary>
-        <div class="faq-answer">
-          <p>Ja, wij hebben specifieke ervaring met digital signage voor coffeeshops. Denk aan digitale prijslijsten, productinformatie, wachtrijcommunicatie en menuborden — allemaal centraal beheerbaar en afgestemd op een professionele, rustige uitstraling. De content is volledig aanpasbaar aan je huisstijl en voldoet aan de geldende richtlijnen.</p>
-        </div>
-      </details>
-      <details class="faq-item" name="faq">
-        <summary class="faq-question">
-          <span>Regelt ClubDisplay ook installatie en beheer?</span>
-          <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-        </summary>
-        <div class="faq-answer">
-          <p>Jazeker. Wij geloven in een compleet zorgeloze ervaring. Onze werkwijze omvat het hele traject: inventarisatie, advies, hardware- en softwarekeuze, installatie op locatie, contentontwerp, systeemkoppelingen én doorlopend beheer en support. Je hoeft nergens zelf achteraan. Ook na oplevering blijven we beschikbaar voor vragen, updates en onderhoud.</p>
-        </div>
-      </details>
+      {items.map((item) => (
+        <details class="faq-item" name="faq">
+          <summary class="faq-question">
+            <span>{item.q}</span>
+            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </summary>
+          <div class="faq-answer">
+            <p set:html={item.html || item.a} />
+          </div>
+        </details>
+      ))}
     </div>
   </div>
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
