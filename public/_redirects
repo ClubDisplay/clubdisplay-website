@@ -9,7 +9,7 @@ http://www.clubdisplay.nl/* https://clubdisplay.nl/:splat 301
 /nieuws/ / 301
 /nieuws/* / 301
 /hospitality-tv/ /zakelijke-iptv-voor-hotels-en-bedrijven/ 301
-/interne-communicatie/ /narrowcasting-interne-communicatie/ 301
+/narrowcasting-interne-communicatie/ /interne-communicatie/ 301
 /wayfinding-room-signage/ /wayfinding-en-room-signage/ 301
 /lg-procentric/ /zakelijke-iptv-voor-hotels-en-bedrijven/ 301
 /touch-displays-en-kiosken/ /display-kiosk/ 301
@@ -17,7 +17,7 @@ http://www.clubdisplay.nl/* https://clubdisplay.nl/:splat 301
 /high-brightness-displays/ /etalageschermen/ 301
 
 # Oude blogartikelen en losse landingspagina's naar relevante nieuwe pagina's
-/betrek-winkelpersoneel-doet/ /narrowcasting-interne-communicatie/ 301
+/betrek-winkelpersoneel-doet/ /interne-communicatie/ 301
 /waarom-geen-tv-gebruiken-voor-narrowcasting/ /displays/ 301
 /levering-digital-signage-public-displays/ /displays/ 301
 /ideal-qr-code/ /digital-signage/ 301

@@ -7,6 +7,7 @@ const sitemapExclude = [
   "/hotel-smart-iptv/",
   "/hotelontzorgd/",
   "/instore-sales-kiosk/",
+  "/narrowcasting-interne-communicatie/",
   "/otrum-enterprise/",
   "/pricing/",
   "/probeer-30-dagen-gratis/",
