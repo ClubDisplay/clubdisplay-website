@@ -3,28 +3,241 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import FAQ from "../components/FAQ.astro";
 import ServiceSchema from "../components/ServiceSchema.astro";
 import CTA from "../components/CTA.astro";
+
+const iconPaths = {
+  display: "M3 5h18v11H3z M8 21h8 M12 16v5",
+  sun: "M12 4V2 M12 22v-2 M4.93 4.93 3.52 3.52 M19.07 19.07l-1.41-1.41 M4 12H2 M22 12h-2 M4.93 19.07l1.41-1.41 M19.07 4.93l-1.41 1.41 M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z",
+  temp: "M14 14.76V5a2 2 0 1 0-4 0v9.76a4 4 0 1 0 4 0z",
+  touch: "M8 11V5a2 2 0 0 1 4 0v6 M12 11V7a2 2 0 0 1 4 0v5 M16 12V9a2 2 0 0 1 4 0v5c0 4-2.5 7-7 7h-1c-2.2 0-3.8-.9-5-2.5L3 13.5a2 2 0 0 1 3-2.6L8 13",
+  player: "M4 7h16v10H4z M8 12h.1 M12 12h.1 M16 12h.1 M7 21h10 M12 17v4",
+  mount: "M5 4h14v10H5z M9 18h6 M12 14v4 M8 8h8",
+  network: "M12 5a3 3 0 1 0 0 6 3 3 0 0 0 0-6z M5 19a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M19 19a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M10 10l-3 4 M14 10l3 4",
+  check: "M20 6 9 17l-5-5",
+};
+
+const heroSlides = [
+  { src: "/images/displays/HennyRits_HighBrightness.jpg", alt: "High brightness digital signage display in etalage" },
+  { src: "/images/displays/Outdoor_Cheers.jpg", alt: "Outdoor digital signage display" },
+  { src: "/images/cases/digitaalcanvas1.jpg", alt: "Professioneel digital signage scherm" },
+];
+
+const proofHighlights = [
+  { title: "Commercial-grade", text: "Schermen die zijn gebouwd voor intensief professioneel gebruik.", icon: "display", tone: "blue" },
+  { title: "24/7 geschikt", text: "Betrouwbare hardware voor continue bedrijfsvoering.", icon: "sun", tone: "teal" },
+  { title: "Installatie inbegrepen", text: "Advies, montage en configuratie door onze eigen technici.", icon: "mount", tone: "amber" },
+  { title: "Support", text: "Doorlopend beheer, onderhoud en technische ondersteuning.", icon: "network", tone: "violet" },
+];
+
+const featureCards = [
+  { title: "Commercial displays", text: "Professionele schermen voor winkels, horeca, kantoren en zorg. Gebouwd voor lange levensduur en dagelijkse intensieve inzet.", icon: "display", tone: "blue" },
+  { title: "High brightness", text: "Extra heldere schermen die ook bij fel zonlicht en in etalages goed zichtbaar blijven.", icon: "sun", tone: "teal" },
+  { title: "Outdoor displays", text: "Weerbestendige schermen voor buiten, bestand tegen vocht, stof en temperatuurschommelingen.", icon: "temp", tone: "amber" },
+  { title: "Media players", text: "Stabiele spelers die content soepel afspelen en eenvoudig centraal te beheren zijn.", icon: "player", tone: "violet" },
+];
+
+const audienceCards = [
+  { title: "Retail", text: "Productdisplays, etalageschermen, prijsborden en promotieschermen in winkels en showrooms.", icon: "display", tone: "blue" },
+  { title: "Horeca", text: "Menukaarten, informatieschermen en zelfbestelzuilen voor restaurants, cafés en snackbars.", icon: "sun", tone: "teal" },
+  { title: "Zorg", text: "Wachtkamerschermen, wayfinding en patiëntinformatie in ziekenhuizen, klinieken en zorginstellingen.", icon: "touch", tone: "amber" },
+  { title: "Kantoren", text: "Narrowcasting, vergaderschermen en dashboards voor interne communicatie en recepties.", icon: "network", tone: "violet" },
+];
+
+const faqItems = [
+  { q: "Wat heb ik allemaal nodig voor digital signage?", a: "Je hebt een professioneel scherm, een media player of systeem-on-chip display, narrowcasting software en content nodig. ClubDisplay levert alles compleet inclusief installatie.", html: "Je hebt een professioneel scherm, een media player of systeem-on-chip display, narrowcasting software en content nodig. ClubDisplay levert alles compleet inclusief installatie." },
+  { q: "Wat is het verschil tussen consumenten-TV en commercial-grade displays?", a: "Commercial-grade displays zijn gebouwd voor continu gebruik, hebben betere garantievoorwaarden, hogere helderheid en zijn geschikt voor professionele omgevingen. Consumenten-TV's zijn niet bedoeld voor 24/7 gebruik.", html: "Commercial-grade displays zijn gebouwd voor continu gebruik, hebben betere garantievoorwaarden, hogere helderheid en zijn geschikt voor professionele omgevingen. Consumenten-TV's zijn niet bedoeld voor 24/7 gebruik." },
+  { q: "Welke schermgrootte heb ik nodig?", a: "De ideale schermgrootte hangt af van de kijkafstand en de locatie. Voor etalages en winkelpassages gebruiken we vaak 43 tot 65 inch, terwijl grote hospitality ruimtes of meeting rooms soms 75 inch of groter nodig hebben.", html: "De ideale schermgrootte hangt af van de kijkafstand en de locatie. Voor etalages en winkelpassages gebruiken we vaak 43 tot 65 inch, terwijl grote hospitality ruimtes of meeting rooms soms 75 inch of groter nodig hebben." },
+  { q: "Wat is een media player?", a: "Een media player is een kleine computer die content op het scherm afspeelt. Sommige professionele displays hebben een ingebouwde player, waardoor geen losse media player nodig is.", html: "Een media player is een kleine computer die content op het scherm afspeelt. Sommige professionele displays hebben een ingebouwde player, waardoor geen losse media player nodig is." },
+  { q: "Is outdoor digital signage mogelijk?", a: "Ja, we leveren high brightness en outdoor displays die bestand zijn tegen vocht, stof en temperatuurschommelingen. Deze zijn geschikt voor terrassen, parkeerplaatsen en buitenwanden.", html: "Ja, we leveren high brightness en outdoor displays die bestand zijn tegen vocht, stof en temperatuurschommelingen. Deze zijn geschikt voor terrassen, parkeerplaatsen en buitenwanden." },
+];
 ---
+
 <BaseLayout title="Digital signage hardware | Schermen, players & montage" description="Digital signage hardware: professionele schermen, media players, montage en accessoires voor narrowcasting, horeca, retail en zorg. Advies, installatie en support." canonical="https://clubdisplay.nl/digital-signage-hardware/" currentPath="/digital-signage-hardware/">
-<ServiceSchema name="Digital signage hardware" description="Digital signage hardware: professionele schermen, media players, montage en accessoires voor narrowcasting, horeca, retail en zorg. Advies, installatie en support." url="https://clubdisplay.nl/digital-signage-hardware/" />
-  <div class="container page-content">
-    <h1>Digital signage hardware</h1>
-    <p>Een goede digital signage setup begint bij betrouwbare hardware. ClubDisplay levert professionele schermen, media players, montagematerialen en accessoires voor elk toepassingsgebied: van horeca en retail tot zorg, onderwijs en kantoren. We kiezen hardware op basis van uw locatie, doelgroep en budget, zodat u een oplossing krijgt die direct werkt.</p>
-    <p>Ons assortiment omvat onder meer commercial-grade displays, high brightness schermen voor etalages, interactieve touchscreens, outdoor displays, hospitality TV's en compacte media players. Alles is geschikt voor continu gebruik en wordt geïnstalleerd door onze eigen technici.</p>
+  <ServiceSchema name="Digital signage hardware" description="Digital signage hardware: professionele schermen, media players, montage en accessoires voor narrowcasting, horeca, retail en zorg. Advies, installatie en support." url="https://clubdisplay.nl/digital-signage-hardware/" />
+  <section class="commercial-hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow">Digital signage hardware</span>
+        <h1>Digital signage hardware</h1>
+        <p>
+          Een goede digital signage setup begint bij betrouwbare hardware. ClubDisplay levert professionele schermen, media players, montagematerialen en accessoires voor elk toepassingsgebied: van horeca en retail tot zorg, onderwijs en kantoren.
+        </p>
+        <div class="hero-actions">
+          <a href="/plan-jouw-gesprek/" class="btn btn-lg">Plan een adviesgesprek</a>
+          <a href="/cases/" class="btn btn-lg btn-outline">Bekijk projecten</a>
+        </div>
+      </div>
+      <div class="hero-media">
+        {heroSlides.map((slide, index) => (
+          <img
+            class="hero-slide"
+            src={slide.src}
+            alt={slide.alt}
+            loading={index === 0 ? "eager" : "lazy"}
+            style={`--delay: ${index * 4}s`}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
 
-    <h2>Waaruit bestaat digital signage hardware?</h2>
-    <p>Voor een werkende narrowcasting of digital signage omgeving heeft u drie onderdelen nodig: een scherm, een media player of ingebouwde speler, en software om content te beheren. Daarnaast zorgt de juiste montage en bekabeling voor een nette en veilige installatie.</p>
-    <p>We leveren zowel complete pakketten als losse componenten. Of u nu een enkel scherm in een restaurant wilt plaatsen of een netwerk van honderden schermen op meerdere locaties, wij zorgen voor de juiste hardwareconfiguratie.</p>
+  <section class="proof-strip">
+    <div class="container proof-grid">
+      {proofHighlights.map((item) => (
+        <article class:list={["proof-card", `tone-${item.tone}`]}>
+          <span class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d={iconPaths[item.icon]} />
+            </svg>
+          </span>
+          <div>
+            <strong>{item.title}</strong>
+            <span>{item.text}</span>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
 
-    <h2>Displays voor elke situatie</h2>
-    <p>De juiste display hangt af van de locatie en het doel. Voor een winkel of horecagelegenheid kiest u vaak een helder, commercieel scherm dat 24/7 kan draaien. Voor etalages gebruiken we high brightness displays die ook bij zonlicht goed zichtbaar zijn. In hotels en zorginstellingen passen we hospitality TV's toe die geschikt zijn voor professioneel gebruik. Voor interactieve toepassingen bieden we ook <a href="/touch-displays-kiosken/">touch displays en kiosken</a>.</p>
+  <section class="commercial-section">
+    <div class="container split-grid">
+      <div>
+        <span class="eyebrow">Wat wij leveren</span>
+        <h2>Complete hardware voor digital signage</h2>
+        <p>
+          We adviseren, leveren en installeren alle hardware die u nodig heeft voor digital signage. Van schermen en media players tot montage, bekabeling en accessoires. Alles is afgestemd op uw locatie, doelgroep en budget.
+        </p>
+      </div>
+      <div class="feature-list">
+        {featureCards.map((item) => (
+          <article class:list={["feature-card", `tone-${item.tone}`]}>
+            <span class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d={iconPaths[item.icon]} />
+              </svg>
+            </span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
 
-    <h2>Media players en besturing</h2>
-    <p>De media player is het hart van uw digital signage. Deze zorgt ervoor dat content soepel wordt afgespeeld en centraal kan worden bijgewerkt. We werken met stabiele spelers die aansluiten op onze narrowcasting software, zonder ingewikkelde configuratie.</p>
+  <section class="commercial-section section-alt">
+    <div class="container cards-section">
+      <div class="section-head">
+        <span class="eyebrow">Voor wie</span>
+        <h2>Geschikt voor elke branche en locatie</h2>
+      </div>
+      <div class="cards-grid">
+        {audienceCards.map((item) => (
+          <article class:list={["audience-card", `tone-${item.tone}`]}>
+            <span class="audience-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d={iconPaths[item.icon]} />
+              </svg>
+            </span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
 
-    <h2>Advies, levering en installatie</h2>
-    <p>Bij ClubDisplay krijgt u meer dan alleen hardware. We adviseren welke componenten het beste passen bij uw situatie, leveren alles compleet en verzorgen installatie en montage. Ook na oplevering kunt u terecht bij onze support voor vragen, onderhoud en updates.</p>
-    <p><a href="/plan-jouw-gesprek/" class="btn">Plan een adviesgesprek</a></p>
-  </div>
-  <FAQ items={[{"q": "Wat heb ik allemaal nodig voor digital signage?", "a": "Je hebt een professioneel scherm, een media player of systeem-on-chip display, narrowcasting software en content nodig. ClubDisplay levert alles compleet inclusief installatie.", "html": "Je hebt een professioneel scherm, een media player of systeem-on-chip display, narrowcasting software en content nodig. ClubDisplay levert alles compleet inclusief installatie."}, {"q": "Wat is het verschil tussen consumenten-TV en commercial-grade displays?", "a": "Commercial-grade displays zijn gebouwd voor continu gebruik, hebben betere garantievoorwaarden, hogere helderheid en zijn geschikt voor professionele omgevingen. Consumenten-TV's zijn niet bedoeld voor 24/7 gebruik.", "html": "Commercial-grade displays zijn gebouwd voor continu gebruik, hebben betere garantievoorwaarden, hogere helderheid en zijn geschikt voor professionele omgevingen. Consumenten-TV's zijn niet bedoeld voor 24/7 gebruik."}, {"q": "Welke schermgrootte heb ik nodig?", "a": "De ideale schermgrootte hangt af van de kijkafstand en de locatie. Voor etalages en winkelpassages gebruiken we vaak 43 tot 65 inch, terwijl grote hospitality ruimtes of meeting rooms soms 75 inch of groter nodig hebben.", "html": "De ideale schermgrootte hangt af van de kijkafstand en de locatie. Voor etalages en winkelpassages gebruiken we vaak 43 tot 65 inch, terwijl grote hospitality ruimtes of meeting rooms soms 75 inch of groter nodig hebben."}, {"q": "Wat is een media player?", "a": "Een media player is een kleine computer die content op het scherm afspeelt. Sommige professionele displays hebben een ingebouwde player, waardoor geen losse media player nodig is.", "html": "Een media player is een kleine computer die content op het scherm afspeelt. Sommige professionele displays hebben een ingebouwde player, waardoor geen losse media player nodig is."}, {"q": "Is outdoor digital signage mogelijk?", "a": "Ja, we leveren high brightness en outdoor displays die bestand zijn tegen vocht, stof en temperatuurschommelingen. Deze zijn geschikt voor terrassen, parkeerplaatsen en buitenwanden.", "html": "Ja, we leveren high brightness en outdoor displays die bestand zijn tegen vocht, stof en temperatuurschommelingen. Deze zijn geschikt voor terrassen, parkeerplaatsen en buitenwanden."}]} title="Veelgestelde vragen over digital signage hardware" subtitle="Digital signage hardware" />
+  <section class="commercial-section">
+    <div class="container process-grid">
+      <div>
+        <span class="eyebrow">Aanpak</span>
+        <h2>Van advies tot installatie</h2>
+        <p>
+          We starten bij uw locatie, doelgroep en technische situatie. Daarna selecteren we de juiste hardware, verzorgen de installatie en zorgen dat alles direct werkt. Ook na oplevering blijven we beschikbaar voor support.
+        </p>
+      </div>
+      <ol class="steps-list">
+        <li><strong>Inventarisatie</strong><span>Locatie, kijkafstand, lichtomstandigheden, netwerk en bestaande apparatuur.</span></li>
+        <li><strong>Advies en selectie</strong><span>Keuze uit schermen, media players, montage en accessoires op basis van uw budget.</span></li>
+        <li><strong>Installatie</strong><span>Montage, bekabeling, configuratie en testen van de complete hardware.</span></li>
+        <li><strong>Support en beheer</strong><span>Onderhoud, updates, wijzigingen en technische hulp bij vragen.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="commercial-cta">
+    <div class="container cta-inner">
+      <h2>Wilt u weten welke digital signage hardware past bij uw locatie?</h2>
+      <p>We adviseren vrijblijvend over de juiste schermen, media players en montage voor uw situatie.</p>
+      <a href="/plan-jouw-gesprek/" class="btn btn-lg btn-white">Plan een adviesgesprek</a>
+    </div>
+  </section>
+  <FAQ items={faqItems} title="Veelgestelde vragen over digital signage hardware" subtitle="Digital signage hardware" />
   <CTA />
 </BaseLayout>
+
+<style>
+  .commercial-hero { padding: 5.5rem 0 4.5rem; background: linear-gradient(135deg, #fff 0%, #eef6ff 100%); }
+  .hero-grid { display: grid; grid-template-columns: minmax(0, 0.95fr) minmax(360px, 1.05fr); gap: 4rem; align-items: center; }
+  .eyebrow { display: inline-flex; color: var(--primary); font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1rem; }
+  .hero-copy h1 { font-size: clamp(2.25rem, 4.6vw, 4.25rem); line-height: 1.04; margin-bottom: 1.25rem; }
+  .hero-copy p { font-size: 1.125rem; max-width: 620px; }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; }
+  .hero-media { position: relative; border-radius: 20px; overflow: hidden; min-height: 420px; background: #0f172a; box-shadow: var(--shadow-xl); isolation: isolate; }
+  .hero-media::after { content: ""; position: absolute; inset: 0; border: 1px solid rgba(255,255,255,0.16); border-radius: inherit; pointer-events: none; z-index: 2; }
+  .hero-slide { position: absolute; inset: 0; width: 100%; height: 100%; min-height: 420px; object-fit: cover; border-radius: 0; opacity: 0; animation: heroSlideFade 88s infinite; animation-delay: var(--delay); }
+  .hero-slide:first-child { opacity: 1; }
+  @keyframes heroSlideFade {
+    0%, 7% { opacity: 1; transform: scale(1); }
+    10%, 100% { opacity: 0; transform: scale(1.025); }
+  }
+  .proof-strip { background: #fff; border-bottom: 1px solid var(--border-light); }
+  .proof-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; transform: translateY(-1.65rem); }
+  .proof-card { display: flex; align-items: center; gap: 0.85rem; padding: 1rem; background: #fff; border: 1px solid rgba(148, 163, 184, 0.28); border-radius: 16px; box-shadow: 0 18px 50px rgba(15, 23, 42, 0.08); }
+  .proof-card div { display: grid; gap: 0.2rem; min-width: 0; }
+  .proof-grid strong { color: var(--text); font-size: 0.95rem; }
+  .proof-grid span { color: var(--text-secondary); font-size: 0.8125rem; }
+  .card-icon, .feature-icon, .audience-icon { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; width: 2.75rem; height: 2.75rem; border-radius: 14px; }
+  .card-icon svg, .feature-icon svg, .audience-icon svg { width: 1.35rem; height: 1.35rem; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+  .tone-blue .card-icon, .tone-blue .feature-icon, .tone-blue .audience-icon { color: var(--brand-accent); background: var(--primary-light); }
+  .tone-teal .card-icon, .tone-teal .feature-icon, .tone-teal .audience-icon { color: #0f766e; background: #ccfbf1; }
+  .tone-amber .card-icon, .tone-amber .feature-icon, .tone-amber .audience-icon { color: #b45309; background: #fef3c7; }
+  .tone-violet .card-icon, .tone-violet .feature-icon, .tone-violet .audience-icon { color: #6d28d9; background: #ede9fe; }
+  .commercial-section { padding: 5.5rem 0; background: #fff; }
+  .section-alt { background: var(--bg-alt); }
+  .split-grid, .process-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 4rem; align-items: start; }
+  .split-grid h2, .section-head h2, .process-grid h2, .commercial-cta h2 { font-size: clamp(1.75rem, 2.8vw, 2.7rem); line-height: 1.12; }
+  .feature-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  .feature-card, .audience-card { position: relative; display: grid; align-content: start; gap: 0.85rem; border: 1px solid rgba(148, 163, 184, 0.28); border-radius: 18px; padding: 1.45rem; background: #fff; box-shadow: 0 18px 45px rgba(15, 23, 42, 0.06); overflow: hidden; transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease; }
+  .feature-card::before, .audience-card::before { content: ""; position: absolute; inset: 0 0 auto; height: 4px; background: var(--card-accent, var(--primary)); }
+  .tone-blue { --card-accent: var(--brand-accent); }
+  .tone-teal { --card-accent: #0d9488; }
+  .tone-amber { --card-accent: #f59e0b; }
+  .tone-violet { --card-accent: #7c3aed; }
+  .feature-card:hover, .audience-card:hover { transform: translateY(-4px); border-color: rgba(var(--primary-rgb), 0.22); box-shadow: 0 24px 60px rgba(15, 23, 42, 0.1); }
+  .feature-card h3, .audience-card h3 { margin-top: 0.2rem; }
+  .feature-list h3, .cards-grid h3 { font-size: 1rem; margin: 0 0 0.5rem; }
+  .feature-list p, .cards-grid p { font-size: 0.875rem; margin: 0; }
+  .section-head { max-width: 720px; margin-bottom: 2rem; }
+  .cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  .audience-card { min-height: 220px; }
+  .audience-icon { width: 3rem; height: 3rem; border-radius: 16px; margin-bottom: 0.15rem; }
+  .steps-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.75rem; counter-reset: step; }
+  .steps-list li { position: relative; display: grid; gap: 0.25rem; padding: 1.25rem 1.25rem 1.25rem 4rem; border: 1px solid var(--border); border-radius: 14px; background: #fff; }
+  .steps-list li::before { counter-increment: step; content: counter(step, decimal-leading-zero); position: absolute; left: 1.25rem; top: 1.25rem; color: var(--primary); font-size: 0.8125rem; font-weight: 800; }
+  .steps-list span { color: var(--text-secondary); font-size: 0.875rem; line-height: 1.55; }
+  .commercial-cta { padding: 5rem 0; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); }
+  .cta-inner { max-width: 760px; text-align: center; }
+  .commercial-cta h2, .commercial-cta p { color: #fff; }
+  .commercial-cta p { color: rgba(255,255,255,0.82); }
+
+  @media (max-width: 900px) {
+    .hero-grid, .split-grid, .process-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .proof-grid, .cards-grid, .feature-list { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 620px) {
+    .commercial-hero, .commercial-section, .commercial-cta { padding: 3.5rem 0; }
+    .hero-actions { flex-direction: column; }
+    .hero-actions .btn { width: 100%; justify-content: center; }
+    .hero-media, .hero-slide { min-height: 300px; }
+    .proof-grid, .cards-grid, .feature-list { grid-template-columns: 1fr; transform: none; margin: 1rem 0; }
+  }
+</style>

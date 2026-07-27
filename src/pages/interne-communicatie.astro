@@ -2,30 +2,242 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ServiceSchema from "../components/ServiceSchema.astro";
 import FAQ from "../components/FAQ.astro";
+import CTA from "../components/CTA.astro";
+
+const iconPaths = {
+  screen: "M3 5h18v11H3z M8 21h8 M12 16v5",
+  users: "M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2 M9 7a4 4 0 1 0 0 8 4 4 0 0 0 0-8z M23 21v-2a4 4 0 0 0-3-3.87 M16 3.13a4 4 0 0 1 0 7.75",
+  bell: "M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9 M13.73 21a2 2 0 0 1-3.46 0",
+  chart: "M18 20V10 M12 20V4 M6 20v-6",
+  shield: "M12 22s8-4.5 8-11V5l-8-3-8 3v6c0 6.5 8 11 8 11z",
+  calendar: "M8 2v4 M16 2v4 M3 10h18 M5 4h14a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z",
+  building: "M6 22V2l12-4v20 M6 11h12",
+  check: "M20 6 9 17l-5-5",
+};
+
+const heroSlides = [
+  { src: "/images/cases/karwei.jpg", alt: "Interne communicatie narrowcasting op kantoor" },
+  { src: "/images/cases/pwa04.jpg", alt: "Digitale schermen voor interne communicatie" },
+  { src: "/images/cases/img_1654.jpg", alt: "Narrowcasting in een professionele omgeving" },
+];
+
+const proofHighlights = [
+  { title: "Direct zichtbaar", text: "Schermen vallen op en bereiken medewerkers waar ze werken.", icon: "screen", tone: "blue" },
+  { title: "Centraal beheer", text: "Content eenvoudig aanpassen voor alle locaties en afdelingen.", icon: "users", tone: "teal" },
+  { title: "Snelle updates", text: "Nieuws, meldingen en roosters direct doorgezet naar schermen.", icon: "bell", tone: "amber" },
+  { title: "Brancherijke ervaring", text: "Jarenlange ervaring met narrowcasting voor kantoren, zorg en onderwijs.", icon: "shield", tone: "violet" },
+];
+
+const featureCards = [
+  { title: "Bedrijfsnieuws en aankondigingen", text: "Deel nieuws, nieuwe collega's, milestones en strategische wijzigingen op centrale schermen.", icon: "bell", tone: "blue" },
+  { title: "KPI's en dashboards", text: "Toon productiecijfers, omzet, klanttevredenheid en andere prestatie-indicatoren in real-time.", icon: "chart", tone: "teal" },
+  { title: "Veiligheid en compliance", text: "Communiceer EHBO-instructies, veiligheidsprocedures, noodmeldingen en certificeringen.", icon: "shield", tone: "amber" },
+  { title: "Roosters en planning", text: "Ploegendiensten, vergaderingen, events en verlofoverzichten altijd actueel op het scherm.", icon: "calendar", tone: "violet" },
+];
+
+const audienceCards = [
+  { title: "Kantoren", text: "Houd medewerkers op de hoogte van bedrijfsnieuws, KPI's en culturele initiatieven op centrale plekken.", icon: "building", tone: "blue" },
+  { title: "Zorginstellingen", text: "Communiceer roosters, veiligheidsprocedures en patiëntinformatie op de juiste afdelingen.", icon: "shield", tone: "teal" },
+  { title: "Onderwijs", text: "Deel lesroosters, evenementen, nieuws en wayfinding op schoollocaties.", icon: "users", tone: "amber" },
+  { title: "Industrie & productie", text: "Toon productiedoelen, veiligheidsinformatie en KPI's op de werkvloer.", icon: "screen", tone: "violet" },
+];
+
+const faqItems = [
+  { q: "Wat is narrowcasting voor interne communicatie?", a: "Narrowcasting voor interne communicatie is het tonen van bedrijfsinformatie op digitale schermen binnen uw organisatie. Denk aan nieuws, KPI's, roosters, veiligheid en culturele berichten.", html: "Narrowcasting voor interne communicatie is het tonen van bedrijfsinformatie op digitale schermen binnen uw organisatie. Denk aan nieuws, KPI's, roosters, veiligheid en culturele berichten." },
+  { q: "Waarom werkt interne communicatie via schermen beter dan een nieuwsbrief?", a: "Digitale schermen trekken vanzelf de aandacht op plekken waar medewerkers toch al zijn, zoals kantines, recepties en productiehallen. Boodschappen worden vaker gezien en onthouden.", html: "Digitale schermen trekken vanzelf de aandacht op plekken waar medewerkers toch al zijn, zoals kantines, recepties en productiehallen. Boodschappen worden vaker gezien en onthouden." },
+  { q: "Kan content per afdeling of locatie verschillen?", a: "Ja, met onze narrowcasting software kunt u per scherm, afdeling of locatie verschillende content tonen. Zo ziet iedereen precies wat relevant is.", html: "Ja, met onze narrowcasting software kunt u per scherm, afdeling of locatie verschillende content tonen. Zo ziet iedereen precies wat relevant is." },
+  { q: "Is het systeem gebruiksvriendelijk voor HR of facilitair?", a: "Absoluut. Het platform is zo ingericht dat iedereen zonder technische kennis content kan toevoegen, bewerken en plannen. We bieden ook opleiding en support.", html: "Absoluut. Het platform is zo ingericht dat iedereen zonder technische kennis content kan toevoegen, bewerken en plannen. We bieden ook opleiding en support." },
+  { q: "Wat kost narrowcasting voor interne communicatie?", a: "De kosten hangen af van het aantal schermen, softwarelicenties en eventuele maatwerk. Onze software start bij €19 per maand per scherm. We maken graag een offerte op maat.", html: "De kosten hangen af van het aantal schermen, softwarelicenties en eventuele maatwerk. Onze software start bij €19 per maand per scherm. We maken graag een offerte op maat." },
+];
 ---
-<BaseLayout title="Interne communicatie narrowcasting voor bedrijven" description="Interne communicatie met narrowcasting: deel nieuws, KPI's, veiligheid en roosters met medewerkers via digitale schermen. Advies, software en installatie. Vraag een demo." currentPath="/interne-communicatie/">
-<ServiceSchema name="Interne communicatie narrowcasting" description="Interne communicatie met narrowcasting: deel nieuws, KPI's, veiligheid en roosters met medewerkers via digitale schermen. Advies, software en installatie. Vraag een demo." url="https://clubdisplay.nl/interne-communicatie/" />
-  <div class="container page-content">
-    <h1>Interne communicatie met narrowcasting</h1>
-    <p>Interne communicatie is essentieel voor een betrokken en geïnformeerd team. Met narrowcasting voor interne communicatie brengt u belangrijke bedrijfsinformatie direct onder de aandacht van uw medewerkers. Denk aan bedrijfsnieuws, KPI's, veiligheidsmeldingen, roosterwijzigingen, verjaardagen en successen. Waar een nieuwsbrief ongelezen blijft of een prikbord over het hoofd wordt gezien, trekken digitale schermen vanzelf de aandacht.</p>
-    <p>Onze <a href="/narrowcasting/">narrowcasting software</a> maakt het eenvoudig om content te creëren en te verspreiden onder uw medewerkers. Gebruik kant-en-klare templates voor aankondigingen, stel een feed in met live bedrijfsinformatie of koppel een RSS-feed aan uw schermen. U kunt per locatie, afdeling of functie andere content tonen, zodat iedereen precies ziet wat relevant is.</p>
-    <p><a href="/plan-jouw-gesprek/" class="btn">Plan een adviesgesprek</a></p>
 
-    <h2>Verhoog de betrokkenheid</h2>
-    <p>Onderzoek toont aan dat medewerkers die goed geïnformeerd zijn over hun organisatie zich meer betrokken voelen en langer blijven. Narrowcasting draagt bij aan een transparante bedrijfscultuur waarin successen worden gevierd en belangrijk nieuws wordt gedeeld. Daarnaast is het een effectief middel voor het communiceren van veiligheidsprocedures en compliance-informatie.</p>
+<BaseLayout title="Interne communicatie narrowcasting voor bedrijven" description="Interne communicatie met narrowcasting: deel nieuws, KPI's, veiligheid en roosters met medewerkers via digitale schermen. Advies, software en installatie. Vraag een demo." canonical="https://clubdisplay.nl/interne-communicatie/" currentPath="/interne-communicatie/">
+  <ServiceSchema name="Interne communicatie narrowcasting" description="Interne communicatie met narrowcasting: deel nieuws, KPI's, veiligheid en roosters met medewerkers via digitale schermen. Advies, software en installatie. Vraag een demo." url="https://clubdisplay.nl/interne-communicatie/" />
+  <section class="commercial-hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow">Interne communicatie</span>
+        <h1>Interne communicatie met narrowcasting</h1>
+        <p>
+          Houd medewerkers betrokken en geïnformeerd met narrowcasting voor interne communicatie. Deel bedrijfsnieuws, KPI's, veiligheidsmeldingen, roosters en successen op digitale schermen op de plekken waar uw medewerkers toch al zijn.
+        </p>
+        <div class="hero-actions">
+          <a href="/plan-jouw-gesprek/" class="btn btn-lg">Plan een adviesgesprek</a>
+          <a href="/cases/" class="btn btn-lg btn-outline">Bekijk projecten</a>
+        </div>
+      </div>
+      <div class="hero-media">
+        {heroSlides.map((slide, index) => (
+          <img
+            class="hero-slide"
+            src={slide.src}
+            alt={slide.alt}
+            loading={index === 0 ? "eager" : "lazy"}
+            style={`--delay: ${index * 4}s`}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
 
-    <h2>Toepassingen voor interne communicatie</h2>
-    <ul>
-      <li><strong>Bedrijfsnieuws en updates:</strong> deelnemers nieuws, nieuwe collega's, projectmilestones en strategische wijzigingen.</li>
-      <li><strong>KPI's en dashboards:</strong> productiecijfers, omzet, klanttevredenheid en andere prestatie-indicatoren in real-time.</li>
-      <li><strong>Veiligheid en compliance:</strong> EHBO-instructies, veiligheidsprocedures, noodmeldingen en certificeringen.</li>
-      <li><strong>Roosters en planning:</strong> ploegendiensten, vergaderingen, events en verlofoverzichten.</li>
-      <li><strong>Culture en waardering:</strong> verjaardagen, jubilea, successen en bedrijfswaarden.</li>
-    </ul>
+  <section class="proof-strip">
+    <div class="container proof-grid">
+      {proofHighlights.map((item) => (
+        <article class:list={["proof-card", `tone-${item.tone}`]}>
+          <span class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d={iconPaths[item.icon]} />
+            </svg>
+          </span>
+          <div>
+            <strong>{item.title}</strong>
+            <span>{item.text}</span>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
 
-    <h2>Waarom kiezen voor ClubDisplay?</h2>
-    <p>Ons platform is zo ontworpen dat iedereen binnen uw organisatie ermee kan werken. HR, marketing, facilitair of directie: met de juiste rechten voegt u eenvoudig content toe zonder tussenkomst van een technische afdeling. ClubDisplay verzorgt advies, installatie, opleiding en doorlopend support, zodat u zich kunt richten op de communicatie.</p>
-    <p><a href="/plan-jouw-gesprek/" class="btn">Plan een vrijblijvende demo</a></p>
-  </div>
-  <FAQ />
+  <section class="commercial-section">
+    <div class="container split-grid">
+      <div>
+        <span class="eyebrow">Wat wij leveren</span>
+        <h2>Een communicatieplatform dat uw medewerkers bereikt</h2>
+        <p>
+          Goede interne communicatie draait om het juiste bericht op het juiste moment op de juiste plek. Wij zorgen voor schermen, software, contentmogelijkheden en beheer, zodat u zich kunt richten op de boodschap.
+        </p>
+      </div>
+      <div class="feature-list">
+        {featureCards.map((item) => (
+          <article class:list={["feature-card", `tone-${item.tone}`]}>
+            <span class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d={iconPaths[item.icon]} />
+              </svg>
+            </span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="commercial-section section-alt">
+    <div class="container cards-section">
+      <div class="section-head">
+        <span class="eyebrow">Voor wie</span>
+        <h2>Geschikt voor elke organisatie met medewerkers op locatie</h2>
+      </div>
+      <div class="cards-grid">
+        {audienceCards.map((item) => (
+          <article class:list={["audience-card", `tone-${item.tone}`]}>
+            <span class="audience-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d={iconPaths[item.icon]} />
+              </svg>
+            </span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="commercial-section">
+    <div class="container process-grid">
+      <div>
+        <span class="eyebrow">Aanpak</span>
+        <h2>Van inventarisatie tot beheer</h2>
+        <p>
+          We starten met een analyse van uw organisatie, doelgroep en communicatiedoelen. Daarna bepalen we samen de optimale schermopstelling, contentstructuur en beheerflow. Na installatie blijven we beschikbaar voor support en uitbreidingen.
+        </p>
+      </div>
+      <ol class="steps-list">
+        <li><strong>Inventarisatie</strong><span>Locaties, doelgroepen, huidige communicatiekanalen en technische situatie.</span></li>
+        <li><strong>Contentplan</strong><span>Bepalen welke berichten, kanalen en templates passen bij uw organisatie.</span></li>
+        <li><strong>Installatie</strong><span>Plaatsing en configuratie van schermen, software en eventuele koppelingen.</span></li>
+        <li><strong>Beheer en support</strong><span>Opleiding, doorlopende support en periodieke optimalisatie van content.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="commercial-cta">
+    <div class="container cta-inner">
+      <h2>Wilt u medewerkers beter informeren en betrekken?</h2>
+      <p>We denken vrijblijvend mee over de beste narrowcasting oplossing voor uw interne communicatie.</p>
+      <a href="/plan-jouw-gesprek/" class="btn btn-lg btn-white">Plan een adviesgesprek</a>
+    </div>
+  </section>
+  <FAQ items={faqItems} title="Veelgestelde vragen over interne communicatie" subtitle="Interne communicatie" />
+  <CTA />
 </BaseLayout>
+
+<style>
+  .commercial-hero { padding: 5.5rem 0 4.5rem; background: linear-gradient(135deg, #fff 0%, #eef6ff 100%); }
+  .hero-grid { display: grid; grid-template-columns: minmax(0, 0.95fr) minmax(360px, 1.05fr); gap: 4rem; align-items: center; }
+  .eyebrow { display: inline-flex; color: var(--primary); font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1rem; }
+  .hero-copy h1 { font-size: clamp(2.25rem, 4.6vw, 4.25rem); line-height: 1.04; margin-bottom: 1.25rem; }
+  .hero-copy p { font-size: 1.125rem; max-width: 620px; }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; }
+  .hero-media { position: relative; border-radius: 20px; overflow: hidden; min-height: 420px; background: #0f172a; box-shadow: var(--shadow-xl); isolation: isolate; }
+  .hero-media::after { content: ""; position: absolute; inset: 0; border: 1px solid rgba(255,255,255,0.16); border-radius: inherit; pointer-events: none; z-index: 2; }
+  .hero-slide { position: absolute; inset: 0; width: 100%; height: 100%; min-height: 420px; object-fit: cover; border-radius: 0; opacity: 0; animation: heroSlideFade 88s infinite; animation-delay: var(--delay); }
+  .hero-slide:first-child { opacity: 1; }
+  @keyframes heroSlideFade {
+    0%, 7% { opacity: 1; transform: scale(1); }
+    10%, 100% { opacity: 0; transform: scale(1.025); }
+  }
+  .proof-strip { background: #fff; border-bottom: 1px solid var(--border-light); }
+  .proof-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; transform: translateY(-1.65rem); }
+  .proof-card { display: flex; align-items: center; gap: 0.85rem; padding: 1rem; background: #fff; border: 1px solid rgba(148, 163, 184, 0.28); border-radius: 16px; box-shadow: 0 18px 50px rgba(15, 23, 42, 0.08); }
+  .proof-card div { display: grid; gap: 0.2rem; min-width: 0; }
+  .proof-grid strong { color: var(--text); font-size: 0.95rem; }
+  .proof-grid span { color: var(--text-secondary); font-size: 0.8125rem; }
+  .card-icon, .feature-icon, .audience-icon { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; width: 2.75rem; height: 2.75rem; border-radius: 14px; }
+  .card-icon svg, .feature-icon svg, .audience-icon svg { width: 1.35rem; height: 1.35rem; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+  .tone-blue .card-icon, .tone-blue .feature-icon, .tone-blue .audience-icon { color: var(--brand-accent); background: var(--primary-light); }
+  .tone-teal .card-icon, .tone-teal .feature-icon, .tone-teal .audience-icon { color: #0f766e; background: #ccfbf1; }
+  .tone-amber .card-icon, .tone-amber .feature-icon, .tone-amber .audience-icon { color: #b45309; background: #fef3c7; }
+  .tone-violet .card-icon, .tone-violet .feature-icon, .tone-violet .audience-icon { color: #6d28d9; background: #ede9fe; }
+  .commercial-section { padding: 5.5rem 0; background: #fff; }
+  .section-alt { background: var(--bg-alt); }
+  .split-grid, .process-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 4rem; align-items: start; }
+  .split-grid h2, .section-head h2, .process-grid h2, .commercial-cta h2 { font-size: clamp(1.75rem, 2.8vw, 2.7rem); line-height: 1.12; }
+  .feature-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  .feature-card, .audience-card { position: relative; display: grid; align-content: start; gap: 0.85rem; border: 1px solid rgba(148, 163, 184, 0.28); border-radius: 18px; padding: 1.45rem; background: #fff; box-shadow: 0 18px 45px rgba(15, 23, 42, 0.06); overflow: hidden; transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease; }
+  .feature-card::before, .audience-card::before { content: ""; position: absolute; inset: 0 0 auto; height: 4px; background: var(--card-accent, var(--primary)); }
+  .tone-blue { --card-accent: var(--brand-accent); }
+  .tone-teal { --card-accent: #0d9488; }
+  .tone-amber { --card-accent: #f59e0b; }
+  .tone-violet { --card-accent: #7c3aed; }
+  .feature-card:hover, .audience-card:hover { transform: translateY(-4px); border-color: rgba(var(--primary-rgb), 0.22); box-shadow: 0 24px 60px rgba(15, 23, 42, 0.1); }
+  .feature-card h3, .audience-card h3 { margin-top: 0.2rem; }
+  .feature-list h3, .cards-grid h3 { font-size: 1rem; margin: 0 0 0.5rem; }
+  .feature-list p, .cards-grid p { font-size: 0.875rem; margin: 0; }
+  .section-head { max-width: 720px; margin-bottom: 2rem; }
+  .cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  .audience-card { min-height: 220px; }
+  .audience-icon { width: 3rem; height: 3rem; border-radius: 16px; margin-bottom: 0.15rem; }
+  .steps-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.75rem; counter-reset: step; }
+  .steps-list li { position: relative; display: grid; gap: 0.25rem; padding: 1.25rem 1.25rem 1.25rem 4rem; border: 1px solid var(--border); border-radius: 14px; background: #fff; }
+  .steps-list li::before { counter-increment: step; content: counter(step, decimal-leading-zero); position: absolute; left: 1.25rem; top: 1.25rem; color: var(--primary); font-size: 0.8125rem; font-weight: 800; }
+  .steps-list span { color: var(--text-secondary); font-size: 0.875rem; line-height: 1.55; }
+  .commercial-cta { padding: 5rem 0; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); }
+  .cta-inner { max-width: 760px; text-align: center; }
+  .commercial-cta h2, .commercial-cta p { color: #fff; }
+  .commercial-cta p { color: rgba(255,255,255,0.82); }
+
+  @media (max-width: 900px) {
+    .hero-grid, .split-grid, .process-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .proof-grid, .cards-grid, .feature-list { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 620px) {
+    .commercial-hero, .commercial-section, .commercial-cta { padding: 3.5rem 0; }
+    .hero-actions { flex-direction: column; }
+    .hero-actions .btn { width: 100%; justify-content: center; }
+    .hero-media, .hero-slide { min-height: 300px; }
+    .proof-grid, .cards-grid, .feature-list { grid-template-columns: 1fr; transform: none; margin: 1rem 0; }
+  }
+</style>

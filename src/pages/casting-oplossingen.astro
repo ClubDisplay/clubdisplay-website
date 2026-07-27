@@ -3,18 +3,240 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import FAQ from "../components/FAQ.astro";
 import ServiceSchema from "../components/ServiceSchema.astro";
 import CTA from "../components/CTA.astro";
+
+const iconPaths = {
+  cast: "M3 6h18v12h-7 M3 16a5 5 0 0 1 5 5 M3 12a9 9 0 0 1 9 9 M3 20h.1",
+  tv: "M3 5h18v11H3z M8 21h8 M12 16v5",
+  link: "M10 13a5 5 0 0 0 7.1 0l2-2a5 5 0 0 0-7.1-7.1l-1.1 1.1 M14 11a5 5 0 0 0-7.1 0l-2 2A5 5 0 0 0 12 20l1.1-1.1",
+  headset: "M4 13a8 8 0 0 1 16 0v4a2 2 0 0 1-2 2h-2v-7h4 M4 17a2 2 0 0 0 2 2h2v-7H4v5z M14 21h2",
+  qr: "M3 5h6v6H3z M4 6h4v4H4z M15 5h6v6h-6z M16 6h4v4h-4z M3 15h6v6H3z M4 16h4v4H4z M15 15h6v6h-6z M16 16h4v4h-4z M10 5h1v1h-1z M10 10h1v1h-1z M10 15h1v1h-1z M10 20h1v1h-1z M21 10h1v1h-1z M21 15h1v1h-1z",
+  check: "M20 6 9 17l-5-5",
+  hotel: "M4 21V5a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v16 M3 21h18 M8 7h2 M8 11h2 M14 7h2 M14 11h2",
+};
+
+const heroSlides = [
+  { src: "/images/cases/magnifique-x-suite-tv-chromecast.jpg", alt: "Chromecast casting in hotelkamer" },
+  { src: "/images/cases/redcowmoran03.jpg", alt: "Hotel TV met casting oplossing" },
+  { src: "/images/cases/bernardus_lodge00.jpg", alt: "Casting oplossing voor hotelgasten" },
+];
+
+const proofHighlights = [
+  { title: "Veilig netwerk", text: "Gescheiden casting-netwerk, gescheiden van het hotelnetwerk.", icon: "link", tone: "blue" },
+  { title: "Eenvoudige bediening", text: "Gasten verbinden via QR-code of NFC-tag, geen wachtwoorden.", icon: "qr", tone: "teal" },
+  { title: "Streamingdiensten", text: "Netflix, YouTube, Disney+, Spotify en meer ondersteund.", icon: "cast", tone: "amber" },
+  { title: "Schaalbaar", text: "Van enkele kamers tot duizenden hotelkamers of vakantiewoningen.", icon: "hotel", tone: "violet" },
+];
+
+const featureCards = [
+  { title: "Chromecast", text: "Het vertrouwde streaminggemak van Google Chromecast, veilig ingekapseld voor commercieel hotelgebruik.", icon: "cast", tone: "blue" },
+  { title: "OtrumCast", text: "Professionele casting-oplossing voor hotels met centraal beheer, statistieken en gastvrije koppeling.", icon: "tv", tone: "teal" },
+  { title: "QR-code koppeling", text: "Gasten scannen een QR-code en streamen direct hun eigen content naar de hotel-TV.", icon: "qr", tone: "amber" },
+  { title: "Centraal beheer", text: "Monitor en beheer alle casting-apparaten vanuit één centrale omgeving.", icon: "headset", tone: "violet" },
+];
+
+const audienceCards = [
+  { title: "Hotels", text: "Bied gasten een moderne kamerervaring waarbij ze hun eigen content kunnen streamen.", icon: "hotel", tone: "blue" },
+  { title: "Zorginstellingen", text: "Eenvoudige en veilige streaming voor bewoners en patiënten op zorg-tv's.", icon: "tv", tone: "teal" },
+  { title: "Bed & Breakfast", text: "Onderscheid uw B&B met een moderne, gastvrije streamingoplossing.", icon: "cast", tone: "amber" },
+  { title: "Vakantieparken", text: "Schaalbare casting voor bungalows, chalets en appartementen op een park.", icon: "hotel", tone: "violet" },
+];
+
+const faqItems = [
+  { q: "Wat is een casting oplossing voor hotels?", a: "Een casting oplossing stelt hotelgasten in staat om hun eigen content vanaf een telefoon, tablet of laptop naar de hotel-TV te streamen. Dit biedt meer comfort en een moderne kamerervaring.", html: "Een casting oplossing stelt hotelgasten in staat om hun eigen content vanaf een telefoon, tablet of laptop naar de hotel-TV te streamen. Dit biedt meer comfort en een moderne kamerervaring." },
+  { q: "Hoe werkt Chromecast in een hotelkamer?", a: "Gasten verbinden hun apparaat via een veilige hotelomgeving met de hotel-TV en kunnen vervolgens content casten vanaf ondersteunde apps. De verbinding is privé en gescheiden van andere kamers.", html: "Gasten verbinden hun apparaat via een veilige hotelomgeving met de hotel-TV en kunnen vervolgens content casten vanaf ondersteunde apps. De verbinding is privé en gescheiden van andere kamers." },
+  { q: "Is casting veilig voor hotelnetwerken?", a: "Ja, professionele casting oplossingen zoals OtrumCast gebruiken een gescheiden netwerk voor casting. Hierdoor blijft het hotelnetwerk beschermd en kunnen gasten niet bij andere apparaten of kamers.", html: "Ja, professionele casting oplossingen zoals OtrumCast gebruiken een gescheiden netwerk voor casting. Hierdoor blijft het hotelnetwerk beschermd en kunnen gasten niet bij andere apparaten of kamers." },
+  { q: "Welke streamingdiensten werken met casting?", a: "De meeste gangbare streamingdiensten zoals Netflix, YouTube, Disney+, Spotify en Videoland ondersteunen casting. De exacte ondersteuning hangt af van de gekozen oplossing.", html: "De meeste gangbare streamingdiensten zoals Netflix, YouTube, Disney+, Spotify en Videoland ondersteunen casting. De exacte ondersteuning hangt af van de gekozen oplossing." },
+  { q: "Werkt casting op elke hotel-TV?", a: "Casting werkt op de meeste moderne TV's met een HDMI-ingang door middel van een casting device. We bekijken graag welke TV's in het hotel aanwezig zijn en adviseren de beste oplossing.", html: "Casting werkt op de meeste moderne TV's met een HDMI-ingang door middel van een casting device. We bekijken graag welke TV's in het hotel aanwezig zijn en adviseren de beste oplossing." },
+];
 ---
+
 <BaseLayout title="Casting oplossingen voor hotels | Chromecast & OtrumCast" description="Casting oplossingen voor hotels: gasten streamen veilig naar de hotel-TV met Chromecast en OtrumCast. Koppel aan LG Pro:Centric. Vraag een demo aan." canonical="https://clubdisplay.nl/casting-oplossingen/" currentPath="/casting-oplossingen/">
-<ServiceSchema name="Casting oplossingen voor hotels" description="Casting oplossingen voor hotels: gasten streamen veilig naar de hotel-TV met Chromecast en OtrumCast. Koppel aan LG Pro:Centric. Vraag een demo aan." url="https://clubdisplay.nl/casting-oplossingen/" />
-  <div class="container page-content">
-    <h1>Casting oplossingen voor hotels</h1>
-    <p>OtrumCast brengt het gemak van Google Chromecast naar de hotelkamer. Gasten kunnen eenvoudig hun eigen content streamen naar de hotel-TV, of het nu gaat om Netflix, Disney+, YouTube of muziekdiensten. Geen gedoe met inloggen op hotelaccounts of het zoeken naar kabels. Met OtrumCast genieten gasten van een thuisgevoel in hun hotelkamer.</p>
-    <p>OtrumCast is ontworpen met het oog op veiligheid en eenvoudig beheer. De oplossing maakt gebruik van een eigen wifi-netwerk dat gescheiden is van het hotelnetwerk, waardoor de veiligheid van uw infrastructuur gewaarborgd blijft. Gasten verbinden eenvoudig via een QR-code of NFC-tag, zonder dat zij persoonlijke gegevens hoeven achter te laten.</p>
-    <h2>Voordelen voor hotels</h2>
-    <p>Met OtrumCast onderscheidt u zich als hotelier door een moderne, gastvrije service te bieden. De installatie is eenvoudig en de oplossing werkt op elk televisiescherm met een HDMI-ingang. U beheert alle Cast-apparaten centraal, kunt het netwerk monitoren en ontvangt inzicht in gebruikersstatistieken. OtrumCast is schaalbaar van enkele kamers tot duizenden.</p>
-    <h2>Aan de slag met OtrumCast</h2>
-    <p>OtrumCast is beschikbaar als losse hardware of als software-oplossing. Wij leveren inclusief montage, configuratie en ondersteuning. Gastvrijheid begint met de kleine dingen. Vraag een vrijblijvende demonstratie aan en ervaar OtrumCast zelf.</p>
-  </div>
-  <FAQ items={[{"q": "Wat is een casting oplossing voor hotels?", "a": "Een casting oplossing stelt hotelgasten in staat om hun eigen content vanaf een telefoon, tablet of laptop naar de hotel-TV te streamen. Dit biedt meer comfort en een moderne kamerervaring.", "html": "Een casting oplossing stelt hotelgasten in staat om hun eigen content vanaf een telefoon, tablet of laptop naar de hotel-TV te streamen. Dit biedt meer comfort en een moderne kamerervaring."}, {"q": "Hoe werkt Chromecast in een hotelkamer?", "a": "Gasten verbinden hun apparaat via een veilige hotelomgeving met de hotel-TV en kunnen vervolgens content casten vanaf ondersteunde apps. De verbinding is privé en gescheiden van andere kamers.", "html": "Gasten verbinden hun apparaat via een veilige hotelomgeving met de hotel-TV en kunnen vervolgens content casten vanaf ondersteunde apps. De verbinding is privé en gescheiden van andere kamers."}, {"q": "Is casting veilig voor hotelnetwerken?", "a": "Ja, professionele casting oplossingen zoals OtrumCast gebruiken een gescheiden netwerk voor casting. Hierdoor blijft het hotelnetwerk beschermd en kunnen gasten niet bij andere apparaten of kamers.", "html": "Ja, professionele casting oplossingen zoals OtrumCast gebruiken een gescheiden netwerk voor casting. Hierdoor blijft het hotelnetwerk beschermd en kunnen gasten niet bij andere apparaten of kamers."}, {"q": "Welke streamingdiensten werken met casting?", "a": "De meeste gangbare streamingdiensten zoals Netflix, YouTube, Disney+, Spotify en Videoland ondersteunen casting. De exacte ondersteuning hangt af van de gekozen oplossing.", "html": "De meeste gangbare streamingdiensten zoals Netflix, YouTube, Disney+, Spotify en Videoland ondersteunen casting. De exacte ondersteuning hangt af van de gekozen oplossing."}, {"q": "Werkt casting op elke hotel-TV?", "a": "Casting werkt op de meeste moderne TV's met een HDMI-ingang door middel van een casting device. We bekijken graag welke TV's in het hotel aanwezig zijn en adviseren de beste oplossing.", "html": "Casting werkt op de meeste moderne TV's met een HDMI-ingang door middel van een casting device. We bekijken graag welke TV's in het hotel aanwezig zijn en adviseren de beste oplossing."}]} title="Veelgestelde vragen over casting oplossingen" subtitle="Casting voor hotels" />
+  <ServiceSchema name="Casting oplossingen voor hotels" description="Casting oplossingen voor hotels: gasten streamen veilig naar de hotel-TV met Chromecast en OtrumCast. Koppel aan LG Pro:Centric. Vraag een demo aan." url="https://clubdisplay.nl/casting-oplossingen/" />
+  <section class="commercial-hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow">Casting oplossingen</span>
+        <h1>Casting oplossingen voor hotels</h1>
+        <p>
+          Geef hotelgasten het gemak van thuis met professionele casting-oplossingen. Gasten streamen veilig hun eigen content naar de hotel-TV via Chromecast of OtrumCast, zonder in te loggen op hotelaccounts of rommelige kabels.
+        </p>
+        <div class="hero-actions">
+          <a href="/plan-jouw-gesprek/" class="btn btn-lg">Plan een adviesgesprek</a>
+          <a href="/cases/" class="btn btn-lg btn-outline">Bekijk projecten</a>
+        </div>
+      </div>
+      <div class="hero-media">
+        {heroSlides.map((slide, index) => (
+          <img
+            class="hero-slide"
+            src={slide.src}
+            alt={slide.alt}
+            loading={index === 0 ? "eager" : "lazy"}
+            style={`--delay: ${index * 4}s`}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="proof-strip">
+    <div class="container proof-grid">
+      {proofHighlights.map((item) => (
+        <article class:list={["proof-card", `tone-${item.tone}`]}>
+          <span class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d={iconPaths[item.icon]} />
+            </svg>
+          </span>
+          <div>
+            <strong>{item.title}</strong>
+            <span>{item.text}</span>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="commercial-section">
+    <div class="container split-grid">
+      <div>
+        <span class="eyebrow">Wat wij leveren</span>
+        <h2>Professionele casting voor de hotelkamer</h2>
+        <p>
+          Wij leveren, installeren en beheren casting-oplossingen die zijn ontworpen voor commercieel gebruik. Veilig, schaalbaar en eenvoudig in gebruik voor zowel gasten als hoteliers. OtrumCast en Chromecast worden naadloos geïntegreerd in uw bestaande TV-omgeving.
+        </p>
+      </div>
+      <div class="feature-list">
+        {featureCards.map((item) => (
+          <article class:list={["feature-card", `tone-${item.tone}`]}>
+            <span class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d={iconPaths[item.icon]} />
+              </svg>
+            </span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="commercial-section section-alt">
+    <div class="container cards-section">
+      <div class="section-head">
+        <span class="eyebrow">Voor wie</span>
+        <h2>Geschikt voor elke verblijfsomgeving</h2>
+      </div>
+      <div class="cards-grid">
+        {audienceCards.map((item) => (
+          <article class:list={["audience-card", `tone-${item.tone}`]}>
+            <span class="audience-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d={iconPaths[item.icon]} />
+              </svg>
+            </span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="commercial-section">
+    <div class="container process-grid">
+      <div>
+        <span class="eyebrow">Aanpak</span>
+        <h2>Van advies tot live streaming</h2>
+        <p>
+          We starten met een inventarisatie van uw TV-omgeving, netwerk en gastbeleving. Daarna kiezen we de juiste casting-oplossing, verzorgen de installatie en zorgen dat alles veilig en stabiel draait.
+        </p>
+      </div>
+      <ol class="steps-list">
+        <li><strong>Inventarisatie</strong><span>Aantal kamers, TV-typen, netwerkstructuur en gastenervaring.</span></li>
+        <li><strong>Oplossing en advies</strong><span>Keuze tussen OtrumCast, Chromecast of een maatwerkoplossing.</span></li>
+        <li><strong>Installatie</strong><span>Plaatsing, configuratie, netwerkscheiding en testen per kamer.</span></li>
+        <li><strong>Support en optimalisatie</strong><span>Beheer, monitoring, statistieken en ondersteuning bij vragen.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="commercial-cta">
+    <div class="container cta-inner">
+      <h2>Wilt u gasten een moderne streamingervaring bieden?</h2>
+      <p>We adviseren vrijblijvend over de beste casting oplossing voor uw hotel, zorginstelling of vakantiepark.</p>
+      <a href="/plan-jouw-gesprek/" class="btn btn-lg btn-white">Plan een adviesgesprek</a>
+    </div>
+  </section>
+  <FAQ items={faqItems} title="Veelgestelde vragen over casting oplossingen" subtitle="Casting voor hotels" />
   <CTA />
 </BaseLayout>
+
+<style>
+  .commercial-hero { padding: 5.5rem 0 4.5rem; background: linear-gradient(135deg, #fff 0%, #eef6ff 100%); }
+  .hero-grid { display: grid; grid-template-columns: minmax(0, 0.95fr) minmax(360px, 1.05fr); gap: 4rem; align-items: center; }
+  .eyebrow { display: inline-flex; color: var(--primary); font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1rem; }
+  .hero-copy h1 { font-size: clamp(2.25rem, 4.6vw, 4.25rem); line-height: 1.04; margin-bottom: 1.25rem; }
+  .hero-copy p { font-size: 1.125rem; max-width: 620px; }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; }
+  .hero-media { position: relative; border-radius: 20px; overflow: hidden; min-height: 420px; background: #0f172a; box-shadow: var(--shadow-xl); isolation: isolate; }
+  .hero-media::after { content: ""; position: absolute; inset: 0; border: 1px solid rgba(255,255,255,0.16); border-radius: inherit; pointer-events: none; z-index: 2; }
+  .hero-slide { position: absolute; inset: 0; width: 100%; height: 100%; min-height: 420px; object-fit: cover; border-radius: 0; opacity: 0; animation: heroSlideFade 88s infinite; animation-delay: var(--delay); }
+  .hero-slide:first-child { opacity: 1; }
+  @keyframes heroSlideFade {
+    0%, 7% { opacity: 1; transform: scale(1); }
+    10%, 100% { opacity: 0; transform: scale(1.025); }
+  }
+  .proof-strip { background: #fff; border-bottom: 1px solid var(--border-light); }
+  .proof-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; transform: translateY(-1.65rem); }
+  .proof-card { display: flex; align-items: center; gap: 0.85rem; padding: 1rem; background: #fff; border: 1px solid rgba(148, 163, 184, 0.28); border-radius: 16px; box-shadow: 0 18px 50px rgba(15, 23, 42, 0.08); }
+  .proof-card div { display: grid; gap: 0.2rem; min-width: 0; }
+  .proof-grid strong { color: var(--text); font-size: 0.95rem; }
+  .proof-grid span { color: var(--text-secondary); font-size: 0.8125rem; }
+  .card-icon, .feature-icon, .audience-icon { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; width: 2.75rem; height: 2.75rem; border-radius: 14px; }
+  .card-icon svg, .feature-icon svg, .audience-icon svg { width: 1.35rem; height: 1.35rem; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+  .tone-blue .card-icon, .tone-blue .feature-icon, .tone-blue .audience-icon { color: var(--brand-accent); background: var(--primary-light); }
+  .tone-teal .card-icon, .tone-teal .feature-icon, .tone-teal .audience-icon { color: #0f766e; background: #ccfbf1; }
+  .tone-amber .card-icon, .tone-amber .feature-icon, .tone-amber .audience-icon { color: #b45309; background: #fef3c7; }
+  .tone-violet .card-icon, .tone-violet .feature-icon, .tone-violet .audience-icon { color: #6d28d9; background: #ede9fe; }
+  .commercial-section { padding: 5.5rem 0; background: #fff; }
+  .section-alt { background: var(--bg-alt); }
+  .split-grid, .process-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 4rem; align-items: start; }
+  .split-grid h2, .section-head h2, .process-grid h2, .commercial-cta h2 { font-size: clamp(1.75rem, 2.8vw, 2.7rem); line-height: 1.12; }
+  .feature-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  .feature-card, .audience-card { position: relative; display: grid; align-content: start; gap: 0.85rem; border: 1px solid rgba(148, 163, 184, 0.28); border-radius: 18px; padding: 1.45rem; background: #fff; box-shadow: 0 18px 45px rgba(15, 23, 42, 0.06); overflow: hidden; transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease; }
+  .feature-card::before, .audience-card::before { content: ""; position: absolute; inset: 0 0 auto; height: 4px; background: var(--card-accent, var(--primary)); }
+  .tone-blue { --card-accent: var(--brand-accent); }
+  .tone-teal { --card-accent: #0d9488; }
+  .tone-amber { --card-accent: #f59e0b; }
+  .tone-violet { --card-accent: #7c3aed; }
+  .feature-card:hover, .audience-card:hover { transform: translateY(-4px); border-color: rgba(var(--primary-rgb), 0.22); box-shadow: 0 24px 60px rgba(15, 23, 42, 0.1); }
+  .feature-card h3, .audience-card h3 { margin-top: 0.2rem; }
+  .feature-list h3, .cards-grid h3 { font-size: 1rem; margin: 0 0 0.5rem; }
+  .feature-list p, .cards-grid p { font-size: 0.875rem; margin: 0; }
+  .section-head { max-width: 720px; margin-bottom: 2rem; }
+  .cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  .audience-card { min-height: 220px; }
+  .audience-icon { width: 3rem; height: 3rem; border-radius: 16px; margin-bottom: 0.15rem; }
+  .steps-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.75rem; counter-reset: step; }
+  .steps-list li { position: relative; display: grid; gap: 0.25rem; padding: 1.25rem 1.25rem 1.25rem 4rem; border: 1px solid var(--border); border-radius: 14px; background: #fff; }
+  .steps-list li::before { counter-increment: step; content: counter(step, decimal-leading-zero); position: absolute; left: 1.25rem; top: 1.25rem; color: var(--primary); font-size: 0.8125rem; font-weight: 800; }
+  .steps-list span { color: var(--text-secondary); font-size: 0.875rem; line-height: 1.55; }
+  .commercial-cta { padding: 5rem 0; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); }
+  .cta-inner { max-width: 760px; text-align: center; }
+  .commercial-cta h2, .commercial-cta p { color: #fff; }
+  .commercial-cta p { color: rgba(255,255,255,0.82); }
+
+  @media (max-width: 900px) {
+    .hero-grid, .split-grid, .process-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .proof-grid, .cards-grid, .feature-list { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 620px) {
+    .commercial-hero, .commercial-section, .commercial-cta { padding: 3.5rem 0; }
+    .hero-actions { flex-direction: column; }
+    .hero-actions .btn { width: 100%; justify-content: center; }
+    .hero-media, .hero-slide { min-height: 300px; }
+    .proof-grid, .cards-grid, .feature-list { grid-template-columns: 1fr; transform: none; margin: 1rem 0; }
+  }
+</style>
