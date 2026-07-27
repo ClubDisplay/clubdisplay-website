@@ -8,7 +8,6 @@ const sitemapExclude = [
   "/hotelontzorgd/",
   "/instore-sales-kiosk/",
   "/otrum-enterprise/",
-  "/otrumcast/",
   "/pricing/",
   "/probeer-30-dagen-gratis/",
   "/public-proof-display/",

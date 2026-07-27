@@ -1,4 +1,13 @@
 User-agent: *
 Allow: /
 
+# Oude WordPress media en thin pages niet crawlen
+Disallow: /wp-content/uploads/
+Disallow: /project_category/
+Disallow: /category/
+Disallow: /tag/
+Disallow: /author/
+Disallow: /*.pdf$
+Disallow: /home/
+
 Sitemap: https://clubdisplay.nl/sitemap-index.xml

@@ -1,6 +1,10 @@
 # SEO Redirects - oude WordPress/blog-URL's naar de best passende nieuwe Astro pagina's
 # Belangrijk voor Google: oude URL's met waarde krijgen een 301 naar relevante content.
 
+# www -> non-www en HTTP -> HTTPS (beide domeinen moeten aan hetzelfde Cloudflare Pages project hangen)
+https://www.clubdisplay.nl/* https://clubdisplay.nl/:splat 301
+http://www.clubdisplay.nl/* https://clubdisplay.nl/:splat 301
+
 # Verwijderde/gewijzigde hoofdpagina's
 /nieuws/ / 301
 /nieuws/* / 301
