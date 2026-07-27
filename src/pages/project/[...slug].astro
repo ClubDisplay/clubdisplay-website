@@ -67,8 +67,12 @@ const getCaseTopic = (caseEntry) => {
     return "menuborden";
   }
 
+  if (/chromecast|otrum|casten/.test(haystack)) {
+    return "casting";
+  }
+
   if (
-    /hospitality|hotel|strandhuis|strandhotel|iptv|ip tv|chromecast|otrum|pro:centric|procentric|hotel-tv|hotel tv|lg hospitality/.test(
+    /hospitality|hotel|strandhuis|strandhotel|iptv|ip tv|pro:centric|procentric|hotel-tv|hotel tv|lg hospitality/.test(
       haystack,
     )
   ) {
@@ -124,6 +128,7 @@ const resolveProjectMediaSrc = (src = "") => {
   return "";
 };
 const topicLabels = {
+  casting: "Casting oplossingen",
   hospitality: "Hospitality TV & IPTV",
   menuborden: "Digitale menuborden",
   wayfinding: "Wayfinding & room signage",
@@ -133,6 +138,7 @@ const topicLabels = {
   algemeen: "Digital signage",
 };
 const serviceLinks: Record<string, { url: string; label: string; text: string }> = {
+  casting: { url: "/casting-oplossingen/", label: "Casting oplossingen", text: "Bekijk hoe gasten veilig streamen naar de hotel-TV met Chromecast en OtrumCast." },
   hospitality: { url: "/hospitality-tv/", label: "Hospitality TV & IPTV", text: "Bekijk onze hospitality oplossingen voor hotels, zorg en zakelijke locaties." },
   menuborden: { url: "/digitale-menuborden/", label: "Digitale menuborden", text: "Ontdek hoe digitale menuborden uw horeca of retail locatie helpen." },
   wayfinding: { url: "/wayfinding-en-room-signage/", label: "Wayfinding & room signage", text: "Digitale wegwijzers en room signage voor hotels, kantoren en zorg." },
@@ -142,6 +148,7 @@ const serviceLinks: Record<string, { url: string; label: string; text: string }>
   algemeen: { url: "/digital-signage/", label: "Digital signage", text: "Bekijk alle digital signage mogelijkheden." },
 };
 const topicHeroCopy = {
+  casting: "Een veilige casting-oplossing waarmee gasten hun eigen content eenvoudig streamen naar de hotel-TV.",
   hospitality: "Een professionele hospitality-oplossing die gasten meer gemak geeft en beheer voor de locatie eenvoudiger maakt.",
   menuborden: "Een digitale menubordoplossing waarmee prijzen, acties en informatie snel actueel blijven op de juiste schermen.",
   wayfinding: "Een duidelijke schermoplossing voor routing, ruimte-informatie en communicatie op locatie.",
@@ -151,6 +158,7 @@ const topicHeroCopy = {
   algemeen: "Een digital signage project waarin advies, hardware, content en beheer samenkomen in een werkende oplossing.",
 };
 const topicBenefits = {
+  casting: [["Gasten", "eigen content streamen via telefoon, tablet of laptop"], ["Veilig", "privé-verbinding zonder ingewikkelde instellingen"], ["Hotel", "meerwaarde voor de kamerervaring zonder extra beheer"], ["Support", "advies, installatie en beheer door ClubDisplay"]],
   hospitality: [["Gast", "een betere kamerervaring met duidelijke informatie en entertainment"], ["Beheer", "professionele inrichting die centraal en overzichtelijk blijft"], ["LG", "hospitality-ready schermoplossing voor hotel en verblijf"], ["Support", "advies, installatie en beheer door ClubDisplay"]],
   menuborden: [["Actueel", "prijzen en acties snel aanpassen zonder drukwerk"], ["Rust", "heldere menustructuur voor gasten en medewerkers"], ["Content", "professionele templates passend bij de locatie"], ["Support", "installatie en beheer door ClubDisplay"]],
   wayfinding: [["Route", "bezoekers vinden sneller hun bestemming"], ["Ruimte", "duidelijke informatie bij zalen, ruimtes of events"], ["Beheer", "content eenvoudig aanpassen wanneer de situatie verandert"], ["Support", "advies, installatie en beheer door ClubDisplay"]],
