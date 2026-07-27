@@ -12,6 +12,7 @@ const sitemapExclude = [
   "/pricing/",
   "/probeer-30-dagen-gratis/",
   "/public-proof-display/",
+  "/zakelijke-iptv-voor-hotels-en-bedrijven/",
 ];
 
 export default defineConfig({
