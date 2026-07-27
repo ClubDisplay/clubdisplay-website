@@ -1,3 +1,60 @@
+---
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Wat kost digital signage?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "De kosten hangen af van het aantal schermen, type hardware, softwarelicentie en eventuele maatwerkcontent. Onze narrowcasting software is beschikbaar vanaf €19 per maand per scherm. Hardware varieert van €899 voor een instapmodel tot €2.500+ voor professionele hospitality displays. We maken altijd een vrijblijvende offerte op maat."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Wat heb ik nodig voor digital signage?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Je hebt drie dingen nodig: een professioneel scherm, narrowcasting software om content te beheren, en content in je huisstijl. ClubDisplay levert dit compleet: advies, hardware, installatie, vormgeving en support."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Kunnen digitale menuborden gekoppeld worden aan een kassasysteem?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ja, dat is een van onze specialismes. We koppelen digitale menuborden aan kassasystemen zodat prijzen, producten en aanbiedingen automatisch worden gesynchroniseerd. Bij een prijswijziging in de kassa wordt het scherm direct bijgewerkt."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Werkt ClubDisplay met LG Pro:Centric?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Zeker. ClubDisplay is gespecialiseerd in LG Pro:Centric en officieel partner. Wij leveren, installeren en beheren Pro:Centric systemen voor hotels en andere hospitality-omgevingen."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is digital signage geschikt voor coffeeshops?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ja, wij hebben specifieke ervaring met digital signage voor coffeeshops. Denk aan digitale prijslijsten, productinformatie, wachtrijcommunicatie en menuborden, allemaal centraal beheerbaar."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Regelt ClubDisplay ook installatie en beheer?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Jazeker. Wij geloven in een compleet zorgeloze ervaring. Onze werkwijze omvat het hele traject: inventarisatie, advies, hardware- en softwarekeuze, installatie, contentontwerp, systeemkoppelingen én doorlopend beheer en support."
+      }
+    }
+  ]
+};
+---
+
 <section class="faq" id="faq">
   <div class="container">
     <div class="section-label">Veelgestelde vragen</div>
@@ -27,7 +84,7 @@
           <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
         </summary>
         <div class="faq-answer">
-          <p>Ja, dat is een van onze specialismen. We koppelen digitale menuborden aan kassasystemen zodat prijzen, producten en aanbiedingen automatisch worden gesynchroniseerd. Bij een prijswijziging in de kassa wordt het scherm direct bijgewerkt — geen handmatig werk, geen fouten. We hebben ervaring met koppelingen voor diverse kassasystemen in de horeca en retail.</p>
+          <p>Ja, dat is een van onze specialismes. We koppelen digitale menuborden aan kassasystemen zodat prijzen, producten en aanbiedingen automatisch worden gesynchroniseerd. Bij een prijswijziging in de kassa wordt het scherm direct bijgewerkt — geen handmatig werk, geen fouten. We hebben ervaring met koppelingen voor diverse kassasystemen in de horeca en retail.</p>
         </div>
       </details>
       <details class="faq-item" name="faq">
@@ -59,6 +116,7 @@
       </details>
     </div>
   </div>
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 </section>
 
 <style>
@@ -97,9 +155,7 @@
   }
   .faq-item[open] { border-color: var(--primary-light); }
   .faq-question {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    display: flex; align-items: center; justify-content: space-between;
     gap: 1rem;
     padding: 1.125rem 1.5rem;
     font-weight: 600;
