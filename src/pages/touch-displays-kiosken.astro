@@ -1,29 +1,244 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import FAQ from "../components/FAQ.astro";
 import ServiceSchema from "../components/ServiceSchema.astro";
+import FAQ from "../components/FAQ.astro";
 import CTA from "../components/CTA.astro";
+
+const iconPaths = {
+  touch: "M15 4a2 2 0 0 1 2 2v6.5a4.5 4.5 0 1 1-9 0V8a2 2 0 0 1 4 0v4.5a.5.5 0 0 0 1 0V6a2 2 0 0 1 2-2z",
+  screen: "M3 5h18v11H3z M8 21h8 M12 16v5",
+  users: "M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2 M9 7a4 4 0 1 0 0 8 4 4 0 0 0 0-8z M23 21v-2a4 4 0 0 0-3-3.87 M16 3.13a4 4 0 0 1 0 7.75",
+  clock: "M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z M12 6v6l4 2",
+  shield: "M12 22s8-4.5 8-11V5l-8-3-8 3v6c0 6.5 8 11 8 11z",
+  map: "M9 20l-5.6-2.8A2 2 0 0 1 2 15.3V5.2a2 2 0 0 1 2.9-1.8L9 5.7l6.1-3.3a2 2 0 0 1 2.9 1.8v10.1a2 2 0 0 1-1.4 1.9L15 20l-6-3-6 3z M9 5v15 M15 2v15",
+  cart: "M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.3 4.6a1 1 0 0 0 .9 1.4h13M17 20a1 1 0 1 1 0 2 1 1 0 0 1 0-2zM9 20a1 1 0 1 1 0 2 1 1 0 0 1 0-2z",
+  building: "M6 22V2l12-4v20 M6 11h12",
+  check: "M20 6 9 17l-5-5",
+};
+
+const heroSlides = [
+  { src: "/images/touch-displays-kiosken/Touchdisplays01.jpg", alt: "Vrijstaande touch kiosk in een retail omgeving" },
+  { src: "/images/touch-displays-kiosken/Touchdisplays02.jpg", alt: "Wandgemonteerde intercom en touch display bij een bedrijfsingang" },
+  { src: "/images/touch-displays-kiosken/Touchdisplays03.jpg", alt: "Wandgemonteerde touchscreen met interactief productmenu" },
+];
+
+const proofHighlights = [
+  { title: "Altijd beschikbaar", text: "Een touchscreen of kiosk is 24/7 klaar voor vragen, bestellingen of check-in.", icon: "clock", tone: "blue" },
+  { title: "Minder wachten", text: "Verkort wachttijden door eenvoudige acties over te nemen van personeel.", icon: "users", tone: "teal" },
+  { title: "Veelzijdig", text: "Van wandmontage, tafelmodel en vrijstaande zuil tot outdoor kiosk.", icon: "screen", tone: "amber" },
+  { title: "Professioneel", text: "Jarenlange ervaring met touch displays in retail, horeca, zorg en publieke ruimtes.", icon: "shield", tone: "violet" },
+];
+
+const featureCards = [
+  { title: "Zelfbediening & bestelling", text: "Bestelzuilen, kiosken en self-service schermen voor restaurants, winkels en recepties.", icon: "cart", tone: "blue" },
+  { title: "Productinformatie & catalogus", text: "Laat bezoekers zelf producten vergelijken, specificaties bekijken en keuzes maken.", icon: "touch", tone: "teal" },
+  { title: "Wayfinding & check-in", text: "Bewegwijzering, receptiekiosken, ticketing en zelfregistratie in gebouwen.", icon: "map", tone: "amber" },
+  { title: "Outdoor & rugged", text: "Weerbestendige en vandalismebestendige outdoor kiosken voor publieke ruimtes.", icon: "shield", tone: "violet" },
+];
+
+const audienceCards = [
+  { title: "Retail", text: "Productcatalogi, prijsopgaven en self-service kiosken in winkels en showrooms.", icon: "cart", tone: "blue" },
+  { title: "Horeca", text: "Bestelzuilen, digitale menus en zelfservice aan de balie of tafel.", icon: "touch", tone: "teal" },
+  { title: "Zorg & overheidsgebouwen", text: "Check-in, registratie, enquêtes en informatie voor bezoekers en patiënten.", icon: "building", tone: "amber" },
+  { title: "Hotels & events", text: "Receptiekiosken, wayfinding, informatie en interactieve ervaringen.", icon: "users", tone: "violet" },
+];
+
+const faqItems = [
+  { q: "Wat is een interactieve kiosk?", a: "Een interactieve kiosk is een touchscreen scherm dat bezoekers in staat stelt om zelf informatie te vinden, acties uit te voeren of producten te bestellen. Denk aan een bestelzuil, informatiepunt of check-in balie.", html: "Een interactieve kiosk is een touchscreen scherm dat bezoekers in staat stelt om zelf informatie te vinden, acties uit te voeren of producten te bestellen. Denk aan een bestelzuil, informatiepunt of check-in balie." },
+  { q: "Waar worden touch displays en kiosken voor gebruikt?", a: "Touch displays en kiosken worden gebruikt voor wayfinding, productinformatie, zelfbestelling, receptiecheck-in, ticketing, enquêtes, wachtrijcommunicatie en interactieve ervaringen in winkels, musea en hotels.", html: "Touch displays en kiosken worden gebruikt voor wayfinding, productinformatie, zelfbestelling, receptiecheck-in, ticketing, enquêtes, wachtrijcommunicatie en interactieve ervaringen in winkels, musea en hotels." },
+  { q: "Welke formaten touch displays leveren jullie?", a: "We leveren touch displays en kiosken in diverse formaten, van compacte 22 inch tafelmodellen tot grote 86 inch wanddisplays en vrijstaande zuilen. De keuze hangt af van het gebruik en de locatie.", html: "We leveren touch displays en kiosken in diverse formaten, van compacte 22 inch tafelmodellen tot grote 86 inch wanddisplays en vrijstaande zuilen. De keuze hangt af van het gebruik en de locatie." },
+  { q: "Is een kiosk geschikt voor buitengebruik?", a: "Ja, er zijn speciale outdoor kiosken die bestand zijn tegen regen, stof, vandalisme en temperatuurschommelingen. Ideaal voor buitengebruik bij toeristische attracties, parkeerplaatsen en openbare gebouwen.", html: "Ja, er zijn speciale outdoor kiosken die bestand zijn tegen regen, stof, vandalisme en temperatuurschommelingen. Ideaal voor buitengebruik bij toeristische attracties, parkeerplaatsen en openbare gebouwen." },
+  { q: "Kan een kiosk gekoppeld worden aan onze systemen?", a: "Ja, we kunnen kiosken koppelen aan bijvoorbeeld reserveringssystemen, kassasystemen, CRM of narrowcasting software. Op die manier wordt de kiosk een onderdeel van uw bestaande digitale infrastructuur.", html: "Ja, we kunnen kiosken koppelen aan bijvoorbeeld reserveringssystemen, kassasystemen, CRM of narrowcasting software. Op die manier wordt de kiosk een onderdeel van uw bestaande digitale infrastructuur." },
+];
 ---
-<BaseLayout title="Touch displays en kiosken | Interactieve schermoplossingen" description="Touch displays en kiosken voor zelfbediening, informatie, verkoop en wayfinding. Interactieve schermoplossingen voor retail, horeca, zorg en kantoren. Plan een gesprek." canonical="https://clubdisplay.nl/touch-displays-kiosken/" currentPath="/touch-displays-kiosken/">
-<ServiceSchema name="Touch displays en kiosken" description="Touch displays en kiosken voor zelfbediening, informatie, verkoop en wayfinding. Interactieve schermoplossingen voor retail, horeca, zorg en kantoren. Plan een gesprek." url="https://clubdisplay.nl/touch-displays-kiosken/" />
-  <div class="container page-content">
-    <h1>Touch displays en kiosken</h1>
-    <p>Interactieve touch displays en kiosken bieden bezoekers, klanten en medewerkers een directe manier om informatie te vinden, acties uit te voeren of producten te bestellen. ClubDisplay levert en installeert touchscreen oplossingen voor retail, horeca, zorg, onderwijs, kantoren en publieke ruimtes.</p>
-    <p>Onze kiosken en touch displays zijn beschikbaar in verschillende formaten en uitvoeringen: vrijstaande zuilen, wandmontage, tafelmodellen en geïntegreerde oplossingen. We zorgen voor de juiste hardware, software, huisstijl vormgeving, installatie en doorlopende support.</p>
 
-    <h2>Toepassingen van touch displays en kiosken</h2>
-    <p>Touch displays en kiosken worden ingezet voor uiteenlopende doelen. Denk aan productinformatie en catalogi in winkels, bestelzuilen in restaurants, zelfregistratie in zorginstellingen, bewegwijzering in gebouwen, selfies en interactieve attracties op evenementen, en zelfservice kiosken in recepties en wachtruimtes.</p>
+<BaseLayout title="Touch displays en kiosken | Interactieve zelfbediening" description="Touch displays en kiosken voor retail, horeca, zorg, hotels en publieke ruimtes. Zelfbediening, wayfinding, productinfo, ticketing en bestellen. Advies, installatie en support." canonical="https://clubdisplay.nl/touch-displays-kiosken/" currentPath="/touch-displays-kiosken/">
+  <ServiceSchema name="Touch displays en kiosken" description="Touch displays en kiosken voor retail, horeca, zorg, hotels en publieke ruimtes. Zelfbediening, wayfinding, productinfo, ticketing en bestellen. Advies, installatie en support." url="https://clubdisplay.nl/touch-displays-kiosken/" />
+  <section class="commercial-hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow">Touch displays & kiosken</span>
+        <h1>Touch displays en kiosken die bezoekers zelf laten doen</h1>
+        <p>
+          Interactieve touchscreen oplossingen voor zelfbediening, informatie, verkoop, wayfinding en check-in. ClubDisplay levert hardware, software, huisstijl vormgeving, installatie en support voor elke locatie.
+        </p>
+        <div class="hero-actions">
+          <a href="/plan-jouw-gesprek/" class="btn btn-lg">Plan een adviesgesprek</a>
+          <a href="/cases/" class="btn btn-lg btn-outline">Bekijk projecten</a>
+        </div>
+      </div>
+      <div class="hero-media">
+        {heroSlides.map((slide, index) => (
+          <img
+            class="hero-slide"
+            src={slide.src}
+            alt={slide.alt}
+            loading={index === 0 ? "eager" : "lazy"}
+            style={`--delay: ${index * 4}s`}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
 
-    <h2>Voordelen op een rij</h2>
-    <p>Met een goed ontworpen kiosk verlaagt u de druk op personeel, vermindert u wachttijden en biedt u bezoekers 24/7 toegang tot informatie of diensten. Daarnaast geeft een interactief scherm een modern en professioneel imago. We zorgen ervoor dat de gebruikersinterface eenvoudig en toegankelijk is, zodat bezoekers direct de weg weten.</p>
+  <section class="proof-strip">
+    <div class="container proof-grid">
+      {proofHighlights.map((item) => (
+        <article class:list={["proof-card", `tone-${item.tone}`]}>
+          <span class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d={iconPaths[item.icon]} />
+            </svg>
+          </span>
+          <div>
+            <strong>{item.title}</strong>
+            <span>{item.text}</span>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
 
-    <h2>Hardware en software op maat</h2>
-    <p>De juiste combinatie van hardware en software is essentieel. We kiezen samen met u de beste schermgrootte, touchtechnologie, behuizing en montage. Op de achtergrond koppelen we de kiosk aan onze narrowcasting software, content management tools of uw bestaande systemen.</p>
+  <section class="commercial-section">
+    <div class="container split-grid">
+      <div>
+        <span class="eyebrow">Wat wij leveren</span>
+        <h2>Een interactief scherm voor elk doel</h2>
+        <p>
+          Een goede kiosk of touch display begint bij het juiste doel. Wij zorgen voor schermen, touchtechnologie, software, beheer en support, zodat bezoekers en medewerkers direct de weg weten.
+        </p>
+      </div>
+      <div class="feature-list">
+        {featureCards.map((item) => (
+          <article class:list={["feature-card", `tone-${item.tone}`]}>
+            <span class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d={iconPaths[item.icon]} />
+              </svg>
+            </span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
 
-    <h2>Advies, installatie en onderhoud</h2>
-    <p>ClubDisplay begeleidt het complete traject: van advies en ontwerp tot installatie, configuratie en onderhoud. Zo krijgt u een kiosk of touch display dat jarenlang probleemloos draait en meegroeit met uw organisatie.</p>
-    <p><a href="/plan-jouw-gesprek/" class="btn">Plan een adviesgesprek</a></p>
-  </div>
-  <FAQ items={[{"q": "Wat is een interactieve kiosk?", "a": "Een interactieve kiosk is een touchscreen scherm dat bezoekers in staat stelt om zelf informatie te vinden, acties uit te voeren of producten te bestellen. Denk aan een bestelzuil, informatiepunt of check-in balie.", "html": "Een interactieve kiosk is een touchscreen scherm dat bezoekers in staat stelt om zelf informatie te vinden, acties uit te voeren of producten te bestellen. Denk aan een bestelzuil, informatiepunt of check-in balie."}, {"q": "Waar worden touch displays en kiosken voor gebruikt?", "a": "Touch displays en kiosken worden gebruikt voor wayfinding, productinformatie, zelfbestelling, receptiecheck-in, ticketing, enquêtes, wachtrijcommunicatie en interactieve ervaringen in winkels, musea en hotels.", "html": "Touch displays en kiosken worden gebruikt voor wayfinding, productinformatie, zelfbestelling, receptiecheck-in, ticketing, enquêtes, wachtrijcommunicatie en interactieve ervaringen in winkels, musea en hotels."}, {"q": "Welke formaten touch displays leveren jullie?", "a": "We leveren touch displays en kiosken in diverse formaten, van compacte 22 inch tafelmodellen tot grote 86 inch wanddisplays en vrijstaande zuilen. De keuze hangt af van het gebruik en de locatie.", "html": "We leveren touch displays en kiosken in diverse formaten, van compacte 22 inch tafelmodellen tot grote 86 inch wanddisplays en vrijstaande zuilen. De keuze hangt af van het gebruik en de locatie."}, {"q": "Is een kiosk geschikt voor buitengebruik?", "a": "Ja, er zijn speciale outdoor kiosken die bestand zijn tegen regen, stof, vandalisme en temperatuurschommelingen. Ideaal voor buitengebruik bij toeristische attracties, parkeerplaatsen en openbare gebouwen.", "html": "Ja, er zijn speciale outdoor kiosken die bestand zijn tegen regen, stof, vandalisme en temperatuurschommelingen. Ideaal voor buitengebruik bij toeristische attracties, parkeerplaatsen en openbare gebouwen."}, {"q": "Kan een kiosk gekoppeld worden aan onze systemen?", "a": "Ja, we kunnen kiosken koppelen aan bijvoorbeeld reserveringssystemen, kassasystemen, CRM of narrowcasting software. Op die manier wordt de kiosk een onderdeel van uw bestaande digitale infrastructuur.", "html": "Ja, we kunnen kiosken koppelen aan bijvoorbeeld reserveringssystemen, kassasystemen, CRM of narrowcasting software. Op die manier wordt de kiosk een onderdeel van uw bestaande digitale infrastructuur."}]} title="Veelgestelde vragen over touch displays en kiosken" subtitle="Touch displays & kiosken" />
+  <section class="commercial-section section-alt">
+    <div class="container cards-section">
+      <div class="section-head">
+        <span class="eyebrow">Voor wie</span>
+        <h2>Geschikt voor elke branche waar bezoekers informeren of bedienen zichzelf</h2>
+      </div>
+      <div class="cards-grid">
+        {audienceCards.map((item) => (
+          <article class:list={["audience-card", `tone-${item.tone}`]}>
+            <span class="audience-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d={iconPaths[item.icon]} />
+              </svg>
+            </span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="commercial-section">
+    <div class="container process-grid">
+      <div>
+        <span class="eyebrow">Aanpak</span>
+        <h2>Van concept tot werkende kiosk</h2>
+        <p>
+          We starten met uw doel, doelgroep en locatie. Daarna bepalen we samen de beste hardware, touch interface, contentstructuur en koppelingen. Na installatie blijven we beschikbaar voor support en doorontwikkeling.
+        </p>
+      </div>
+      <ol class="steps-list">
+        <li><strong>Inventarisatie</strong><span>Wensen, doelgroep, verkeersstromen, locatie en technische situatie.</span></li>
+        <li><strong>Concept & UX</strong><span>Touch interface, contentstructuur, huisstijl en gebruikersflow.</span></li>
+        <li><strong>Installatie</strong><span>Montage, configuratie, koppelingen met bestaande systemen en testen.</span></li>
+        <li><strong>Beheer & support</strong><span>Contentbeheer, monitoring, updates en doorlopende support.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="commercial-cta">
+    <div class="container cta-inner">
+      <h2>Wilt u bezoekers zelf laten bedienen en informeren?</h2>
+      <p>We denken vrijblijvend mee over de beste touch display of kiosk oplossing voor uw locatie.</p>
+      <a href="/plan-jouw-gesprek/" class="btn btn-lg btn-white">Plan een adviesgesprek</a>
+    </div>
+  </section>
+  <FAQ items={faqItems} title="Veelgestelde vragen over touch displays en kiosken" subtitle="Touch displays & kiosken" />
   <CTA />
 </BaseLayout>
+
+<style>
+  .commercial-hero { padding: 5.5rem 0 4.5rem; background: linear-gradient(135deg, #fff 0%, #eef6ff 100%); }
+  .hero-grid { display: grid; grid-template-columns: minmax(0, 0.95fr) minmax(360px, 1.05fr); gap: 4rem; align-items: center; }
+  .eyebrow { display: inline-flex; color: var(--primary); font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1rem; }
+  .hero-copy h1 { font-size: clamp(2.25rem, 4.6vw, 4.25rem); line-height: 1.04; margin-bottom: 1.25rem; }
+  .hero-copy p { font-size: 1.125rem; max-width: 620px; }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; }
+  .hero-media { position: relative; border-radius: 20px; overflow: hidden; min-height: 420px; background: #0f172a; box-shadow: var(--shadow-xl); isolation: isolate; }
+  .hero-media::after { content: ""; position: absolute; inset: 0; border: 1px solid rgba(255,255,255,0.16); border-radius: inherit; pointer-events: none; z-index: 2; }
+  .hero-slide { position: absolute; inset: 0; width: 100%; height: 100%; min-height: 420px; object-fit: cover; border-radius: 0; opacity: 0; animation: heroSlideFade 88s infinite; animation-delay: var(--delay); }
+  .hero-slide:first-child { opacity: 1; }
+  @keyframes heroSlideFade {
+    0%, 7% { opacity: 1; transform: scale(1); }
+    10%, 100% { opacity: 0; transform: scale(1.025); }
+  }
+  .proof-strip { background: #fff; border-bottom: 1px solid var(--border-light); }
+  .proof-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; transform: translateY(-1.65rem); }
+  .proof-card { display: flex; align-items: center; gap: 0.85rem; padding: 1rem; background: #fff; border: 1px solid rgba(148, 163, 184, 0.28); border-radius: 16px; box-shadow: 0 18px 50px rgba(15, 23, 42, 0.08); }
+  .proof-card div { display: grid; gap: 0.2rem; min-width: 0; }
+  .proof-grid strong { color: var(--text); font-size: 0.95rem; }
+  .proof-grid span { color: var(--text-secondary); font-size: 0.8125rem; }
+  .card-icon, .feature-icon, .audience-icon { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; width: 2.75rem; height: 2.75rem; border-radius: 14px; }
+  .card-icon svg, .feature-icon svg, .audience-icon svg { width: 1.35rem; height: 1.35rem; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+  .tone-blue .card-icon, .tone-blue .feature-icon, .tone-blue .audience-icon { color: var(--brand-accent); background: var(--primary-light); }
+  .tone-teal .card-icon, .tone-teal .feature-icon, .tone-teal .audience-icon { color: #0f766e; background: #ccfbf1; }
+  .tone-amber .card-icon, .tone-amber .feature-icon, .tone-amber .audience-icon { color: #b45309; background: #fef3c7; }
+  .tone-violet .card-icon, .tone-violet .feature-icon, .tone-violet .audience-icon { color: #6d28d9; background: #ede9fe; }
+  .commercial-section { padding: 5.5rem 0; background: #fff; }
+  .section-alt { background: var(--bg-alt); }
+  .split-grid, .process-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 4rem; align-items: start; }
+  .split-grid h2, .section-head h2, .process-grid h2, .commercial-cta h2 { font-size: clamp(1.75rem, 2.8vw, 2.7rem); line-height: 1.12; }
+  .feature-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  .feature-card, .audience-card { position: relative; display: grid; align-content: start; gap: 0.85rem; border: 1px solid rgba(148, 163, 184, 0.28); border-radius: 18px; padding: 1.45rem; background: #fff; box-shadow: 0 18px 45px rgba(15, 23, 42, 0.06); overflow: hidden; transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease; }
+  .feature-card::before, .audience-card::before { content: ""; position: absolute; inset: 0 0 auto; height: 4px; background: var(--card-accent, var(--primary)); }
+  .tone-blue { --card-accent: var(--brand-accent); }
+  .tone-teal { --card-accent: #0d9488; }
+  .tone-amber { --card-accent: #f59e0b; }
+  .tone-violet { --card-accent: #7c3aed; }
+  .feature-card:hover, .audience-card:hover { transform: translateY(-4px); border-color: rgba(var(--primary-rgb), 0.22); box-shadow: 0 24px 60px rgba(15, 23, 42, 0.1); }
+  .feature-card h3, .audience-card h3 { margin-top: 0.2rem; }
+  .feature-list h3, .cards-grid h3 { font-size: 1rem; margin: 0 0 0.5rem; }
+  .feature-list p, .cards-grid p { font-size: 0.875rem; margin: 0; }
+  .section-head { max-width: 720px; margin-bottom: 2rem; }
+  .cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  .audience-card { min-height: 220px; }
+  .audience-icon { width: 3rem; height: 3rem; border-radius: 16px; margin-bottom: 0.15rem; }
+  .steps-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.75rem; counter-reset: step; }
+  .steps-list li { position: relative; display: grid; gap: 0.25rem; padding: 1.25rem 1.25rem 1.25rem 4rem; border: 1px solid var(--border); border-radius: 14px; background: #fff; }
+  .steps-list li::before { counter-increment: step; content: counter(step, decimal-leading-zero); position: absolute; left: 1.25rem; top: 1.25rem; color: var(--primary); font-size: 0.8125rem; font-weight: 800; }
+  .steps-list span { color: var(--text-secondary); font-size: 0.875rem; line-height: 1.55; }
+  .commercial-cta { padding: 5rem 0; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); }
+  .cta-inner { max-width: 760px; text-align: center; }
+  .commercial-cta h2, .commercial-cta p { color: #fff; }
+  .commercial-cta p { color: rgba(255,255,255,0.82); }
+
+  @media (max-width: 900px) {
+    .hero-grid, .split-grid, .process-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .proof-grid, .cards-grid, .feature-list { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 620px) {
+    .commercial-hero, .commercial-section, .commercial-cta { padding: 3.5rem 0; }
+    .hero-actions { flex-direction: column; }
+    .hero-actions .btn { width: 100%; justify-content: center; }
+    .hero-media, .hero-slide { min-height: 300px; }
+    .proof-grid, .cards-grid, .feature-list { grid-template-columns: 1fr; transform: none; margin: 1rem 0; }
+  }
+</style>
