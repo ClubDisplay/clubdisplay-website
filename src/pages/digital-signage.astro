@@ -121,6 +121,90 @@ import CTA from "../components/CTA.astro";
     </div>
   </section>
 
+  <section class="ds-pricing" id="prijzen">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-label">Investering en kosten</span>
+        <h2 class="section-title">Wat kost digital signage?</h2>
+        <p>
+          De totale kosten hangen samen van het aantal schermen, het type hardware, de gekozen softwarelicentie en eventuele koppelingen of maatwerkcontent. Hieronder een indicatie van de meest voorkomende posten.
+        </p>
+      </div>
+      <div class="pricing-grid">
+        <article class="pricing-card">
+          <span class="pricing-label">Software</span>
+          <strong class="pricing-price">€19<span>/maand per scherm</span></strong>
+          <p>Narrowcasting software in de cloud, inclusief templates, playlists, planning en support. Volume- en jaarkortingen mogelijk.</p>
+        </article>
+        <article class="pricing-card">
+          <span class="pricing-label">Display</span>
+          <strong class="pricing-price">€899<span>– €2.500+</span></strong>
+          <p>Professionele 43" tot 55" displays voor commercieel gebruik. High-brightness, touch of hospitality TV kosten meer.</p>
+        </article>
+        <article class="pricing-card">
+          <span class="pricing-label">Media player</span>
+          <strong class="pricing-price">€149<span>– €399</span></strong>
+          <p>Android of webOS player voor aansturing. Vaak ook ingebouwd in het display mogelijk.</p>
+        </article>
+        <article class="pricing-card">
+          <span class="pricing-label">Installatie</span>
+          <strong class="pricing-price">Op offerte</span></strong>
+          <p>Montage, beugels, bekabeling, netwerk, inrichting en instructie op locatie.</p>
+        </article>
+      </div>
+      <p class="pricing-disclaimer">
+        * Bovenstaande bedragen zijn indicaties. Voor een exacte prijsopgave maken we een vrijblijvende offerte op maat. <a href="/pricing/">Bekijk alle tarieven</a> of <a href="/plan-jouw-gesprek/">plan een gesprek</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="ds-calculation section-alt">
+    <div class="container">
+      <div class="calculation-card">
+        <span class="section-label">Rekenvoorbeeld</span>
+        <h2 class="section-title">Drie schermen in een restaurant</h2>
+        <div class="calculation-rows">
+          <div class="calc-row"><span>3× professioneel 43" display</span><span>€2.697</span></div>
+          <div class="calc-row"><span>3× media player</span><span>€447</span></div>
+          <div class="calc-row"><span>Beugels, bekabeling en montage</span><span>€650</span></div>
+          <div class="calc-row"><span>Start content en huisstijl</span><span>€450</span></div>
+          <div class="calc-row calc-total"><span>Eenmalige investering</span><span>€4.244</span></div>
+          <div class="calc-row calc-periodic"><span>Software (3 schermen, €19/maand)</span><span>€57/maand</span></div>
+        </div>
+        <p class="calculation-note">
+          Dit voorbeeld geldt voor een restaurant met drie digitale menuborden. Prijzen verschillen per merk, formaat, montage en eventuele kassakoppeling. De terugverdientijd komt vaak uit bespaard drukwerk, actievere communicatie en minder fouten in prijzen.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="ds-privacy">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-label">Privacy en wetgeving</span>
+        <h2 class="section-title">Veilig en AVG-conform inrichten</h2>
+      </div>
+      <div class="privacy-grid">
+        <article>
+          <h3>Geen onnodige persoonsgegevens</h3>
+          <p>Onze narrowcasting software vraagt standaard geen persoonsgegevens van bezoekers. Schermen tonen alleen content die u zelf aanlevert.</p>
+        </article>
+        <article>
+          <h3>Versleutelde verbindingen</h3>
+          <p>Alle communicatie tussen het cloudplatform, spelers en dashboard verloopt via HTTPS. Inloggen gebeurt met rolgebaseerde accounts.</p>
+        </article>
+        <article>
+          <h3>Analytics zonder tracking</h3>
+          <p>We meten alleen wat technisch nodig is voor uptime en foutopsporing. We plaatsen geen cookies op de schermen zelf.</p>
+        </article>
+        <article>
+          <h3>Verwerkingsverantwoordelijkheid</h3>
+          <p>Bij koppelingen met PMS, kassa of Outlook sluiten we passende verwerkersovereenkomsten af. Meer informatie vindt u in ons <a href="/gegevensbescherming/">privacybeleid</a>.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <Workflow />
 
   <CasesPreview />
@@ -273,6 +357,133 @@ import CTA from "../components/CTA.astro";
     line-height: 1.5;
   }
 
+  .ds-pricing { padding: 6rem 0; background: var(--bg); }
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+  .pricing-card {
+    padding: 1.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    background: #fff;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+  }
+  .pricing-label {
+    display: block;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.75rem;
+  }
+  .pricing-price {
+    display: block;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 0.75rem;
+    line-height: 1.2;
+  }
+  .pricing-price span {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+  }
+  .pricing-card p {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.6;
+  }
+  .pricing-disclaimer {
+    margin-top: 2rem;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    text-align: center;
+  }
+
+  .ds-calculation { padding: 6rem 0; }
+  .calculation-card {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2.5rem;
+    border-radius: var(--radius-xl);
+    background: #fff;
+    border: 1px solid var(--border);
+    box-shadow: 0 16px 48px rgba(15, 23, 42, 0.08);
+  }
+  .calculation-rows {
+    display: grid;
+    gap: 0.75rem;
+    margin: 2rem 0;
+  }
+  .calc-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.875rem 0;
+    border-bottom: 1px dashed var(--border);
+    font-size: 0.938rem;
+    color: var(--text-secondary);
+  }
+  .calc-row span:last-child {
+    font-weight: 600;
+    color: var(--text);
+    white-space: nowrap;
+  }
+  .calc-total {
+    border-bottom: none;
+    border-top: 2px solid var(--primary);
+    margin-top: 0.5rem;
+    padding-top: 1.25rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .calc-total span:last-child {
+    font-size: 1.25rem;
+    color: var(--primary);
+  }
+  .calc-periodic {
+    border-bottom: none;
+    background: var(--primary-50);
+    border-radius: var(--radius);
+    padding: 0.875rem 1rem;
+    margin-top: 0.5rem;
+  }
+  .calculation-note {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+
+  .ds-privacy { padding: 6rem 0; background: var(--bg); }
+  .privacy-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+  .privacy-grid article {
+    padding: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--bg-alt);
+  }
+  .privacy-grid h3 {
+    font-size: 1.0625rem;
+    margin-bottom: 0.5rem;
+  }
+  .privacy-grid p {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.6;
+  }
+
   @media (max-width: 900px) {
     .ds-hero { padding: 3rem 0 2.5rem; }
     .ds-hero-title { font-size: 2rem; }
@@ -280,10 +491,17 @@ import CTA from "../components/CTA.astro";
     .ds-werkt-grid { grid-template-columns: 1fr; gap: 1rem; }
     .ds-voor-wie { padding: 3.5rem 0; }
     .ds-sectoren { grid-template-columns: repeat(2, 1fr); }
+    .ds-pricing, .ds-calculation, .ds-privacy { padding: 3.5rem 0; }
+    .pricing-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .privacy-grid { grid-template-columns: 1fr; }
+    .calculation-card { padding: 1.5rem; }
   }
   @media (max-width: 600px) {
     .ds-hero-title { font-size: 1.75rem; }
     .ds-sectoren { grid-template-columns: 1fr; }
+    .pricing-grid { grid-template-columns: 1fr; }
+    .calc-row { flex-direction: column; gap: 0.25rem; }
+    .calc-row span:last-child { white-space: normal; }
     .hero-actions { flex-direction: column; }
     .hero-actions .btn { width: 100%; justify-content: center; }
   }

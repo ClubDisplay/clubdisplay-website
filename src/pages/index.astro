@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import FAQ from "../components/FAQ.astro";
 
 const iconPaths = {
   tv: "M3 5h18v11H3z M8 21h8 M12 16v5",
@@ -158,6 +159,59 @@ const testimonials = [
     tone: "amber",
   },
 ] as const;
+
+const homeFAQ = [
+  {
+    q: "Wat doet ClubDisplay?",
+    a: "ClubDisplay ontwerpt, levert, installeert en beheert professionele digital signage oplossingen. Denk aan hospitality TV, IPTV, digitale menuborden, narrowcasting, wayfinding, etalageschermen en touch kiosken voor hospitality, horeca, retail, coffeeshops, kantoren en zorg.",
+  },
+  {
+    q: "Wat kost digital signage?",
+    a: "De kosten hangen af van het aantal schermen, type hardware, softwarelicentie en eventuele maatwerkcontent. Onze narrowcasting software is beschikbaar vanaf €19 per maand per scherm. Hardware varieert van €899 voor een instapmodel tot €2.500+ voor professionele hospitality displays. We maken altijd een vrijblijvende offerte op maat.",
+  },
+  {
+    q: "Welke branches bedient ClubDisplay?",
+    a: "Wij richten ons op hotels en hospitality, horeca en restaurants, coffeeshops, retail, kantoren en interne communicatie, zorg en welzijn, onderwijs en publieke locaties. Per sector adviseren we de juiste schermen, software en content.",
+  },
+  {
+    q: "Regelt ClubDisplay ook installatie en beheer?",
+    a: "Jazeker. Wij geloven in een compleet zorgeloze ervaring. Onze werkwijze omvat het hele traject: inventarisatie, advies, hardware- en softwarekeuze, installatie, contentontwerp, systeemkoppelingen én doorlopend beheer en support.",
+  },
+  {
+    q: "Kan ik digitale menuborden koppelen aan mijn kassasysteem?",
+    a: "Ja, dat is een van onze specialismes. We koppelen digitale menuborden aan kassasystemen zodat prijzen, producten en aanbiedingen automatisch worden gesynchroniseerd. Bij een prijswijziging in de kassa wordt het scherm direct bijgewerkt.",
+  },
+  {
+    q: "Werkt ClubDisplay met LG Pro:Centric?",
+    a: "Zeker. ClubDisplay is gespecialiseerd in LG Pro:Centric en officieel partner. Wij leveren, installeren en beheren Pro:Centric systemen voor hotels en andere hospitality-omgevingen, inclusief PMS-koppeling, zenderbeheer en streamingdiensten.",
+  },
+];
+
+const productSchema = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "Digital Signage Oplossingen",
+  "description": "Professionele digital signage, narrowcasting, hospitality TV, IPTV, digitale menuborden, wayfinding en touch kiosken voor bedrijven en organisaties.",
+  "brand": {
+    "@type": "Brand",
+    "name": "ClubDisplay",
+  },
+  "offers": {
+    "@type": "AggregateOffer",
+    "lowPrice": "19",
+    "highPrice": "2500",
+    "priceCurrency": "EUR",
+    "availability": "https://schema.org/InStock",
+    "url": "https://clubdisplay.nl/",
+    "priceValidUntil": "2026-12-31",
+  },
+  "isRelatedTo": [
+    { "@type": "Service", "name": "Hospitality TV & IPTV", "url": "https://clubdisplay.nl/hospitality-tv/" },
+    { "@type": "Service", "name": "Digitale menuborden", "url": "https://clubdisplay.nl/digitale-menuborden/" },
+    { "@type": "Service", "name": "Narrowcasting software", "url": "https://clubdisplay.nl/narrowcasting/" },
+    { "@type": "Service", "name": "Wayfinding & room signage", "url": "https://clubdisplay.nl/wayfinding-en-room-signage/" },
+  ],
+};
 ---
 
 <BaseLayout
@@ -166,6 +220,8 @@ const testimonials = [
   canonical="https://clubdisplay.nl/"
   currentPath="/"
 >
+  <script type="application/ld+json" set:html={JSON.stringify(productSchema)} />
+
   <section class="home-hero">
     <div class="home-hero-bg" aria-hidden="true"></div>
     <div class="container home-hero-content">
@@ -302,6 +358,8 @@ const testimonials = [
       </div>
     </div>
   </section>
+
+  <FAQ items={homeFAQ} title="Antwoord op de meest gestelde vragen" subtitle="Veelgestelde vragen" />
 
   <section class="home-cta">
     <div class="container cta-inner">

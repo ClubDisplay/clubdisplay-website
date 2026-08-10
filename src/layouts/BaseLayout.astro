@@ -77,7 +77,7 @@ const breadcrumbSchema = {
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Organization",
+      "@type": ["Organization", "LocalBusiness"],
       "name": "ClubDisplay",
       "url": "https://clubdisplay.nl",
       "logo": "https://clubdisplay.nl/images/logo_club_Display.jpg",
@@ -92,6 +92,16 @@ const breadcrumbSchema = {
       "telephone": "+31857602202",
       "email": "info@clubdisplay.nl",
       "vatID": "NL856050830B01",
+      "priceRange": "€€",
+      "currenciesAccepted": "EUR",
+      "paymentAccepted": ["Cash", "Credit Card", "Bank transfer", "Invoice"],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+31857602202",
+        "email": "info@clubdisplay.nl",
+        "contactType": "sales",
+        "availableLanguage": ["Dutch", "English"]
+      },
       "sameAs": [],
       "knowsAbout": [
         "Digital Signage", "Hospitality TV", "IPTV", "LG Pro:Centric",

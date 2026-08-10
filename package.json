@@ -10,10 +10,14 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "deploy": "npm run build && wrangler pages deploy dist --project-name=clubdisplay",
     "astro": "astro"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
     "astro": "^6.4.2"
+  },
+  "devDependencies": {
+    "wrangler": "^3.114.0"
   }
 }
