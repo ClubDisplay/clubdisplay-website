@@ -3,11 +3,7 @@ Allow: /
 
 # Oude WordPress-paden en thin content niet crawlen/indexeren
 Disallow: /wp-content/uploads/
-Disallow: /project_category/
-Disallow: /category/
 Disallow: /tag/
-Disallow: /author/
-Disallow: /home/
 Disallow: /*.pdf$
 
 Sitemap: https://clubdisplay.nl/sitemap-index.xml
