@@ -2,7 +2,6 @@
 import { getCollection } from "astro:content";
 import { existsSync } from "node:fs";
 import { basename, join } from "node:path";
-import EditorialCase from "../../components/EditorialCase.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { caseMedia } from "../../data/caseMedia";
 
@@ -16,6 +15,7 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const entrySlug = entry.id.replace(/\.md$/, "");
+const isAlmelo = entrySlug === "private-cinema-van-der-valk-almelo-procentric-cloud";
 
 const cleanCaseText = (value = "") =>
   value
@@ -178,6 +178,13 @@ const zoomersLocalImages = [
   "/images/cases/zoomers_wc.jpg",
 ];
 const liveMedia = (caseMedia[entrySlug] || []).filter(isUsefulProjectMedia);
+const almeloImageDescriptions: Record<string, string> = {
+  "/images/cases/theaterhotel-almelo/theaterhotel-almelo-procentric-cloud-overzicht.webp": "Private bioscoop met Pro:Centric Cloud-portaal bij Van der Valk Theaterhotel Almelo",
+  "/images/cases/theaterhotel-almelo/theaterhotel-almelo-private-cinema-portaal.webp": "Bioscoopstoel en gastenportaal met Netflix, Casten en Info",
+  "/images/cases/theaterhotel-almelo/theaterhotel-almelo-portaal-sfeerverlichting.webp": "The SpareRoom-portaal met warme sfeerverlichting",
+  "/images/cases/theaterhotel-almelo/theaterhotel-almelo-netflix-aanmelden.webp": "Netflix-aanmeldscherm in de private bioscoop",
+  "/images/cases/theaterhotel-almelo/theaterhotel-almelo-google-cast.webp": "Google Cast-koppelscherm in de private bioscoop"
+};
 const projectMedia = [
   ...new Set(
     [
@@ -190,7 +197,7 @@ const projectMedia = [
   ),
 ]
   .slice(0, 14)
-  .map((src) => ({ src, alt: `${entry.data.title} projectbeeld`, isVideo: isVideo(src) }));
+  .map((src) => ({ src, alt: isAlmelo ? (almeloImageDescriptions[src] || entry.data.title) : `${entry.data.title} projectbeeld`, isVideo: isVideo(src) }));
 const mainSlideshowMedia = projectMedia;
 const sideSlideshowMedia = projectMedia.length > 1 ? [...projectMedia.slice(2), ...projectMedia.slice(0, 2)] : projectMedia;
 const zoomersSections = [
@@ -240,21 +247,22 @@ const sectionTitleOverrides: Record<string, string[]> = {
     "Start met een gratis demo",
   ],
 };
+sectionTitleOverrides["private-cinema-van-der-valk-almelo-procentric-cloud"] = ["Een filmavond begint bij eenvoudig verbinden", "Een eigen Pro:Centric Cloud-settopbox voor iedere zaal", "Een portaal in de sfeer van The SpareRoom", "Bediening met een gewone afstandsbediening", "Eigen content in een eigen bioscoop"];
 const activeSectionTitles = sectionTitleOverrides[entrySlug] || defaultSectionTitles;
 const defaultSections = cleanedParagraphs.slice(0, 7).map((paragraph, index) => ({
-  label: defaultSectionLabels[index] || "Project",
+  label: (isAlmelo ? ["Achtergrond", "Oplossing", "Gastenportaal", "Samenwerking", "Resultaat"] : defaultSectionLabels)[index] || "Project",
   title: activeSectionTitles[index] || "Projectaanpak",
   text: paragraph,
 }));
 const storySections = isZoomersProposal ? zoomersSections : defaultSections;
 const heroIntro = isZoomersProposal
   ? "Een moderne tv- en streamingervaring voor gasten van Zoomers Strandhuisjes, met LG hospitality TV's, Quick-menu en Chromecast via QR-code."
-  : pageDescription || topicHeroCopy[currentTopic];
+  : isAlmelo ? "Eigen content op het grote scherm in twee private bioscoopzalen. In opdracht van C&S Audiovisueel realiseerde ClubDisplay een LG Pro:Centric Cloud-oplossing met een portaal in de sfeer van The SpareRoom: Netflix, Casten en Info." : pageDescription || topicHeroCopy[currentTopic];
 const benefitCards = isZoomersProposal
   ? [["8", "strandhuisjes voorzien van hospitality TV"], ["QR", "snel verbinden met Chromecast"], ["LG", "professionele hotel-tv's met Quick-menu"], ["Gast", "eigen content streamen zonder gedoe"]]
-  : topicBenefits[currentTopic];
+  : isAlmelo ? [["2", "private bioscoopzalen met ieder een eigen settopbox"], ["Portaal", "Netflix, Casten en Info in de sfeer van The SpareRoom"], ["Gast", "eigen content afspelen op het grote scherm"], ["Bediening", "een gewone afstandsbediening dankzij de Remote Extender"]] : topicBenefits[currentTopic];
 const projectClient = entry.data.client || entry.data.title.split(" bij ").pop()?.split(" voor ").pop() || "ClubDisplay project";
-const projectResult = benefitCards[0]?.[1] || "een professionele schermoplossing op locatie";
+const projectResult = (isAlmelo ? "Eigen content op het grote scherm via een herkenbaar gastenportaal" : benefitCards[0]?.[1]) || "een professionele schermoplossing op locatie";
 const relatedCards = related.map((c) => ({
   entry: c,
   slug: c.id.replace(/\.md$/, ""),
@@ -295,8 +303,7 @@ const articleSchema = {
 };
 ---
 
-{entry.data.layout === "editorial" ? <EditorialCase entry={entry} /> : (
-<BaseLayout title={entry.data.title} description={pageDescription || entry.data.title} currentPath={`/project/${entrySlug}/`} breadcrumbLabel={entry.data.title}>
+<BaseLayout title={entry.data.title} description={pageDescription || entry.data.title} currentPath={`/project/${entrySlug}/`} breadcrumbLabel={entry.data.title} ogImage={isAlmelo ? `https://clubdisplay.nl${entry.data.image}` : undefined}>
   <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
 
   <section class="case-story-hero">
@@ -317,7 +324,7 @@ const articleSchema = {
               media.isVideo ? (
                 <video src={media.src} muted playsinline loop style={`--slide-index:${index};`}></video>
               ) : (
-                <img src={media.src} alt={media.alt} style={`--slide-index:${index};`} />
+                <img src={media.src} width={isAlmelo ? 1500 : undefined} height={isAlmelo ? 2000 : undefined} srcset={isAlmelo ? `${media.src.replace(".webp", "-900.webp")} 675w, ${media.src} 1500w` : undefined} sizes={isAlmelo ? "(max-width: 768px) 90vw, 560px" : undefined} alt={media.alt} style={`--slide-index:${index};`} />
               )
             ))}
           </div>
@@ -327,7 +334,7 @@ const articleSchema = {
                 media.isVideo ? (
                   <video src={media.src} muted playsinline loop style={`--slide-index:${index};`}></video>
                 ) : (
-                  <img src={media.src} alt={media.alt} style={`--slide-index:${index};`} />
+                  <img src={media.src} width={isAlmelo ? 1500 : undefined} height={isAlmelo ? 2000 : undefined} srcset={isAlmelo ? `${media.src.replace(".webp", "-900.webp")} 675w, ${media.src} 1500w` : undefined} sizes={isAlmelo ? "(max-width: 768px) 90vw, 560px" : undefined} alt={media.alt} style={`--slide-index:${index};`} />
                 )
               ))}
             </div>
@@ -342,8 +349,9 @@ const articleSchema = {
       <aside class="story-facts">
         <span>Project</span>
         <strong>{projectClient}</strong>
+        {isAlmelo && <><span>Opdrachtgever</span><strong>C&S Audiovisueel</strong></>}
         <span>Oplossing</span>
-        <strong>{topicLabels[currentTopic]}</strong>
+        <strong>{isAlmelo ? "LG Pro:Centric Cloud · Private cinema" : topicLabels[currentTopic]}</strong>
         <span>Resultaat</span>
         <strong>{projectResult}</strong>
         <span>Laatst bijgewerkt</span>
@@ -391,7 +399,7 @@ const articleSchema = {
             media.isVideo ? (
               <video src={media.src} controls muted playsinline preload="metadata"></video>
             ) : (
-              <img src={media.src} alt={media.alt} loading="lazy" />
+              <img src={media.src} width={isAlmelo ? 1500 : undefined} height={isAlmelo ? 2000 : undefined} srcset={isAlmelo ? `${media.src.replace(".webp", "-900.webp")} 675w, ${media.src} 1500w` : undefined} sizes={isAlmelo ? "(max-width: 768px) 90vw, 560px" : undefined} alt={media.alt} loading="lazy" />
             )
           ))}
         </div>
@@ -405,7 +413,7 @@ const articleSchema = {
         <h2>Bijbehorende dienst</h2>
         <a href={serviceLinks[currentTopic].url} class="service-link-card">
           <strong>{serviceLinks[currentTopic].label}</strong>
-          <span>{serviceLinks[currentTopic].text}</span>
+          <span>{isAlmelo ? "Ontdek de mogelijkheden voor eigen content en een gastenportaal in uw hotel of private bioscoop." : serviceLinks[currentTopic].text}</span>
         </a>
       </div>
     </section>
@@ -415,7 +423,7 @@ const articleSchema = {
     <div class="container story-cta-inner">
       <div>
         <p class="story-eyebrow">Ook slimmer communiceren?</p>
-        <h2>{currentTopic === "hospitality" ? "Maak van elke kamer een betere gastbeleving." : "Maak van uw locatie een sterker communicatiemiddel."}</h2>
+        <h2>{isAlmelo ? "Een gastenportaal dat past bij uw private cinema." : currentTopic === "hospitality" ? "Maak van elke kamer een betere gastbeleving." : "Maak van uw locatie een sterker communicatiemiddel."}</h2>
       </div>
       <a href="/plan-jouw-gesprek/" class="btn btn-white">Plan adviesgesprek</a>
     </div>
@@ -439,7 +447,6 @@ const articleSchema = {
     </section>
   )}
 </BaseLayout>
-)}
 
 <style>
   .breadcrumbs {
