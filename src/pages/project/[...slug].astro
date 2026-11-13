@@ -247,10 +247,10 @@ const sectionTitleOverrides: Record<string, string[]> = {
     "Start met een gratis demo",
   ],
 };
-sectionTitleOverrides["private-cinema-van-der-valk-almelo-procentric-cloud"] = ["Een filmavond begint bij eenvoudig verbinden", "Een eigen Pro:Centric Cloud-settopbox voor iedere zaal", "Een portaal in de sfeer van The SpareRoom", "Bediening met een gewone afstandsbediening", "Eigen content in een eigen bioscoop"];
+sectionTitleOverrides["private-cinema-van-der-valk-almelo-procentric-cloud"] = ["Een filmavond begint bij eenvoudig verbinden", "Een eigen Pro:Centric Cloud-settopbox voor iedere zaal", "Een portaal in de sfeer van The SpareRoom", "Bediening met een gewone afstandsbediening", "Inloggegevens automatisch gewist bij uitchecken", "Eigen content in een eigen bioscoop"];
 const activeSectionTitles = sectionTitleOverrides[entrySlug] || defaultSectionTitles;
 const defaultSections = cleanedParagraphs.slice(0, 7).map((paragraph, index) => ({
-  label: (isAlmelo ? ["Achtergrond", "Oplossing", "Gastenportaal", "Samenwerking", "Resultaat"] : defaultSectionLabels)[index] || "Project",
+  label: (isAlmelo ? ["Achtergrond", "Oplossing", "Gastenportaal", "Samenwerking", "Privacy & KNX", "Resultaat"] : defaultSectionLabels)[index] || "Project",
   title: activeSectionTitles[index] || "Projectaanpak",
   text: paragraph,
 }));
@@ -263,7 +263,7 @@ const heroIntro = isZoomersProposal
   : isAlmelo ? "Eigen content op het grote scherm in twee private bioscoopzalen. In opdracht van C&S Audiovisueel realiseerde ClubDisplay een LG Pro:Centric Cloud-oplossing met een portaal in de sfeer van The SpareRoom: Netflix, Casten en Info." : pageDescription || topicHeroCopy[currentTopic];
 const benefitCards = isZoomersProposal
   ? [["8", "strandhuisjes voorzien van hospitality TV"], ["QR", "snel verbinden met Chromecast"], ["LG", "professionele hotel-tv's met Quick-menu"], ["Gast", "eigen content streamen zonder gedoe"]]
-  : isAlmelo ? [["2", "private bioscoopzalen met ieder een eigen settopbox"], ["Portaal", "Netflix, Casten en Info in de sfeer van The SpareRoom"], ["Gast", "eigen content afspelen op het grote scherm"], ["Bediening", "een gewone afstandsbediening dankzij de Remote Extender"]] : topicBenefits[currentTopic];
+  : isAlmelo ? [["2", "private bioscoopzalen met ieder een eigen settopbox"], ["Portaal", "Netflix, Casten en Info in de sfeer van The SpareRoom"], ["Privacy", "alle inloggegevens automatisch gewist bij uitchecken via KNX"], ["Bediening", "een gewone afstandsbediening dankzij de Remote Extender"]] : topicBenefits[currentTopic];
 const projectClient = entry.data.client || entry.data.title.split(" bij ").pop()?.split(" voor ").pop() || "ClubDisplay project";
 const projectResult = (isAlmelo ? "Eigen content op het grote scherm via een herkenbaar gastenportaal" : benefitCards[0]?.[1]) || "een professionele schermoplossing op locatie";
 const relatedCards = related.map((c) => ({

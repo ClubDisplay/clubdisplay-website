@@ -16,4 +16,6 @@ Voor het portaal ontwierp ClubDisplay een uitstraling die aansluit bij de biosco
 
 Ook de bediening in de zaal kreeg aandacht. C&S Audiovisueel paste een Remote Extender toe, zodat gasten het door ClubDisplay ontworpen portaal gewoon met een afstandsbediening kunnen bedienen. De rolverdeling was helder: ClubDisplay verzorgde de Pro:Centric Cloud-oplossing en de look-and-feel van het portaal; C&S Audiovisueel maakte de bediening via de Remote Extender mogelijk. Samen brachten deze onderdelen het scherm, de contentkeuze en de bediening bij elkaar.
 
+ClubDisplay maakte een koppeling met het KNX-systeem van The SpareRoom. Bij het uitchecken van de private bioscoop worden via deze koppeling alle inloggegevens automatisch gewist. Zo blijven de inloggegevens van de vorige gasten niet achter voor de volgende bezoekers.
+
 De twee private bioscoopzalen beschikken nu over een eigen Pro:Centric Cloud-settopbox en een herkenbaar gastenportaal. Gasten kunnen hun eigen content afspelen en vanuit de zaal kiezen voor Netflix, casten of meer informatie. Voor Van der Valk Theaterhotel Almelo is daarmee een oplossing gerealiseerd die aansluit bij de bedoeling van een private cinema: zelf kiezen wat je kijkt, in de sfeer van een echte bioscoop.
