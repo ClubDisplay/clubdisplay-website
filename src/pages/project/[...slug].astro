@@ -254,6 +254,9 @@ const defaultSections = cleanedParagraphs.slice(0, 7).map((paragraph, index) => 
   title: activeSectionTitles[index] || "Projectaanpak",
   text: paragraph,
 }));
+const portalCopy = isAlmelo
+  ? cleanedParagraphs.find((paragraph) => paragraph.includes("• Netflix:"))?.match(/^(.*?) • Netflix: (.*?) • Casten: (.*?) • Info: (.*?) (Zo begint.*)$/)
+  : null;
 const storySections = isZoomersProposal ? zoomersSections : defaultSections;
 const heroIntro = isZoomersProposal
   ? "Een moderne tv- en streamingervaring voor gasten van Zoomers Strandhuisjes, met LG hospitality TV's, Quick-menu en Chromecast via QR-code."
@@ -363,7 +366,17 @@ const articleSchema = {
           <section class="story-section">
             <p>{section.label}</p>
             <h2>{section.title}</h2>
-            <span>{section.text}</span>
+            {isAlmelo && section.label === "Gastenportaal" && portalCopy ? (
+              <div class="portal-copy">
+                <p>{portalCopy[1]}</p>
+                <ul>
+                  <li><strong>Netflix:</strong> {portalCopy[2]}</li>
+                  <li><strong>Casten:</strong> {portalCopy[3]}</li>
+                  <li><strong>Info:</strong> {portalCopy[4]}</li>
+                </ul>
+                <p>{portalCopy[5]}</p>
+              </div>
+            ) : <span>{section.text}</span>}
           </section>
         ))}
       </div>
@@ -631,6 +644,32 @@ const articleSchema = {
     font-size: 18px;
     line-height: 1.8;
   }
+
+  .story-section .portal-copy {
+    max-width: 760px;
+    color: #475569;
+    font-size: 18px;
+    line-height: 1.8;
+  }
+
+  .story-section .portal-copy p {
+    margin: 0;
+    color: inherit;
+    font-size: inherit;
+    font-weight: 400;
+    letter-spacing: normal;
+    line-height: inherit;
+    text-transform: none;
+  }
+
+  .portal-copy ul {
+    margin: 18px 0;
+    padding-left: 24px;
+    list-style: disc;
+  }
+
+  .portal-copy li { margin: 8px 0; }
+  .portal-copy li::marker { color: var(--primary); }
 
   .story-benefits {
     padding: 88px 0;
