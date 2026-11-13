@@ -9,6 +9,8 @@ const cases = defineCollection({
     image: z.string().optional(),
     client: z.string().optional(),
     category: z.string().optional(),
+    layout: z.enum(["editorial"]).optional(),
+    intro: z.string().optional(),
   }),
 });
 
