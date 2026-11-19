@@ -689,8 +689,8 @@ const articleSchema = {
 
   .story-benefits-head h2 {
     margin-bottom: 0;
-    font-size: clamp(34px, 4vw, 56px);
-    line-height: 1.04;
+    font-size: clamp(28px, 3vw, 40px);
+    line-height: 1.15;
   }
 
   .benefit-grid {
@@ -700,8 +700,8 @@ const articleSchema = {
   }
 
   .benefit-grid article {
-    min-height: 210px;
-    padding: 26px;
+    min-width: 0;
+    padding: 24px;
     border: 1px solid #dbe7f5;
     border-radius: 12px;
     background: #fff;
@@ -710,17 +710,21 @@ const articleSchema = {
 
   .benefit-grid strong {
     display: block;
-    margin-bottom: 28px;
+    min-height: 2.5em;
+    margin-bottom: 16px;
     color: var(--primary);
-    font-size: 44px;
-    line-height: 1;
+    font-size: 24px;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
   }
 
   .benefit-grid span {
-    color: #1e293b;
-    font-size: 17px;
-    font-weight: 700;
-    line-height: 1.45;
+    display: block;
+    color: #334155;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
   }
 
   .story-gallery {
