@@ -53,6 +53,12 @@ export const caseMedia: Record<string, string[]> = {
   "interne-communicatie-karwei-bouwmarkt-berkel-en-rodenrijs": ["/images/cases/live/interne-communicatie-karwei-bouwmarkt-berkel-en-rodenrijs/karwei.jpg","/images/cases/live/interne-communicatie-karwei-bouwmarkt-berkel-en-rodenrijs/lg-partner-300x157.png"],
   "je-etalage-goed-in-beeld": ["/images/cases/live/je-etalage-goed-in-beeld/geurtsmakelaars1.jpg","/images/cases/live/je-etalage-goed-in-beeld/geurtsmakelaars2.jpg","/images/cases/live/je-etalage-goed-in-beeld/lg-partner-300x157.png"],
   "lensen": ["/images/cases/live/lensen/moment_photo_cc7bb3ab.jpg","/images/cases/live/lensen/moment_photo_bc8fd4e5.jpg","/images/cases/live/lensen/moment_photo_a234d13e.jpg","/images/cases/live/lensen/moment_photo_6804ebb4.jpg","/images/cases/live/lensen/moment_photo_69ff2b6a.jpg","/images/cases/live/lensen/moment_photo_69deb05b.jpg","/images/cases/live/lensen/moment_photo_40b2b0cd.jpg","/images/cases/live/lensen/moment_photo_5c8e3784.jpg","/images/cases/live/lensen/lg-partner-300x157.png"],
+  "lg-hospitality-tv-voor-boutique-hotel-flores-zwolle": [
+    "/images/cases/hotel-flores-zwolle-hospitality-tv.jpg",
+    "/images/cases/hotel-flores-zwolle-suite-badkamer-tv.jpg",
+    "/images/cases/hotel-flores-zwolle-hotelkamer-tv.jpg",
+    "/images/cases/hotel-flores-zwolle-tv-menu-huisstijl.jpg",
+  ],
   "lg-hospitality-tv-en-procentric-cloud-voor-magnifique-x": [
     "/images/cases/magnifique-x-suite-hospitality-tv.jpg",
     "/images/cases/magnifique-x-suite-tv-chromecast.jpg",
